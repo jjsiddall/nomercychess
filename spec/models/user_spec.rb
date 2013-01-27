@@ -100,4 +100,61 @@ describe User do
 
   end
 
+  describe "expire" do
+
+    before(:each) do
+      @user = User.create!(@attr)
+    end
+
+    it "sends an email to user" do
+      @user.expire
+      ActionMailer::Base.deliveries.last.to.should == [@user.email]
+    end
+
+  end
+
+  describe "#update_plan" do
+    before do
+      @user = FactoryGirl.create(:user, email: "test@example.com")
+      @role1 = FactoryGirl.create(:role, name: "silver")
+      @role2 = FactoryGirl.create(:role, name: "gold")
+      @user.add_role(@role1.name)
+    end
+
+    it "updates a users role" do
+      @user.roles.first.name.should == "silver"
+      @user.update_plan(@role2)
+      @user.roles.first.name.should == "gold"
+    end
+
+    it "wont remove original role from database" do
+      @user.update_plan(@role2)
+      Role.all.count.should == 2
+    end
+  end
+
+
+  describe ".update_stripe" do
+
+
+    context "with a non-existing user" do
+
+      before do
+        successful_stripe_response = StripeHelper::Response.new("success")
+        Stripe::Customer.stub(:create).and_return(successful_stripe_response)
+        @user = User.new(email: "test@testign.com", stripe_token: 12345, name: 'tester', password: 'password')
+        @role = FactoryGirl.create(:role, name: "silver")
+        @user.add_role(@role.name)
+      end
+
+      it "creates a new user with a succesful stripe response" do
+        @user.save!
+        new_user = User.last
+        new_user.customer_id.should eq("youAreSuccessful")
+        new_user.last_4_digits.should eq("4242")
+        new_user.stripe_token.should be_nil
+      end
+
+    end
+  end
 end
