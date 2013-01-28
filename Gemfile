@@ -35,7 +35,6 @@ gem "stripe", ">= 1.7.4"
 gem "stripe_event", ">= 0.4.0"
 
 gem "figaro", ">= 0.5.3"
-gem "heroku"
 
 gem "quiet_assets", ">= 1.0.1", :group => :development
 gem "better_errors", ">= 0.3.2", :group => :development
