@@ -1,0 +1,22 @@
+<div id="board" data-id="<%=@exercise.id%>" data-initial_setup="<%=@exercise.start %>" >
+  <% 9.downto(1) do |number| %>
+   
+	<div class="rank">
+		<% if number == 9 %>
+	  		<div class="dark coordinate corner"></div> 
+	  	<% else %>
+	  		<div class="dark coordinate side"><br><%= number %></div> 
+ 	 	<% end %>
+	  	<% ('a'..'h').each_with_index do |file, i| %>
+	    
+	    	<% if number == 9 %>
+   	 			<div class="dark coordinate top" id="<%= file %><%= number %>"><%= file.capitalize %></div>
+ 	 		<% elsif (number + i).even? %>
+ 	 			<div class="square" id="<%= file %><%= number %>"></div>
+ 	 		<% else %>
+ 	 			<div class="dark square" id="<%= file %><%= number %>"></div>
+ 	 		<% end %>
+	  	<% end %>
+	</div>
+  <% end %>
+</div>

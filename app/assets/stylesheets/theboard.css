@@ -1,0 +1,137 @@
+#setup_board {
+  /*border: thick solid #1D7373;*/
+  height: 589px;  width: 475px;
+  margin: auto;
+}
+#board {
+  /*border: thick solid #1D7373;*/
+  height: 475px;  width: 475px;
+  margin: auto;
+}
+.coordinate {
+  float: left;
+  text-align: center;
+  font-size: 11.4px;
+}
+.hideMe{
+  display: none;
+}
+.top {
+  height: 19px;  width: 57px;
+}
+.corner {
+  height: 19px;  width: 19px;
+}
+.square {
+  float: left;
+  height: 57px;  width: 57px;
+  text-align: center;
+}
+.side{
+  height: 57px;  width: 19px;
+}
+.piece {
+  font-size:38px;
+  padding-left: 9.5px; 
+  padding-top: 17.5px;
+  position:absolute;
+  text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+ }
+.dark {
+  background: #555555; /* #1D7373; */
+  /*color: white;*/
+}
+.white {  color: grey; }
+.black {  color: black; }
+.rank {  clear: both;}
+
+/* Large desktop */
+@media (min-width: 1200px) { 
+  #setup_board {
+    height: 744px;  width: 600px;
+  }
+  #board {
+    height: 600px;  width: 600px;
+  }
+  .coordinate { font-size: 14.4px; }
+  .top {
+    height: 24px;  width: 72px;
+  }
+  .corner {
+    height: 24px;  width: 24px;
+  }
+  .square {
+    height: 72px;  width: 72px;
+  }
+  .side{
+    height: 72px;  width: 24px;
+  }
+  .piece {
+    font-size:48px;
+    padding-left: 12px; padding-top: 24px;
+  }
+
+}
+ 
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) { 
+  #setup_board {
+    height: 434px;  width: 350px;
+  }
+  #board {
+    height: 350px;  width: 350px;
+  }
+  .coordinate { font-size: 8.4px; }
+  .top {
+    height: 14px;  width: 42px;
+  }
+  .corner {
+    height: 14px;  width: 14px;
+  }
+  .square {
+    height: 42px;  width: 42px;
+  }
+  .side{
+    height: 42px;  width: 14px;
+  }
+  .piece {
+    font-size:28px;
+    padding-left: 7px; padding-top: 11px;
+  }
+
+}
+ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) { 
+
+}
+ 
+/* Landscape phones and down */
+@media (max-width: 480px) {
+  #setup_board {
+    height: 279px;  width: 225px;
+  }
+  #board {
+    height: 225px;  width: 225px;
+  }
+  .coordinate { 
+    font-size: 5.4px; 
+/*    color: #555555;*/
+  }
+  .top {
+    height: 9px;  width: 27px;
+  }
+  .corner {
+    height: 9px;  width: 9px;
+  }
+  .square {
+    height: 27px;  width: 27px;
+  }
+  .side{
+    height: 27px;  width: 9px;
+  }
+  .piece {
+    font-size:18px;
+    padding-left: 4.5px; padding-top: 3px;
+  }
+}

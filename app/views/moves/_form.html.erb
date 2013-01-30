@@ -1,0 +1,50 @@
+<%= form_for @move, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :exercise_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.collection_select :exercise_id, Exercise.all, :id, :title %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :move_number, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :move_number %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :computer, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.radio_button :computer, true %> True
+      <%= f.radio_button :computer, false %> False
+    </div>
+  </div>    
+  <div class="control-group">
+    <%= f.label :piece, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :piece, [['♟','♟'],['♞','♞'],['♝','♝'],['♜','♜'],['♛','♛'],['♚','♚']]%>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :starting_coordinate, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :starting_coordinate, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :ending_coordinate, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :ending_coordinate, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :explanation, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :explanation, :class => 'text_area' %>
+    </div>
+  </div>
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                moves_path, :class => 'btn' %>
+  </div>
+<% end %>

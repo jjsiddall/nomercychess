@@ -1,4 +1,12 @@
 NoMercyChess::Application.routes.draw do
+  resources :lessons
+  resources :exercises do
+    member do
+      get 'practice'
+    end
+  end
+  resources :moves
+
   mount StripeEvent::Engine => '/stripe'
   get "content/gold"
   get "content/silver"

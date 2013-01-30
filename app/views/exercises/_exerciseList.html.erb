@@ -1,0 +1,32 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <!-- <th><%= Exercise.human_attribute_name(:id) %></th> -->
+      <th><%= Exercise.human_attribute_name(:title) %></th>
+      <th><%= Exercise.human_attribute_name(:description) %></th>
+      <!-- <th><%= Exercise.human_attribute_name(:start) %></th> -->
+      <th><% Exercise.human_attribute_name(:updated_at) %>Updated</th>
+      <!-- <th><%=t '.actions', :default => t("helpers.actions") %></th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <% show_exercises.each do |exercise| %>
+      <tr>
+        <!-- <td><%= link_to exercise.id, exercise_path(exercise) %></td> -->
+        <td><%= link_to exercise.title, exercise_path(exercise) %></td>
+        <td><%= exercise.description %></td>
+        <!-- <td><%= exercise.start %></td> -->
+        <td><%= time_ago_in_words(l exercise.updated_at) %> ago</td>
+<!--         <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_exercise_path(exercise), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      exercise_path(exercise),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td> -->
+      </tr>
+    <% end %>
+  </tbody>
+</table>
