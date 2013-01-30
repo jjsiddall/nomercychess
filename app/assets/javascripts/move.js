@@ -220,5 +220,5 @@ function clear_popovers(){
 
 function highlightSquare(boardSquare, highlightColor){
 
-	 // $('#'+boardSquare).effect("highlight", {"color" : highlightColor}, 500) 
+	  $('#'+boardSquare).effect("highlight", {"color" : highlightColor}, 500) 
 }
