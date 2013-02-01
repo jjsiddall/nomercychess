@@ -18,3 +18,7 @@ function loadPiecesOnBoard(initial_setup){
 		$('#'+square_info[0]).append('<div class="piece '+square_info[1]+'">'+square_info[2]+'</div>');
 	}
 }
+
+function trim(str) {
+    return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+}

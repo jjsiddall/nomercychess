@@ -8,20 +8,29 @@ $(document).ready(function() {
 
 		//looks at all the nextMoves, gets the first one
 		var currentMove = $('.nextMove:first');
+		
+		console.log(currentMove);
+		console.log(currentMove.find('accordion-toggle'));
 
 		if (currentMove.html() != undefined){
 
-			var shown_move = currentMove.html().split(" ");
+			var shown_move = trim(currentMove.html()).split(" ");
 			var current_move = [shown_move[2]];
 			current_move.push(shown_move[4]);
 
 			//sends in the current move
 			one_move(current_move, shown_move[0]);
 
+			//collapses all current accordions
+			//collapse_accordions();
+
 			//unhides the top nextMove and takes the "nextMove" off
-			currentMove.removeClass("hideMe");
+			currentMove.parent().parent().removeClass("hideMe");
 			currentMove.removeClass("nextMove");
 			currentMove.addClass("currentMove");
+			currentMove.addClass("collapsed");
+			$(".accordion-body").removeClass("in");
+
 
 		}
 		else{
@@ -211,6 +220,7 @@ function show_popover_info(pieceMoved, newSquareID){
 	    }
 	).popover('show');	
 }
+
 function clear_popovers(){
 	$(".piece").each(function(e) {
 		var this_piece = $(this);

@@ -135,3 +135,8 @@
     padding-left: 4.5px; padding-top: 3px;
   }
 }
+
+/* Over riding the over ride for bootstraps Accordian*/
+/*.accordion {
+  margin-bottom: 0px;
+}*/
