@@ -13,9 +13,6 @@
   text-align: center;
   font-size: 11.4px;
 }
-.hideMe{
-  display: none;
-}
 .top {
   height: 19px;  width: 57px;
 }
@@ -44,6 +41,10 @@
 .white {  color: grey; }
 .black {  color: black; }
 .rank {  clear: both;}
+
+.notShownMove{
+  display: none;
+}
 
 /* Large desktop */
 @media (min-width: 1200px) { 

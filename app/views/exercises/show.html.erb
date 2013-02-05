@@ -1,3 +1,7 @@
+<!-- <button type="button" class="btn btn-danger" id="test">
+  simple collapsible
+</button> -->
+
 <div class="row">
   <!-- Left column: the board  -->
   <div class="span7">
@@ -9,14 +13,14 @@
       <div class="page-header" data-modal="yes">
         <h1><%=t '.title', :default => @exercise.title %><a data-toggle="modal" href="#descriptionModal" class="btn btn-mini btn-primary">...</a></h1>
           <button id="nextMove" class='btn btn-primary'>Next</button>
-          <button id="prevMove" class='btn btn-primary'>Previous</button>
+          <!-- <button id="prevMove" class='btn btn-primary'>Previous</button> -->
       </div>
     <!-- Puts all the move on the screen in the format to show them -->
       <div class="accordion" id="accordion2">
         <% @exercise.moves.each do |move| %>
-        <div class="accordion-group hideMe nextMove">
+        <div class="accordion-group notShownMove" data-accordionNumber="<%= move.move_number %>">
           <div class="accordion-heading">
-            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-<%= move.move_number %>">
+            <a id="toggleMe-<%= move.move_number %>" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-<%= move.move_number %>">
               <%= move.piece %> from <%= move.starting_coordinate %> to <%= move.ending_coordinate %>
             </a>
           </div>

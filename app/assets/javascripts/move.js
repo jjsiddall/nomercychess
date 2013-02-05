@@ -1,70 +1,61 @@
 var showPopover = true;
 
-$(document).ready(function() {
-
+$('.exercises.show').ready(function() {
+	// $('#test').on('click', function() {
+	// 	$('#toggleMe-1').click();
+	// });
+	
 	$('#nextMove').on('click', function() {
 		//show the popover for the move the user is on
-		showPopover = true;
-
-		//looks at all the nextMoves, gets the first one
-		var currentMove = $('.nextMove:first');
-		
-		console.log(currentMove);
-		console.log(currentMove.find('accordion-toggle'));
-
-		if (currentMove.html() != undefined){
-
-			var shown_move = trim(currentMove.html()).split(" ");
-			var current_move = [shown_move[2]];
-			current_move.push(shown_move[4]);
-
-			//sends in the current move
-			one_move(current_move, shown_move[0]);
-
-			//collapses all current accordions
-			//collapse_accordions();
-
-			//unhides the top nextMove and takes the "nextMove" off
-			currentMove.parent().parent().removeClass("hideMe");
-			currentMove.removeClass("nextMove");
-			currentMove.addClass("currentMove");
-			currentMove.addClass("collapsed");
-			$(".accordion-body").removeClass("in");
-
-
+		showPopover = false;
+		//grab the first notShownMove in the list
+		var accordion = $('.notShownMove:first')
+		//Gets the notShown's ID - this will be used further on for the "click" event of the accordion
+		var accordionID = accordion.children().eq(0).children().attr('id');
+		//This is the text move that is shown (ex "pawn from e2 to e4")
+		var accordionTextToShow = accordion.children().eq(0).children().html();
+		//checks that there is text for the next move
+		if (accordionTextToShow != undefined){
+			//unhides the top notShownMove and takes the "notShownMove" off
+			accordion.removeClass("notShownMove");
+			//trims off leading and trailing whitespace
+			accordionTextToShow = trim(accordionTextToShow);
+			//looks to see if this is the first move (as there is no "showingMove")
+			// if ($(".showingMove").data("accordionnumber") === null){
+			// //	Parses text into an array and passes it into one_move() for animation
+			// 	var shown_move = accordionTextToShow.split(" ");
+			// 	var current_move = [shown_move[2]];
+			// 	current_move.push(shown_move[4]);
+			// 	one_move(current_move, shown_move[0]);
+			// 	accordion.addClass("showingMove");
+			// }
+			//Fires the "click/show" action (which executes the move below) to display the current and retract the previous ones
+			$('#'+accordionID).click();
 		}
 		else{
 			//remove popovers (otherwise they will show on the darkened screen)
 			clear_popovers();
-			//show the conclusion popover when there are no more moves
+			//show the conclusion popover when there are no more moves on the list
 			$('#conclusionModal').modal('show');
 		}
+		
 	});
 
-	$('#prevMove').on('click', function() {
-		//do not show the popover for the move the user is on
-		showPopover = false;
-
-		var currentMove = $('.currentMove:last');
-		if (currentMove.html() != undefined){
-
-			var shown_move = currentMove.html().split(" ");
-			
-			var current_move = [shown_move[4]];
-			current_move.push(shown_move[2]);
-
-			one_move(current_move, shown_move[0]);
-
-			currentMove.addClass("hideMe");
-			currentMove.addClass("nextMove");
-			currentMove.removeClass("currentMove");
-		}
-
+	//event that is triggered when the accordion is shown for the specific level
+	$('.accordion-body').on('show', function(){
+		$(this).parent().addClass("replayToHere")
+		replayMove();
+		$('#nextMove').prop('disabled', true);		
 	});
+	$(document).on('move/completed', function() {
+
+		console.log($(".replayToHere").data("accordionnumber"))
+
+		if ($(".replayToHere").data("accordionnumber") != null) {
+			replayMove();
+		}	
 	
-	//Toggles the coordinates (outside of the board) on and off
-	//$('.square').on('click', function() { $('.coordinate').toggleClass("hideMe");});
-
+	});
 });
 
 function one_move(current_move, piece){
@@ -88,12 +79,12 @@ function one_move(current_move, piece){
 	highlightSquare(current_move[0], "yellow");
 	highlightSquare(current_move[1], "yellow");
 
-	if ((file_change > 1) && (piece === "♚")){
-		showPopover = false;
-		setTimeout(function() {
-			$('#nextMove').click();
-		}, 1100);    		
-	}
+	// if ((file_change > 1) && (piece === "♚")){
+	// 	showPopover = false;
+	// 	setTimeout(function() {
+	// 		$('#nextMove').click();
+	// 	}, 1100);    		
+	// }
 }
 
 //Passing in start and end square, now to determine movement number of squares
@@ -197,6 +188,8 @@ function append_to_square(old_square, new_square_id){
 	if (showPopover === true){
 		show_popover_info(pieceBeingMoved, new_square.attr('id'));
 	}
+	var moveStatus = 'complete'
+	$(document).trigger('move/completed', moveStatus)
 }  
 function show_popover_info(pieceMoved, newSquareID){
 	var file = newSquareID.charAt(0);
@@ -227,6 +220,46 @@ function clear_popovers(){
 		this_piece.popover('destroy');
 	});
 }
+
+function replayMove(){
+
+refactor all the jquery that is pinging the DOM
+
+	if ($(".showingMove").data("accordionnumber") - $(".replayToHere").data("accordionnumber") > 0) {
+		console.log("going up!");
+		
+
+		var accordionTextToShow = trim($(".showingMove").children().eq(0).children().html());
+		console.log(accordionTextToShow);
+		var shown_move = accordionTextToShow.split(" ");
+		var current_move = [shown_move[4]];
+		current_move.push(shown_move[2]);
+		one_move(current_move, shown_move[0]);
+		$(".showingMove").removeClass("showingMove").prev().addClass("showingMove");
+	}
+	else if ($(".showingMove").data("accordionnumber") - $(".replayToHere").data("accordionnumber") < 0){
+		console.log("going down!");
+		
+		if ($(".showingMove").data("accordionnumber") === null){
+			$(".replayToHere").addClass("showingMove");
+		}
+		else{
+			$(".showingMove").removeClass("showingMove").next().addClass("showingMove")
+		}
+		var accordionTextToShow = trim($(".showingMove").children().eq(0).children().html());
+		console.log(accordionTextToShow);
+		var shown_move = accordionTextToShow.split(" ");
+		var current_move = [shown_move[2]];
+		current_move.push(shown_move[4]);
+		one_move(current_move, shown_move[0]);
+
+	}
+	else{
+		$('#nextMove').prop('disabled', false);
+		$(".replayToHere").removeClass("replayToHere")
+	}
+}
+
 
 function highlightSquare(boardSquare, highlightColor){
 

@@ -1,7 +1,7 @@
 var startSquare = "";
 var startPiece = "";
 
-$(document).ready(function() {
+$('.exercises.practice').ready(function() {
 
 	//makes pieces only draggable for
 	if ($(".page-header").data('draggable') === "yes"){
@@ -159,7 +159,7 @@ function computersMoveOrLastMove(){
 		nextMoveInList.remove();
 	}
 	//look and see if all the moves are done
-	if ($('.nextMove:First').length === 0){
+	if ($('.notShownMove:First').length === 0){
   		$('#conclusionModal').modal('show');  		
   	}
 
