@@ -11,26 +11,13 @@ $('.exercises.show').ready(function() {
 		//grab the first notShownMove in the list
 		var accordion = $('.notShownMove:first')
 		//Gets the notShown's ID - this will be used further on for the "click" event of the accordion
-		var accordionID = accordion.children().eq(0).children().attr('id');
-		//This is the text move that is shown (ex "pawn from e2 to e4")
-		var accordionTextToShow = accordion.children().eq(0).children().html();
-		//checks that there is text for the next move
-		if (accordionTextToShow != undefined){
+		var accordionID = accordion.data("accordionnumber");
+		//checks that there is an accordion for the next move
+		if (accordionID != undefined){
 			//unhides the top notShownMove and takes the "notShownMove" off
 			accordion.removeClass("notShownMove");
-			//trims off leading and trailing whitespace
-			accordionTextToShow = trim(accordionTextToShow);
-			//looks to see if this is the first move (as there is no "showingMove")
-			// if ($(".showingMove").data("accordionnumber") === null){
-			// //	Parses text into an array and passes it into one_move() for animation
-			// 	var shown_move = accordionTextToShow.split(" ");
-			// 	var current_move = [shown_move[2]];
-			// 	current_move.push(shown_move[4]);
-			// 	one_move(current_move, shown_move[0]);
-			// 	accordion.addClass("showingMove");
-			// }
 			//Fires the "click/show" action (which executes the move below) to display the current and retract the previous ones
-			$('#'+accordionID).click();
+			$('#toggleMe-'+accordionID).click();
 		}
 		else{
 			//remove popovers (otherwise they will show on the darkened screen)
@@ -43,16 +30,19 @@ $('.exercises.show').ready(function() {
 
 	//event that is triggered when the accordion is shown for the specific level
 	$('.accordion-body').on('show', function(){
-		$(this).parent().addClass("replayToHere")
-		replayMove();
+		//add "playToHere" to the accordion that is the final move to show
+		$(this).parent().addClass("playToHere");
+		//run "playMove" goes one move at a time
+		playMove();
+		//disables the "next" button so the user cannot go to the next move until the first is completed
 		$('#nextMove').prop('disabled', true);		
 	});
+
+	//an event listener that pays attention to when the previous move completed (and then fires the next)
 	$(document).on('move/completed', function() {
-
-		console.log($(".replayToHere").data("accordionnumber"))
-
-		if ($(".replayToHere").data("accordionnumber") != null) {
-			replayMove();
+		//assuming there is a accodion being looked at the system will go to the next move
+		if ($(".playToHere").data("accordionnumber") != null) {
+			playMove();
 		}	
 	
 	});
@@ -79,26 +69,13 @@ function one_move(current_move, piece){
 	highlightSquare(current_move[0], "yellow");
 	highlightSquare(current_move[1], "yellow");
 
-	// if ((file_change > 1) && (piece === "♚")){
-	// 	showPopover = false;
-	// 	setTimeout(function() {
-	// 		$('#nextMove').click();
-	// 	}, 1100);    		
-	// }
 }
 
 //Passing in start and end square, now to determine movement number of squares
-function find_change_in_rank(start_end_array){
-	//subtract rank numbers gives the up/down value
-
-	return start_end_array[1].charAt(1) - start_end_array[0].charAt(1);
-}
-function find_change_in_file(start_end_array){
-	//convert file from alpha to number and find right/left value
-
-	return (start_end_array[1].charAt(0).charCodeAt()-96) - (start_end_array[0].charAt(0).charCodeAt()-96);
-
-}
+//subtract rank numbers gives the up/down value
+function find_change_in_rank(start_end_array){ return start_end_array[1].charAt(1) - start_end_array[0].charAt(1);}
+//convert file from alpha to number and find right/left value
+function find_change_in_file(start_end_array){ return (start_end_array[1].charAt(0).charCodeAt()-96) - (start_end_array[0].charAt(0).charCodeAt()-96);}
 
 //Basic Movement: Up or Down the board
 function move_rank(squareName, distanceInSquares){
@@ -188,9 +165,73 @@ function append_to_square(old_square, new_square_id){
 	if (showPopover === true){
 		show_popover_info(pieceBeingMoved, new_square.attr('id'));
 	}
-	var moveStatus = 'complete'
-	$(document).trigger('move/completed', moveStatus)
-}  
+
+	//This is a trigger used to notify the app that the move is complete and then next one can start (without it things will happen together and tend to overlap)
+	$(document).trigger('move/completed')
+} 
+
+//Used to highlight squares (for move from square to square and capture)
+function highlightSquare(boardSquare, highlightColor){ $('#'+boardSquare).effect("highlight", {"color" : highlightColor}, 500) }
+
+//Executes a move that will get the showingMove a accordion closer to playToHere accordion (or points out that they are the same)
+function playMove(){
+	//cache the DOM elements
+	var showingAccordion = $(".showingMove");
+	var playToHereAccordion = $(".playToHere")
+
+	//check if the showingAccodion is greater than the playToHereAccodion
+	//slightly counter intuitive: in this case "greater" actually refers to "lower in the list" so we are moving up the list/screen visually
+	if (showingAccordion.data("accordionnumber") > playToHereAccordion.data("accordionnumber")) {
+		//console.log("going up!");
+
+		//Get the text from the 1st childs child of the "showingAccordion" and remove the whitespace
+		var accordionTextToShow = trim(showingAccordion.children().eq(0).children().html());
+
+		//split up the text and run the following 4 lines (which executes the move) - Reverse of what is shown in the text because we are retracting
+		var shown_move = accordionTextToShow.split(" ");
+		var current_move = [shown_move[4]];
+		current_move.push(shown_move[2]);
+		one_move(current_move, shown_move[0]);
+
+		//Now we need to switch the "showingMove" class to the accordion above (visually in the browser) the current accordion we just executed
+		//we do this by accessing the DOM because we are traversing a tree (and the cached object does not know about those accordions around it)
+		$(".showingMove").removeClass("showingMove").prev().addClass("showingMove");
+	
+	}
+	//this is the opposite code as above - here we are moving down visually the list of accordions
+	else if (showingAccordion.data("accordionnumber") < playToHereAccordion.data("accordionnumber")){
+		//console.log("going down!");
+		
+		//The major change between this and the above is here when the first move is made
+		//In the case of the first move, no accordion has "showingMove" so if it is null we tell it to put showing move on the same accordion as the
+		//playToHere accordion
+		if (showingAccordion.data("accordionnumber") === null){
+			playToHereAccordion.addClass("showingMove");
+		}
+		else{
+			//otherwise, we remove showingMove from the showingMove accordion and add it to the next accordion using the DOM
+			$(".showingMove").removeClass("showingMove").next().addClass("showingMove")
+		}
+		//again, access the DOM to get the newest showingMove and then take out the text and trim off the whitespace
+		var accordionTextToShow = trim($(".showingMove").children().eq(0).children().html());
+
+		//Run through the move progression (only difference there is we are not going reverse of what is listed)
+		var shown_move = accordionTextToShow.split(" ");
+		var current_move = [shown_move[2]];
+		current_move.push(shown_move[4]);
+		one_move(current_move, shown_move[0]);
+
+	}
+	//Here the showingMove and playToHere are on the same accordion (so the moves are completed)
+	else{
+		//since we are done - re-enable the button
+		$('#nextMove').prop('disabled', false);
+		//take off playToHere as the move progression is complete
+		playToHereAccordion.removeClass("playToHere")
+	}
+}
+
+//Potentially "junk code" - originally was going to put the text on the board with the move, but the feedback from users was that it was too distracting
 function show_popover_info(pieceMoved, newSquareID){
 	var file = newSquareID.charAt(0);
 
@@ -213,55 +254,9 @@ function show_popover_info(pieceMoved, newSquareID){
 	    }
 	).popover('show');	
 }
-
 function clear_popovers(){
 	$(".piece").each(function(e) {
 		var this_piece = $(this);
 		this_piece.popover('destroy');
 	});
-}
-
-function replayMove(){
-
-refactor all the jquery that is pinging the DOM
-
-	if ($(".showingMove").data("accordionnumber") - $(".replayToHere").data("accordionnumber") > 0) {
-		console.log("going up!");
-		
-
-		var accordionTextToShow = trim($(".showingMove").children().eq(0).children().html());
-		console.log(accordionTextToShow);
-		var shown_move = accordionTextToShow.split(" ");
-		var current_move = [shown_move[4]];
-		current_move.push(shown_move[2]);
-		one_move(current_move, shown_move[0]);
-		$(".showingMove").removeClass("showingMove").prev().addClass("showingMove");
-	}
-	else if ($(".showingMove").data("accordionnumber") - $(".replayToHere").data("accordionnumber") < 0){
-		console.log("going down!");
-		
-		if ($(".showingMove").data("accordionnumber") === null){
-			$(".replayToHere").addClass("showingMove");
-		}
-		else{
-			$(".showingMove").removeClass("showingMove").next().addClass("showingMove")
-		}
-		var accordionTextToShow = trim($(".showingMove").children().eq(0).children().html());
-		console.log(accordionTextToShow);
-		var shown_move = accordionTextToShow.split(" ");
-		var current_move = [shown_move[2]];
-		current_move.push(shown_move[4]);
-		one_move(current_move, shown_move[0]);
-
-	}
-	else{
-		$('#nextMove').prop('disabled', false);
-		$(".replayToHere").removeClass("replayToHere")
-	}
-}
-
-
-function highlightSquare(boardSquare, highlightColor){
-
-	  $('#'+boardSquare).effect("highlight", {"color" : highlightColor}, 500) 
 }
