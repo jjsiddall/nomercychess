@@ -1,13 +1,13 @@
-var showPopover = true;
+//var showPopover = true;
 
 $('.exercises.show').ready(function() {
-	// $('#test').on('click', function() {
-	// 	$('#toggleMe-1').click();
-	// });
-	
+	//shows the opening lessons Modal - describes the lesson
+	$('#descriptionModal').modal('show');
+
+	//Adds the click event to the "Next" button
 	$('#nextMove').on('click', function() {
 		//show the popover for the move the user is on
-		showPopover = false;
+		//showPopover = false;
 		//grab the first notShownMove in the list
 		var accordion = $('.notShownMove:first')
 		//Gets the notShown's ID - this will be used further on for the "click" event of the accordion
@@ -21,7 +21,7 @@ $('.exercises.show').ready(function() {
 		}
 		else{
 			//remove popovers (otherwise they will show on the darkened screen)
-			clear_popovers();
+			//clear_popovers();
 			//show the conclusion popover when there are no more moves on the list
 			$('#conclusionModal').modal('show');
 		}
@@ -51,7 +51,7 @@ $('.exercises.show').ready(function() {
 function one_move(current_move, piece){
 
 	//remove any popovers that are currently on the board
-	clear_popovers();
+	//clear_popovers();
 
 	var rank_change = find_change_in_rank(current_move);
 	var file_change = find_change_in_file(current_move);
@@ -162,9 +162,9 @@ function append_to_square(old_square, new_square_id){
 	pieceBeingMoved.css("top", "")
 	pieceBeingMoved.css("left", "")
 	
-	if (showPopover === true){
-		show_popover_info(pieceBeingMoved, new_square.attr('id'));
-	}
+	// if (showPopover === true){
+	// 	show_popover_info(pieceBeingMoved, new_square.attr('id'));
+	// }
 
 	//This is a trigger used to notify the app that the move is complete and then next one can start (without it things will happen together and tend to overlap)
 	$(document).trigger('move/completed')
@@ -231,32 +231,36 @@ function playMove(){
 	}
 }
 
-//Potentially "junk code" - originally was going to put the text on the board with the move, but the feedback from users was that it was too distracting
-function show_popover_info(pieceMoved, newSquareID){
-	var file = newSquareID.charAt(0);
+function trim(str) {
+    return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+}
 
-	var moveExplained = $(".currentMove:last").data('explanation');
-	var moveNumber =  $(".currentMove:last").data('movenumber');
-	var popoverSide = "right"
-	var popoverTitle = pieceMoved.html() + " to " + newSquareID;
+// //Potentially "junk code" - originally was going to put the text on the board with the move, but the feedback from users was that it was too distracting
+// function show_popover_info(pieceMoved, newSquareID){
+// 	var file = newSquareID.charAt(0);
 
-	//make the popover appear to the side (makes readability easier)
-	if (file === "a" || file === "b" || file === "c" || file === "d" ){
-		popoverSide = "left";
-	}
+// 	var moveExplained = $(".currentMove:last").data('explanation');
+// 	var moveNumber =  $(".currentMove:last").data('movenumber');
+// 	var popoverSide = "right"
+// 	var popoverTitle = pieceMoved.html() + " to " + newSquareID;
+
+// 	//make the popover appear to the side (makes readability easier)
+// 	if (file === "a" || file === "b" || file === "c" || file === "d" ){
+// 		popoverSide = "left";
+// 	}
 		
-	pieceMoved.popover(
-	    {
-	        title: popoverTitle,
-	        content: moveExplained,
-	        placement: popoverSide,
-	        trigger: "manual"
-	    }
-	).popover('show');	
-}
-function clear_popovers(){
-	$(".piece").each(function(e) {
-		var this_piece = $(this);
-		this_piece.popover('destroy');
-	});
-}
+// 	pieceMoved.popover(
+// 	    {
+// 	        title: popoverTitle,
+// 	        content: moveExplained,
+// 	        placement: popoverSide,
+// 	        trigger: "manual"
+// 	    }
+// 	).popover('show');	
+// }
+// function clear_popovers(){
+// 	$(".piece").each(function(e) {
+// 		var this_piece = $(this);
+// 		this_piece.popover('destroy');
+// 	});
+// }

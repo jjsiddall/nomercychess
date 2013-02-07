@@ -1,15 +1,20 @@
-$(document).ready(function() {
-	
-	$('#clear-board').on('click', function() {
-		clearBoard();
-	});
+$('.exercises.edit').ready(function() {
+	//"edit" the button "clear" for removing all the pieces (and updating the db)
+	$('#clear-board').on('click', function() { clearBoard(); });
 
-	$('#reset-board').on('click', function() {
-		resetBoard();
-	});
-
+	//"edit" the button "reset" for removing all the pieces (and updating the db)
+	$('#reset-board').on('click', function() { resetBoard(); });
 });
 
+//This function takes an array of pieces and loads them on the board
+function loadPiecesOnBoard(initial_setup){
+
+	var ilen = initial_setup.length
+	for (var i=0; i<ilen; ++i) {
+		var square_info = initial_setup[i].split("-");
+		$('#'+square_info[0]).append('<div class="piece '+square_info[1]+'">'+square_info[2]+'</div>');
+	}
+}
 
 //Adds back the piece on the bottom of the board that can be used for setup
 function resetExtraPiece(piece){

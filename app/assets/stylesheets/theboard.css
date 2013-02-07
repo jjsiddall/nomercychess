@@ -36,7 +36,7 @@
  }
 .dark {
   background: #555555; /* #1D7373; */
-  /*color: white;*/
+  color: white;
 }
 .white {  color: grey; }
 .black {  color: black; }

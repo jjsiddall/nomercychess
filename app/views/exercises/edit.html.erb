@@ -1,7 +1,7 @@
 <div class="row">
   <div class="span4">
 	<%- model_class = Exercise -%>
-	<div class="page-header" data-draggable="yes" data-droppable="update-db">
+	<div class="page-header">
 	  <h1><%=t '.title', :default => t('helpers.titles.edit', :model => model_class.model_name.human,
 	                                   :default => "Edit '#{@exercise.title}'") %></h1>
 	</div>
