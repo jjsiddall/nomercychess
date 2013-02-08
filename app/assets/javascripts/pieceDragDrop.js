@@ -1,9 +1,3 @@
-$('.exercises.practice, .exercises.edit').ready(function() {
-
-	//makes pieces only draggable for
-	makeDraggable();
-});
-
 //only update the db with the board setup if it is the exercise "edit" screen
 $('.exercises.edit').ready(function() {
   	//used for making the board able to take items that are dropped on it

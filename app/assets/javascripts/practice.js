@@ -52,7 +52,16 @@ $('.exercises.practice').ready(function() {
 			pieceBeingMoved = $(ui.draggable);
 
 			//Making the piece "revert" on any movement --> this will be overwritten (see below) if it is the right piece and move 	
-			pieceBeingMoved.draggable({ revert: true });	
+			pieceBeingMoved.draggable({ 
+				revert: true, 
+				stop: function(){
+					console.log("stopped here")
+					//removes any added CSS from the drag and revert
+					pieceBeingMoved.css("top", "");
+					pieceBeingMoved.css("left", "");
+					console.log(pieceBeingMoved[0].outerHTML)
+				} 
+			});	
 			var droppedOnSquare = $(this);
 
 			if (verifyCorrectMove(pieceBeingMoved, droppedOnSquare) === true){
@@ -72,10 +81,12 @@ $('.exercises.practice').ready(function() {
 				computersMoveOrLastMove();	
 
 			}
+
     	}
   	});
   	//after the click or drag-drop of pieces, this looks to see if the computer has a move to make
   	computersMoveOrLastMove();
+
 });
 
 function verifyCorrectMove(pieceBeingMoved, droppedOnSquare){

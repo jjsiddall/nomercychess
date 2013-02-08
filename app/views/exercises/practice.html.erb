@@ -6,7 +6,7 @@
   <div class="span5">
       <%- model_class = Exercise -%>
       <div class="page-header">
-        <h1><%=t '.title', :default => @exercise.title %></h1>
+        <h1><%=t '.title', :default => @exercise.title %> <small>Practice</small></h1>
       </div>
     <% @exercise.moves.each do |move| %>
       <div class="alert alert-success nextMove notShownMove" data-computer= "<%= move.computer %>"><%= move.piece %> from <%= move.starting_coordinate %> to <%= move.ending_coordinate %></div>
