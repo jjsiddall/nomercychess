@@ -50,7 +50,6 @@ $('.exercises.practice').ready(function() {
     	drop: function(event, ui) {
     		//cashe the item that is being dragged
 			pieceBeingMoved = $(ui.draggable);
-
 			//Making the piece "revert" on any movement --> this will be overwritten (see below) if it is the right piece and move 	
 			pieceBeingMoved.draggable({ 
 				revert: true, 
@@ -66,9 +65,19 @@ $('.exercises.practice').ready(function() {
 
 			if (verifyCorrectMove(pieceBeingMoved, droppedOnSquare) === true){
 
-				//This it the right spot, so I don't want it to revert anymore (in case it was previously)
+				//This i the right spot, so I don't want it to revert anymore (in case it was previously)
 				pieceBeingMoved.draggable({ revert: false });
 
+
+				//if this is a castling move then we need the computer to move the rook (using the castle() function )
+				var current_move = new Array(pieceBeingMoved.parent().attr('id'), droppedOnSquare.attr('id'));
+				var file_change = find_change_in_file(current_move)
+				if (((file_change != 1) || (file_change != -1)) && (pieceBeingMoved.html() === "♚")){
+					console.log("castle")
+					//we know this is a castle and have moved the King, now need to move the associated rook
+					castle(current_move, file_change);
+				}
+				//update the move list to show the right move was made
 				updateDisplayedMove();
 				
 				//remove any children on the spot being dropped on

@@ -58,6 +58,9 @@ function one_move(current_move, piece){
 		
 	if (((file_change != 1) || (file_change != -1)) && (piece === "♚")){
 		console.log("castle!")
+		
+		//the initial King move (no different than basic movement)
+		move_file(current_move[0], current_move[1], file_change );
 
 		//we know this is a castle and have moved the King, now need to move the associated rook
 		castle(current_move, file_change);
@@ -77,8 +80,8 @@ function one_move(current_move, piece){
 	}
 
 	//debugging
-	// highlightSquare(current_move[0], "yellow");
-	// highlightSquare(current_move[1], "yellow");
+	highlightSquare(current_move[0], "yellow");
+	highlightSquare(current_move[1], "yellow");
 
 }
 
@@ -247,9 +250,6 @@ function trim(str) {return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');}
 
 //used to trigger the rook to move if the king's move is greater than 2 squares
 function castle(current_move, file_change){
-	
-	//the initial King move (no different than basic movement)
-	move_file(current_move[0], current_move[1], file_change );
 
 	//near side Castle of rook
 	if (file_change === 2){ move_file("h"+current_move[0].charAt(1) , "f"+current_move[0].charAt(1), -file_change );}
