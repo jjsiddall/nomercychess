@@ -8,3 +8,8 @@ $('.exercises.practice, .exercises.edit').ready(function() {
 	//makes pieces only draggable for
 	makeDraggable();
 });
+
+function makeDraggable(){
+	$('.piece').addClass('draggable');
+	$( ".draggable" ).draggable({ containment: "#setup_board" });
+}

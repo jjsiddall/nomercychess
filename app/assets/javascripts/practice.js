@@ -95,17 +95,22 @@ function verifyCorrectMove(pieceBeingMoved, droppedOnSquare){
 	$('.alert-error').remove();
 
 	//generate an identical statement to the moves written out
-	var moveMade = pieceBeingMoved.html() + " from " + pieceBeingMoved.parent().attr("id") + " to " + droppedOnSquare.attr("id");
+	var madeMove = pieceBeingMoved.html() + " from " + pieceBeingMoved.parent().attr("id") + " to " + droppedOnSquare.attr("id");
+
+	console.log(madeMove);
+	
+	var correctMove = trim($('.nextMove:First').children().children().html())
+
 
 	//check if the nextMove in the list 
-	if (moveMade === $('.nextMove:First').html()){
+	if (madeMove === correctMove){
 		console.log("right!");
 		return true;
 	}
 	else{
 		console.log("wrong");
 		//display an incorrect move on the side in red
-		showIncorrectMove(moveMade);
+		showIncorrectMove(madeMove, correctMove);
 		return false;
 // TODO: something that pops up the wrong move and asks if you want a hint
 	}
@@ -138,14 +143,22 @@ function updateDisplayedMove(){
 	//show the move and pull it off the "next move list"
 	$('.nextMove:First').removeClass("notShownMove").removeClass("nextMove");
 }
-function showIncorrectMove(moveMade){
-	moveMade = '<div class="alert alert-error">' + moveMade + '<div class="pull-right hint">hint?</div></div>'
-	console.log(moveMade)
-	//$('<div class="alert alert-fail">' & moveMade & '</div>').insertAfter('.alert');
-	$(moveMade).insertBefore('.notShownMove:first');
+function showIncorrectMove(madeMove, correctMove){
+
+	//build the error and show it under the list as a alert-error
+	madeMove = '<div class="alert alert-error">' + madeMove + '<div class="pull-right hint">hint?</div></div>'
+	$(madeMove).insertBefore('.notShownMove:first');
+
+	var correctMoveArray = correctMove.split(" ");
+	console.log(correctMoveArray[2]);
+	
+	//add a mouse over handler to the "hint" text that animates the correct move
 	$('.hint').mouseover(function() {
-		console.log("show hint");
+		//"shakes the piece"
+		$('#'+correctMoveArray[2]).addClass("animated shake");
+		//highlights the right square to move to
+		highlightSquare(correctMoveArray[4], "pink");		
 	}).mouseout(function(){
-    	console.log("don't show hint");
+    	$('#'+correctMoveArray[2]).removeClass("animated shake");
   	});
 }

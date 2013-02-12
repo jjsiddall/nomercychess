@@ -8,8 +8,16 @@
       <div class="page-header">
         <h1><%=t '.title', :default => @exercise.title %> <small>Practice</small></h1>
       </div>
+
+<!-- Butchering the Collapse Bootstrap component in order to make this screen look like the demo screen -->
     <% @exercise.moves.each do |move| %>
-      <div class="alert alert-success nextMove notShownMove" data-computer= "<%= move.computer %>"><%= move.piece %> from <%= move.starting_coordinate %> to <%= move.ending_coordinate %></div>
+      <div class="accordion-group alert-success nextMove notShownMove" data-computer= "<%= move.computer %>">
+        <div class="accordion-heading">
+          <span class="accordion-toggle">
+            <%= move.piece %> from <%= move.starting_coordinate %> to <%= move.ending_coordinate %>
+          </span>
+        </div>
+      </div>
     <% end %>
   </div>
 
