@@ -1,5 +1,10 @@
 NoMercyChess::Application.routes.draw do
-  resources :lessons
+  resources :lessons do 
+    collection do
+      get 'builder'
+    end
+  end
+
   resources :exercises do
     member do
       get 'practice'

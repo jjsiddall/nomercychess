@@ -9,6 +9,13 @@ $('.exercises.practice, .exercises.edit').ready(function() {
 	makeDraggable();
 });
 
+$('.lessons.builder').ready(function() {
+    $( ".canSort" ).sortable({
+      connectWith: ".connectedSortable" //, 
+//      placeholder: "well-small well"
+    }).disableSelection();
+});
+
 function makeDraggable(){
 	$('.piece').addClass('draggable');
 	$( ".draggable" ).draggable({ containment: "#setup_board" });

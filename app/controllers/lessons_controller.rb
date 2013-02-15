@@ -10,6 +10,17 @@ class LessonsController < ApplicationController
     end
   end
 
+  # GET /lessons
+  # GET /lessons.json
+  def builder
+    @lessons = Lesson.order("id DESC").all
+    @exercises = Exercise.order("sortForLesson DESC").all
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @lessons }
+    end
+  end
+  
   # GET /lessons/1
   # GET /lessons/1.json
   def show

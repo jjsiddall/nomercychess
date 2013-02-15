@@ -1,0 +1,8 @@
+<div id="<%= exercise.id %>" class="well well-small">
+    <%= exercise.sortForLesson %> - <%= link_to exercise.title, edit_exercise_path(exercise) %>
+
+  <%= exercise.nextExercise %>
+
+  <%= link_to t('.show', :default => t("helpers.links.show")),
+          exercise_path(exercise), :class => 'btn btn-primary btn-mini pull-right' %>
+</div>

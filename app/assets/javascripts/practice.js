@@ -134,7 +134,8 @@ function computersMoveOrLastMove(){
 		//do not show the popover for the move the user is on
 		//showPopover = false;
 		//pulls apart HTML and sends the from, to, and piece to "one_move"
-		var shown_move = nextMoveInList.html().split(" ");
+    	var shown_move = trim(nextMoveInList.children().eq(0).children().html()).split(" ");
+
 		var current_move = [shown_move[2]];
 		current_move.push(shown_move[4]);
 

@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="span6">
+    <div class="page-header">
+     <h1>Claimed</h1>
+    </div>
+   <% @lessons.each do |lesson| %>
+    <h4><%= lesson.title %></h4>
+    <div id="<%= lesson.id %>" class="connectedSortable canSort well">
+
+     <% lesson.exercises.sort_by{|exercise| exercise.sortForLesson}.each do |exercise| %>
+        <%= render('builderPartial', :exercise => exercise) %>
+     <%end%>
+    </div>
+   <% end %>
+  </div>
+
+  <div class="span6">
+    <div class="page-header">
+     <h1>Unclaimed</h1>
+    </div>
+    <div class="connectedSortable canSort well">
+     <% @exercises.each do |exercise| %>
+      <% if exercise.lesson_id.nil?  %>
+        <%= render('builderPartial', :exercise => exercise) %>
+      <%end%>
+     <% end %>
+    </div>
+  </div>
+</div>

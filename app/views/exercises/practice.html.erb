@@ -35,7 +35,7 @@
   <div class="modal-footer">
     <%= link_to "Back to the Demo", exercise_path(@exercise.id), :class => 'btn' %>
     <%= link_to "Practice Again", practice_exercise_path(@exercise.id), :class => 'btn' %>
-
+    <%= link_to "Next Exercise", exercise_path(@exercise.nextExercise), :class => 'btn btn-primary btn-large' %> 
   </div>
 </div>
 
