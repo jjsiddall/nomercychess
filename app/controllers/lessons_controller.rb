@@ -16,7 +16,7 @@ class LessonsController < ApplicationController
     @lessons = Lesson.order("id DESC").all
     @exercises = Exercise.order("sortForLesson DESC").all
     respond_to do |format|
-      format.html # index.html.erb
+      format.html # builder.html.erb
       format.json { render json: @lessons }
     end
   end
