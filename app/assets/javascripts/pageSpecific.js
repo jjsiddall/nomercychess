@@ -16,6 +16,12 @@ $('.lessons.builder').ready(function() {
     }).disableSelection();
 });
 
+$('.home.index').ready(function() {
+	$('#myCarousel').carousel({
+  		interval: 2000
+	});
+});
+
 function makeDraggable(){
 	$('.piece').addClass('draggable');
 	$( ".draggable" ).draggable({ containment: "#setup_board" });

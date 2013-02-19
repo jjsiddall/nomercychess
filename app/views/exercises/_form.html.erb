@@ -27,12 +27,5 @@
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-mini btn-primary' %>
     <%= link_to 'Cancel', exercises_path, :class => 'btn btn-mini' %>
-    <br>
-    <br>
-
-    <%= link_to 'Destroy', exercise_path,
-                :method => :delete,
-                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                :class => 'btn btn-mini btn-danger' %>
   </div>
 <% end %>
