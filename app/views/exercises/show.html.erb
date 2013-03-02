@@ -18,10 +18,16 @@
     <!-- Puts all the move on the screen in the format to show them -->
       <div class="accordion" id="accordion2">
         <% @exercise.moves.each do |move| %>
-        <div class="accordion-group notShownMove" data-accordionNumber="<%= move.move_number %>">
+        <div class="accordion-group notShownMove" data-accordionNumber="<%= move.move_number %>" data-white="<%= move.piece_white %>:<%= move.starting_coordinate_white %>-<%= move.ending_coordinate_white %>" data-black="<%= move.piece_black %>:<%= move.starting_coordinate_black %>-<%= move.ending_coordinate_black %>">
           <div class="accordion-heading">
             <a id="toggleMe-<%= move.move_number %>" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-<%= move.move_number %>">
-              <%= move.piece %> from <%= move.starting_coordinate %> to <%= move.ending_coordinate %>
+              <table>
+                <tr>
+                  <td class="moveTableFirstColumn"><%= move.move_number %></td>
+                  <td class="moveTableNonfirstColumn"><%= move.piece_white %><%= move.ending_coordinate_white %></td>
+                  <td class="moveTableNonfirstColumn"><%= move.piece_black %><%= move.ending_coordinate_black %></td>
+                </tr>
+              </table>
             </a>
           </div>
           <div id="collapse-<%= move.move_number %>" class="accordion-body collapse">

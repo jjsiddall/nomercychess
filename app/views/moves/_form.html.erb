@@ -19,21 +19,39 @@
     </div>
   </div>    
   <div class="control-group">
-    <%= f.label :piece, :class => 'control-label' %>
+    <%= f.label :piece_white, :class => 'control-label' %>
     <div class="controls">
-      <%= f.select :piece, [['♟','♟'],['♞','♞'],['♝','♝'],['♜','♜'],['♛','♛'],['♚','♚']]%>
+      <%= f.select :piece_white, [['...','...'],['♟','♟'],['♞','♞'],['♝','♝'],['♜','♜'],['♛','♛'],['♚','♚']]%>
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :starting_coordinate, :class => 'control-label' %>
+    <%= f.label :starting_coordinate_white, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :starting_coordinate, :class => 'text_field' %>
+      <%= f.text_field :starting_coordinate_white, :class => 'text_field' %>
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :ending_coordinate, :class => 'control-label' %>
+    <%= f.label :ending_coordinate_white, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :ending_coordinate, :class => 'text_field' %>
+      <%= f.text_field :ending_coordinate_white, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :piece_black, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :piece_black, [['...','...'],['♟','♟'],['♞','♞'],['♝','♝'],['♜','♜'],['♛','♛'],['♚','♚']]%>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :starting_coordinate_black, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :starting_coordinate_black, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :ending_coordinate_black, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :ending_coordinate_black, :class => 'text_field' %>
     </div>
   </div>
   <div class="control-group">

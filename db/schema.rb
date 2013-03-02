@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130214221632) do
+ActiveRecord::Schema.define(:version => 20130220192542) do
 
   create_table "exercises", :force => true do |t|
     t.string   "title"
@@ -32,15 +32,18 @@ ActiveRecord::Schema.define(:version => 20130214221632) do
   end
 
   create_table "moves", :force => true do |t|
-    t.string   "piece"
-    t.string   "starting_coordinate"
-    t.string   "ending_coordinate"
+    t.string   "piece_white"
+    t.string   "starting_coordinate_white"
+    t.string   "ending_coordinate_white"
     t.text     "explanation"
     t.integer  "exercise_id"
     t.integer  "move_number"
     t.boolean  "computer"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.string   "piece_black"
+    t.string   "starting_coordinate_black"
+    t.string   "ending_coordinate_black"
   end
 
   create_table "roles", :force => true do |t|

@@ -6,8 +6,6 @@ $('.exercises.show').ready(function() {
 
 	//Adds the click event to the "Next" button
 	$('#nextMove').on('click', function() {
-		//show the popover for the move the user is on
-		//showPopover = false;
 		//grab the first notShownMove in the list
 		var accordion = $('.notShownMove:first')
 		//Gets the notShown's ID - this will be used further on for the "click" event of the accordion
@@ -17,11 +15,10 @@ $('.exercises.show').ready(function() {
 			//unhides the top notShownMove and takes the "notShownMove" off
 			accordion.removeClass("notShownMove");
 			//Fires the "click/show" action (which executes the move below) to display the current and retract the previous ones
+			//using the id gotten above
 			$('#toggleMe-'+accordionID).click();
 		}
 		else{
-			//remove popovers (otherwise they will show on the darkened screen)
-			//clear_popovers();
 			//show the conclusion popover when there are no more moves on the list
 			$('#conclusionModal').modal('show');
 		}
@@ -49,6 +46,9 @@ $('.exercises.show').ready(function() {
 });
 
 function one_move(current_move, piece){
+
+	//bail out of this function if the piece coming in is not a piece (but is "..." instead)
+	if (piece === "..."){return};
 
 	//remove any popovers that are currently on the board
 	//clear_popovers();
@@ -180,8 +180,6 @@ function append_to_square(old_square, new_square_id){
 	// 	show_popover_info(pieceBeingMoved, new_square.attr('id'));
 	// }
 
-	//This is a trigger used to notify the app that the move is complete and then next one can start (without it things will happen together and tend to overlap)
-	$(document).trigger('move/completed')
 } 
 
 //Used to highlight squares (for move from square to square and capture)
@@ -189,23 +187,18 @@ function highlightSquare(boardSquare, highlightColor){ $('#'+boardSquare).effect
 
 //Executes a move that will get the showingMove a accordion closer to playToHere accordion (or points out that they are the same)
 function playMove(){
+	console.log("playMove");
+
 	//cache the DOM elements
-	var showingAccordion = $(".showingMove");
-	var playToHereAccordion = $(".playToHere")
+	var showingAccordion = $(".showingMove");  //this is the move that is currently shown on the board
+	var playToHereAccordion = $(".playToHere"); //this is the move that we need to get to
 
 	//check if the showingAccodion is greater than the playToHereAccodion
-	//slightly counter intuitive: in this case "greater" actually refers to "lower in the list" so we are moving up the list/screen visually
+	//slightly counter intuitive: in this case "greater" actually refers to "earlier in the list" so we are moving up the list/screen visually
 	if (showingAccordion.data("accordionnumber") > playToHereAccordion.data("accordionnumber")) {
-		//console.log("going up!");
+		console.log('going up!')
 
-		//Get the text from the 1st childs child of the "showingAccordion" and remove the whitespace
-		var accordionTextToShow = trim(showingAccordion.children().eq(0).children().html());
-
-		//split up the text and run the following 4 lines (which executes the move) - Reverse of what is shown in the text because we are retracting
-		var shown_move = accordionTextToShow.split(" ");
-		var current_move = [shown_move[4]];
-		current_move.push(shown_move[2]);
-		one_move(current_move, shown_move[0]);
+		moveBlackThenWhite(showingAccordion);
 
 		//Now we need to switch the "showingMove" class to the accordion above (visually in the browser) the current accordion we just executed
 		//we do this by accessing the DOM because we are traversing a tree (and the cached object does not know about those accordions around it)
@@ -214,7 +207,7 @@ function playMove(){
 	}
 	//this is the opposite code as above - here we are moving down visually the list of accordions
 	else if (showingAccordion.data("accordionnumber") < playToHereAccordion.data("accordionnumber")){
-		//console.log("going down!");
+		console.log("going down!");
 		
 		//The major change between this and the above is here when the first move is made
 		//In the case of the first move, no accordion has "showingMove" so if it is null we tell it to put showing move on the same accordion as the
@@ -226,14 +219,8 @@ function playMove(){
 			//otherwise, we remove showingMove from the showingMove accordion and add it to the next accordion using the DOM
 			$(".showingMove").removeClass("showingMove").next().addClass("showingMove")
 		}
-		//again, access the DOM to get the newest showingMove and then take out the text and trim off the whitespace
-		var accordionTextToShow = trim($(".showingMove").children().eq(0).children().html());
 
-		//Run through the move progression (only difference there is we are not going reverse of what is listed)
-		var shown_move = accordionTextToShow.split(" ");
-		var current_move = [shown_move[2]];
-		current_move.push(shown_move[4]);
-		one_move(current_move, shown_move[0]);
+		moveWhiteThenBlack($(".showingMove"));
 
 	}
 	//Here the showingMove and playToHere are on the same accordion (so the moves are completed)
@@ -244,9 +231,79 @@ function playMove(){
 		playToHereAccordion.removeClass("playToHere")
 	}
 }
+
+//function is used for moving "down" the list of moves (forward)
+function moveWhiteThenBlack(showingAccordion){
+	
+	//** WHITE'S MOVE
+	//Gets the data object holding the white move splits it up into an array
+	var piece_white = showingAccordion.data('white').split(":")[0];
+	var current_move_white = showingAccordion.data('white').split(":")[1].split("-");
+
+	//** BLACK'S MOVE
+	//Gets the data object holding the black move splits it up into an array
+	var piece_black = showingAccordion.data('black').split(":")[0];
+	var current_move_black = showingAccordion.data('black').split(":")[1].split("-");
+
+	// and sends WHITE to "one_move"
+	one_move(current_move_white, piece_white);
+
+	//attaches a promise to the DOM move that has been sent in for WHITE
+	$("#"+current_move_white[0]).children().promise().done(function() {
+		console.log("white move done");
+		
+		//make the move for black
+		one_move(current_move_black, piece_black);
+		$("#"+current_move_black[0]).children().promise().done(function() {
+			console.log("black move done");
+			
+			//This is a trigger used to notify the app that the move is complete and then next 
+			//one can start (without it things will happen together and tend to overlap)
+			$(document).trigger('move/completed')
+		});
+	});
+}
+
+//function is used for moving "up" the list of moves (backward)
+function moveBlackThenWhite(showingAccordion){
+	
+	//** WHITE'S MOVE
+	//Gets the data object holding the white move splits it up into an array
+	var piece_white = showingAccordion.data('white').split(":")[0];
+	//flips the array because we are going "backward"
+	var current_move_white = showingAccordion.data('white').split(":")[1].split("-").reverse();
+
+	//** BLACK'S MOVE
+	//Gets the data object holding the black move splits it up into an array
+	var piece_black = showingAccordion.data('black').split(":")[0];
+	//flips the array because we are going "backward"
+	//flips the array because we are going "backward"
+	var current_move_black = showingAccordion.data('black').split(":")[1].split("-").reverse();
+
+	// and sends BLACK to "one_move"
+	one_move(current_move_black, piece_black);
+
+	//attaches a promise to the DOM move that has been sent in for BLACK
+	$("#"+current_move_black[0]).children().promise().done(function() {
+		console.log("black move done");
+		
+		//make the move for WHITE
+		one_move(current_move_white, piece_white);
+		$("#"+current_move_white[0]).children().promise().done(function() {
+			console.log("white move done");
+			
+			//This is a trigger used to notify the app that the move is complete and then next 
+			//one can start (without it things will happen together and tend to overlap)
+			$(document).trigger('move/completed')
+		});
+	});
+}
+
+
+
+
 //returns a string without whitespace
 function trim(str) {return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');}
-
 
 //used to trigger the rook to move if the king's move is greater than 2 squares
 function castle(current_move, file_change){

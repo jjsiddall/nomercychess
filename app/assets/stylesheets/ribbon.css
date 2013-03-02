@@ -54,6 +54,12 @@
 	margin-bottom: 0px;
 	background-color: white;
 }
+.moveTableFirstColumn {
+	width: 30px;
+}
+.moveTableNonfirstColumn {
+	width: 70px;
+}
 /*.carousel {
 	width: 1300px;
 	height: 500px;

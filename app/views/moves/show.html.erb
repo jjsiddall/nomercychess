@@ -6,16 +6,22 @@
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:move_number) %>:</strong></dt>
   <dd><%= @move.move_number %></dd>  
-  <dt><strong><%= model_class.human_attribute_name(:piece) %>:</strong></dt>
-  <dd><%= @move.piece %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:starting_coordinate) %>:</strong></dt>
-  <dd><%= @move.starting_coordinate %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:ending_coordinate) %>:</strong></dt>
-  <dd><%= @move.ending_coordinate %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:piece_white) %>:</strong></dt>
+  <dd><%= @move.piece_white %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:starting_coordinate_white) %>:</strong></dt>
+  <dd><%= @move.starting_coordinate_white %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:ending_coordinate_white) %>:</strong></dt>
+  <dd><%= @move.ending_coordinate_white %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:piece_black) %>:</strong></dt>
+  <dd><%= @move.piece_black %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:starting_coordinate_black) %>:</strong></dt>
+  <dd><%= @move.starting_coordinate_black %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:ending_coordinate_black) %>:</strong></dt>
+  <dd><%= @move.ending_coordinate_black %></dd>
   <dt><strong><%= model_class.human_attribute_name(:explanation) %>:</strong></dt>
   <dd><%= @move.explanation %></dd>
   <dt><strong><%= model_class.human_attribute_name(:exercise_id) %>:</strong></dt>
-  <dd><%= @move.exercise_id %></dd>
+  <dd><%= @move.exercise.title %></dd>
 </dl>
 
 <div class="form-actions">

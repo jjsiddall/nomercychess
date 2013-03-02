@@ -3,9 +3,12 @@
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:move_number) %></th>
-      <th><%= model_class.human_attribute_name(:piece) %></th>
-      <th><%= model_class.human_attribute_name(:starting_coordinate) %></th>
-      <th><%= model_class.human_attribute_name(:ending_coordinate) %></th>
+      <th><%= model_class.human_attribute_name(:piece_white) %></th>
+      <th><%= model_class.human_attribute_name(:starting_coordinate_white) %></th>
+      <th><%= model_class.human_attribute_name(:ending_coordinate_white) %></th>      
+      <th><%= model_class.human_attribute_name(:piece_black) %></th>
+      <th><%= model_class.human_attribute_name(:starting_coordinate_black) %></th>
+      <th><%= model_class.human_attribute_name(:ending_coordinate_black) %></th>
       <th><%= model_class.human_attribute_name(:explanation) %></th>
       <th><%= model_class.human_attribute_name(:computer) %></th>
       <th><%= model_class.human_attribute_name(:exercise_id) %></th>
@@ -18,9 +21,12 @@
       <tr>
         <td><%= link_to move.id, move_path(move) %></td>
         <td><%= move.move_number %></td>
-        <td><%= move.piece %></td>
-        <td><%= move.starting_coordinate %></td>
-        <td><%= move.ending_coordinate %></td>
+        <td><%= move.piece_white %></td>
+        <td><%= move.starting_coordinate_white %></td>
+        <td><%= move.ending_coordinate_white %></td>
+        <td><%= move.piece_black %></td>
+        <td><%= move.starting_coordinate_black %></td>
+        <td><%= move.ending_coordinate_black %></td>
         <td><%= move.explanation %></td>
         <td><%= move.computer %></td>
         <td><%= move.exercise.title %></td>        
