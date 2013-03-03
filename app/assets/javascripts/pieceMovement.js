@@ -41,7 +41,6 @@ $('.exercises.show').ready(function() {
 		if ($(".playToHere").data("accordionnumber") != null) {
 			playMove();
 		}	
-	
 	});
 });
 

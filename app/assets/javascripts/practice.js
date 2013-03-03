@@ -32,6 +32,10 @@ $('.exercises.practice').ready(function() {
 				if (verifyCorrectMove(startPiece, $(this))===true){
 					//showPopover = false;
 					one_move(userMove, startPiece.html());
+					$("#"+userMove[0]).children().promise().done(function() {
+						whiteMoveCompleteNowBlack(nextMove);
+					});
+
 					updateDisplayedMove();
 					setTimeout(function() {
 						computersMoveOrLastMove();
@@ -54,18 +58,18 @@ $('.exercises.practice').ready(function() {
 			pieceBeingMoved.draggable({ 
 				revert: true, 
 				stop: function(){
-					console.log("stopped here")
+					// console.log("stopped here")
 					//removes any added CSS from the drag and revert
 					pieceBeingMoved.css("top", "");
 					pieceBeingMoved.css("left", "");
-					console.log(pieceBeingMoved[0].outerHTML)
+					// console.log(pieceBeingMoved[0].outerHTML)
 				} 
 			});	
 			var droppedOnSquare = $(this);
 
 			if (verifyCorrectMove(pieceBeingMoved, droppedOnSquare) === true){
 
-				//This i the right spot, so I don't want it to revert anymore (in case it was previously)
+				//This is the right spot, so I don't want it to revert anymore (in case it was previously)
 				pieceBeingMoved.draggable({ revert: false });
 
 
@@ -77,6 +81,7 @@ $('.exercises.practice').ready(function() {
 					//we know this is a castle and have moved the King, now need to move the associated rook
 					castle(current_move, file_change);
 				}
+
 				//update the move list to show the right move was made
 				updateDisplayedMove();
 				
@@ -84,6 +89,9 @@ $('.exercises.practice').ready(function() {
 				droppedOnSquare.children().remove();
 				//add the dragged piece to the board
 				droppedOnSquare.append(pieceBeingMoved);
+
+				whiteMoveCompleteNowBlack($('.alert-success:not(.notShownMove):Last'));
+
 				pieceBeingMoved.css("top", "");
 				pieceBeingMoved.css("left", "");
 
@@ -104,20 +112,28 @@ function verifyCorrectMove(pieceBeingMoved, droppedOnSquare){
 	$('.alert-error').remove();
 
 	//generate an identical statement to the moves written out
-	var madeMove = pieceBeingMoved.html() + " from " + pieceBeingMoved.parent().attr("id") + " to " + droppedOnSquare.attr("id");
+	var madeMove = pieceBeingMoved.html() + ":" + pieceBeingMoved.parent().attr("id") + "-" + droppedOnSquare.attr("id");
 
 	console.log(madeMove);
 	
-	var correctMove = trim($('.nextMove:First').children().children().html())
+	//caching DOM element
+	nextMove = $('.nextMove:First');
 
+	if (nextMove.data("computer") === "black"){
+		var correctMove = $('.nextMove:First').data("white");
+	}
+	else{
+		var correctMove = $('.nextMove:First').data("black");
+	}
+	
+	console.log(correctMove);
 
 	//check if the nextMove in the list 
 	if (madeMove === correctMove){
-		console.log("right!");
+
 		return true;
 	}
 	else{
-		console.log("wrong");
 		//display an incorrect move on the side in red
 		showIncorrectMove(madeMove, correctMove);
 		return false;
@@ -128,21 +144,21 @@ function verifyCorrectMove(pieceBeingMoved, droppedOnSquare){
 function computersMoveOrLastMove(){
 	//check to see if the next move is one the computer should make
 	var nextMoveInList = $('.nextMove:First');
-	if (nextMoveInList.data('computer') === true){
-		console.log("its a computer move!")
+	// if (nextMoveInList.data('computer') === true){
+	// 	console.log("its a computer move!")
 
-		//do not show the popover for the move the user is on
-		//showPopover = false;
-		//pulls apart HTML and sends the from, to, and piece to "one_move"
-    	var shown_move = trim(nextMoveInList.children().eq(0).children().html()).split(" ");
+	// 	//do not show the popover for the move the user is on
+	// 	//showPopover = false;
+	// 	//pulls apart HTML and sends the from, to, and piece to "one_move"
+ //    	var shown_move = trim(nextMoveInList.children().eq(0).children().html()).split(" ");
 
-		var current_move = [shown_move[2]];
-		current_move.push(shown_move[4]);
+	// 	var current_move = [shown_move[2]];
+	// 	current_move.push(shown_move[4]);
 
-		//sends in the current move
-		one_move(current_move, shown_move[0]);
-		nextMoveInList.remove();
-	}
+	// 	//sends in the current move
+	// 	one_move(current_move, shown_move[0]);
+	// 	nextMoveInList.remove();
+	// }
 	//look and see if all the moves are done
 	if ($('.notShownMove:First').length === 0){
   		$('#conclusionModal').modal('show');  		
@@ -155,20 +171,33 @@ function updateDisplayedMove(){
 }
 function showIncorrectMove(madeMove, correctMove){
 
-	//build the error and show it under the list as a alert-error
-	madeMove = '<div class="alert alert-error">' + madeMove + '<div class="pull-right hint">hint?</div></div>'
+	//build the error and show it under the list as a alert-error (and make it more readable ":" = "From" & "-" = "To")
+	madeMove = '<div class="alert alert-error">' + "Incorrect: " + madeMove.replace(":", " from ").replace("-", " to ") + '<div class="pull-right hint">hint?</div></div>'
 	$(madeMove).insertBefore('.notShownMove:first');
 
-	var correctMoveArray = correctMove.split(" ");
-	console.log(correctMoveArray[2]);
+	var correctMoveArray = correctMove.split(":")[1].split("-");
+	// console.log(correctMoveArray[2]);
 	
 	//add a mouse over handler to the "hint" text that animates the correct move
 	$('.hint').mouseover(function() {
 		//"shakes the piece"
-		$('#'+correctMoveArray[2]).addClass("animated shake");
+		$('#'+correctMoveArray[0]).addClass("animated shake");
 		//highlights the right square to move to
-		highlightSquare(correctMoveArray[4], "pink");		
+		highlightSquare(correctMoveArray[1], "pink");		
 	}).mouseout(function(){
-    	$('#'+correctMoveArray[2]).removeClass("animated shake");
+    	$('#'+correctMoveArray[0]).removeClass("animated shake");
   	});
 }
+
+function whiteMoveCompleteNowBlack(nextMove){
+	if (nextMove.data("computer") === "black"){
+		//We found the right move for white, so now its BLACK'S MOVE
+		//Gets the data object holding the black move splits it up into an array
+		var piece_black = nextMove.data('black').split(":")[0];
+		var current_move_black = nextMove.data('black').split(":")[1].split("-");
+
+		// and sends BLACK to "one_move"
+		one_move(current_move_black, piece_black);
+	}
+}
+

@@ -11,10 +11,16 @@
 
 <!-- Butchering the Collapse Bootstrap component in order to make this screen look like the demo screen -->
     <% @exercise.moves.each do |move| %>
-      <div class="accordion-group alert-success nextMove notShownMove" data-computer= "<%= move.computer %>">
+      <div class="accordion-group alert-success nextMove notShownMove" data-computer= "<%= (move.computer == true ? 'white' : 'black') %>" data-white="<%= move.piece_white %>:<%= move.starting_coordinate_white %>-<%= move.ending_coordinate_white %>" data-black="<%= move.piece_black %>:<%= move.starting_coordinate_black %>-<%= move.ending_coordinate_black %>">
         <div class="accordion-heading">
           <span class="accordion-toggle">
-            <%= move.piece_white %> from <%= move.starting_coordinate_white %> to <%= move.ending_coordinate_white %>
+              <table>
+                <tr>
+                  <td class="moveTableFirstColumn"><%= move.move_number %></td>
+                  <td class="moveTableNonfirstColumn"><%= move.piece_white %><%= move.ending_coordinate_white %></td>
+                  <td class="moveTableNonfirstColumn"><%= move.piece_black %><%= move.ending_coordinate_black %></td>
+                </tr>
+              </table>
           </span>
         </div>
       </div>
