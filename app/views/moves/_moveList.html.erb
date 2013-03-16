@@ -28,7 +28,9 @@
         <td><%= move.starting_coordinate_black %></td>
         <td><%= move.ending_coordinate_black %></td>
         <td><%= move.explanation %></td>
-        <td><%= move.computer %></td>
+
+
+        <td><%= move.computer ? "White" : "Black" %></td>
         <td><%= move.exercise.title %></td>        
         <td><%= time_ago_in_words(l move.updated_at) %> ago</td>
         <td>

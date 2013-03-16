@@ -48,6 +48,11 @@ class ExercisesController < ApplicationController
     @exercise = Exercise.find(params[:id])
   end
 
+  # GET /exercises/1/builder
+  def builder
+    @exercise = Exercise.find(params[:id])
+  end
+
   # POST /exercises
   # POST /exercises.json
   def create

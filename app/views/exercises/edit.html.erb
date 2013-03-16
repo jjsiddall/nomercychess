@@ -1,76 +1,27 @@
+
+
 <div class="row">
   <div class="span4">
-	<%- model_class = Exercise -%>
-	<div class="page-header">
-	  <h1><%=t '.title', :default => t('helpers.titles.edit', :model => model_class.model_name.human,
-	                                   :default => "Edit '#{@exercise.title}'") %></h1>
-	</div>
-<!--   </div>
-</div>
-<div class="row">
-  <div class="span4"> -->
+  	<%- model_class = Exercise -%>
+  	<div class="page-header">
+  	  <h1><%=t '.title', :default => t('helpers.titles.edit', :model => model_class.model_name.human,
+  	                                   :default => "Edit '#{@exercise.title}'") %></h1>
+  	</div>
   	<%= render :partial => 'form' %>
 	<%= link_to 'Destroy', exercise_path, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %>
   </div>
 <!-- </div>
 <div class="row"> -->
   <div class="span8">
-	<div id='setup_board'>
-		<%= render 'board' %>
-
-		<div class='rank'>
-			<div id='white-&#9823' class='unused square'>
-				<div class="piece white">&#9823</div>
-			</div>	
-			<div id='white-&#9822' class='unused square'>
-				<div class="piece white">&#9822</div>
-			</div>	
-			<div id='white-&#9821' class='unused square'>
-				<div class="piece white">&#9821</div>
-			</div>	
-			<div id='white-&#9820' class='unused square'>
-				<div class="piece white">&#9820</div>
-			</div>	
-			<div id='white-&#9819' class='unused square'>
-				<div class="piece white">&#9819</div>
-			</div>	
-			<div id='white-&#9818' class='unused square'>
-				<div class="piece white">&#9818</div>
-			</div>
-			<div class='square side deleteme'></div>
-			<div class='square dark deleteme'></div>
-			<div class='square dark deleteme'></div>		
-
-		</div>
-		<div class='rank'>
-			<div id='black-&#9823' class='unused square'>
-				<div class="piece black">&#9823</div>
-			</div>	
-			<div id='black-&#9822' class='unused square'>
-				<div class="piece black">&#9822</div>
-			</div>	
-			<div id='black-&#9821' class='unused square'>
-				<div class="piece black">&#9821</div>
-			</div>	
-			<div id='black-&#9820' class='unused square'>
-				<div class="piece black">&#9820</div>
-			</div>	
-			<div id='black-&#9819' class='unused square'>
-				<div class="piece black">&#9819</div>
-			</div>	
-			<div id='black-&#9818' class='unused square'>
-				<div class="piece black">&#9818</div>
-			</div>
-			<div class='square side deleteme'></div>	
-			<div class='square dark deleteme'></div>
-			<div class='square dark deleteme'></div>		
-		</div>	
-	</div>
-	<div class="form-actions">
-		<button id='reset-board' class='btn'>Reset</button>
-		<button id='clear-board' class='btn'>Clear</button>
-	</div>
+    <div id='setup_board'>
+      <%= render :partial => 'setupboard' %>
+    </div>
+    <div class="form-actions">
+      <button id='reset-board' class='btn'>Reset</button>
+      <button id='clear-board' class='btn'>Clear</button>
+    </div>
   </div>
+
 </div>
 
 

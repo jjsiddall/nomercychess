@@ -8,6 +8,7 @@ NoMercyChess::Application.routes.draw do
   resources :exercises do
     member do
       get 'practice'
+      get 'builder'
     end
   end
   resources :moves

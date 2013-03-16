@@ -55,7 +55,7 @@ function one_move(current_move, piece){
 	var rank_change = find_change_in_rank(current_move);
 	var file_change = find_change_in_file(current_move);
 		
-	if (((file_change != 1) || (file_change != -1)) && (piece === "♚")){
+	if (((file_change > 1) || (file_change < -1)) && (piece === "♚")){
 		console.log("castle!")
 		
 		//the initial King move (no different than basic movement)

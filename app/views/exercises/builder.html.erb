@@ -1,0 +1,88 @@
+<style media="screen" type="text/css">
+
+  #setup_board {
+    height: 279px;  width: 225px;
+  }
+  #board {
+    height: 230px;  width: 225px;
+  }
+  .coordinate { 
+    font-size: 5.4px; 
+  }
+  .top {
+    height: 9px;  width: 27px;
+    padding-bottom: 5px;
+  }
+  .corner {
+    height: 9px;  width: 9px;
+    padding-bottom: 5px;
+  }
+  .square {
+    height: 27px;  width: 27px;
+  }
+  .side{
+    height: 27px;  width: 9px;
+
+  }
+  .piece {
+    font-size:18px;
+    padding-left: 4.5px; padding-top: 3px;
+  }
+</style>
+
+<div class="row">
+  <div class="span4">
+  	<%- model_class = Exercise -%>
+  	<div class="page-header">
+  	  <h1><%=@exercise.title %> Builder</h1>
+  	</div>
+    <%= render :partial => 'board' %>
+
+    <fieldset>
+      <legend>User Plays:</legend>
+      <label>Label name</label>
+      <label class="radio">
+        <input type="radio" name="optionsRadios" checked value="true">White
+      </label>
+      <label class="radio">
+        <input type="radio" name="optionsRadios" value="false">Black
+      </label>
+    </fieldset>
+  </div>
+<!-- </div>
+<div class="row"> -->
+  <div class="span8">
+    <button class='save-Move btn btn-primary'>Save Move</button>
+    <table class="table table-striped table-condensed table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th colspan=3>White</th>
+          <th colspan=3>Black</th>
+          <th>Explanation</th>
+        </tr>
+      </thead>
+      <tbody  id="move-list">
+        <% @exercise.moves.each do |move| %>
+          <tr class="move">
+            <td><%= move.move_number %></td>
+            <td><%= move.piece_white %></td>
+            <td><%= move.starting_coordinate_white %></td>
+            <td><%= move.ending_coordinate_white %></td>
+            <td><%= move.piece_black %></td>
+            <td><%= move.starting_coordinate_black %></td>
+            <td><%= move.ending_coordinate_black %></td>
+            <td><%= move.explanation %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <button class='save-Move btn btn-primary'>Save Move</button>
+  </div>    
+</div>
+
+
+
+
+
+

@@ -41,3 +41,6 @@ gem "quiet_assets", ">= 1.0.1", :group => :development
 gem "better_errors", ">= 0.3.2", :group => :development
 gem "binding_of_caller", ">= 0.6.8", :group => :development
 gem "hub", ">= 1.10.2", :require => nil, :group => [:development]
+
+#for seed file generation
+gem "seed_dump", "~> 0.4.2"
