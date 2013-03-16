@@ -51,6 +51,7 @@ class ExercisesController < ApplicationController
   # GET /exercises/1/builder
   def builder
     @exercise = Exercise.find(params[:id])
+    @move = Move.new
   end
 
   # POST /exercises

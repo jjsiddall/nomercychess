@@ -1,6 +1,6 @@
 //var showPopover = true;
 
-$('.exercises.show').ready(function() {
+$('.exercises.show, .exercises.builder').ready(function() {
 	//shows the opening lessons Modal - describes the lesson
 	$('#descriptionModal').modal('show');
 
@@ -9,7 +9,7 @@ $('.exercises.show').ready(function() {
 		//grab the first notShownMove in the list
 		var accordion = $('.notShownMove:first')
 		//Gets the notShown's ID - this will be used further on for the "click" event of the accordion
-		var accordionID = accordion.data("accordionnumber");
+		var accordionID = accordion.data("movenumber");
 		//checks that there is an accordion for the next move
 		if (accordionID != undefined){
 			//unhides the top notShownMove and takes the "notShownMove" off
@@ -38,7 +38,7 @@ $('.exercises.show').ready(function() {
 	//an event listener that pays attention to when the previous move completed (and then fires the next)
 	$(document).on('move/completed', function() {
 		//assuming there is a accodion being looked at the system will go to the next move
-		if ($(".playToHere").data("accordionnumber") != null) {
+		if ($(".playToHere").data("movenumber") != null) {
 			playMove();
 		}	
 	});
@@ -194,7 +194,7 @@ function playMove(){
 
 	//check if the showingAccodion is greater than the playToHereAccodion
 	//slightly counter intuitive: in this case "greater" actually refers to "earlier in the list" so we are moving up the list/screen visually
-	if (showingAccordion.data("accordionnumber") > playToHereAccordion.data("accordionnumber")) {
+	if (showingAccordion.data("movenumber") > playToHereAccordion.data("movenumber")) {
 		console.log('going up!')
 
 		moveBlackThenWhite(showingAccordion);
@@ -205,14 +205,21 @@ function playMove(){
 	
 	}
 	//this is the opposite code as above - here we are moving down visually the list of accordions
-	else if (showingAccordion.data("accordionnumber") < playToHereAccordion.data("accordionnumber")){
+	else if (showingAccordion.data("movenumber") < playToHereAccordion.data("movenumber")){
 		console.log("going down!");
 		
 		//The major change between this and the above is here when the first move is made
 		//In the case of the first move, no accordion has "showingMove" so if it is null we tell it to put showing move on the same accordion as the
 		//playToHere accordion
-		if (showingAccordion.data("accordionnumber") === null){
-			playToHereAccordion.addClass("showingMove");
+		if (showingAccordion.data("movenumber") === null){
+
+
+//its all broken because of this!!!!
+
+			// playToHereAccordion.addClass("showingMove");
+
+			$(".move:first").addClass("showingMove");
+
 		}
 		else{
 			//otherwise, we remove showingMove from the showingMove accordion and add it to the next accordion using the DOM

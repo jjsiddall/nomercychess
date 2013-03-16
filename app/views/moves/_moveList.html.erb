@@ -3,47 +3,23 @@
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:move_number) %></th>
-      <th><%= model_class.human_attribute_name(:piece_white) %></th>
-      <th><%= model_class.human_attribute_name(:starting_coordinate_white) %></th>
-      <th><%= model_class.human_attribute_name(:ending_coordinate_white) %></th>      
-      <th><%= model_class.human_attribute_name(:piece_black) %></th>
-      <th><%= model_class.human_attribute_name(:starting_coordinate_black) %></th>
-      <th><%= model_class.human_attribute_name(:ending_coordinate_black) %></th>
+      <th colspan="3">White</th>
+      <th colspan="3">Black</th>
       <th><%= model_class.human_attribute_name(:explanation) %></th>
       <th><%= model_class.human_attribute_name(:computer) %></th>
       <th><%= model_class.human_attribute_name(:exercise_id) %></th>
       <th><% model_class.human_attribute_name(:updated_at) %>Updated</th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <% show_moves.each do |move| %>
-      <tr>
-        <td><%= link_to move.id, move_path(move) %></td>
-        <td><%= move.move_number %></td>
-        <td><%= move.piece_white %></td>
-        <td><%= move.starting_coordinate_white %></td>
-        <td><%= move.ending_coordinate_white %></td>
-        <td><%= move.piece_black %></td>
-        <td><%= move.starting_coordinate_black %></td>
-        <td><%= move.ending_coordinate_black %></td>
-        <td><%= move.explanation %></td>
-
-
-        <td><%= move.computer ? "White" : "Black" %></td>
-        <td><%= move.exercise.title %></td>        
-        <td><%= time_ago_in_words(l move.updated_at) %> ago</td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_move_path(move), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      move_path(move),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
-        </td>
-      </tr>
+      <%= render('moves/move', :move => move) %>
     <% end %>
+
+    <tr id="new_move_tr"><%= render('moves/formjs') %></tr>
+
   </tbody>
 </table>
 

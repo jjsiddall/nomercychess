@@ -1,5 +1,12 @@
 $('.exercises.builder').ready(function() {
 	
+	$('td').on('click', function() {
+		$(this).parent().addClass("playToHere");
+
+		//run "playMove" goes one move at a time
+		playMove();
+	});
+
 	//this commits the move after its been made
 	$('.save-Move').on('click', function() {
   		if ($("#move-number").length != 0){ saveMove();}
@@ -125,6 +132,5 @@ function updateIds(){
     $('#black-start').attr('id', "");
     $('#black-end').attr('id', "");
     $('#explanation').attr('id', "");
-
-        
 }
+

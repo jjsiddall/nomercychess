@@ -53,30 +53,9 @@
 <div class="row"> -->
   <div class="span8">
     <button class='save-Move btn btn-primary'>Save Move</button>
-    <table class="table table-striped table-condensed table-bordered table-hover">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th colspan=3>White</th>
-          <th colspan=3>Black</th>
-          <th>Explanation</th>
-        </tr>
-      </thead>
-      <tbody  id="move-list">
-        <% @exercise.moves.each do |move| %>
-          <tr class="move">
-            <td><%= move.move_number %></td>
-            <td><%= move.piece_white %></td>
-            <td><%= move.starting_coordinate_white %></td>
-            <td><%= move.ending_coordinate_white %></td>
-            <td><%= move.piece_black %></td>
-            <td><%= move.starting_coordinate_black %></td>
-            <td><%= move.ending_coordinate_black %></td>
-            <td><%= move.explanation %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+
+      <%= render('moves/moveList', :model_class => Move, :show_moves => @exercise.moves) %>
+    
     <button class='save-Move btn btn-primary'>Save Move</button>
   </div>    
 </div>

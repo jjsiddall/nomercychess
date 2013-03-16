@@ -3,7 +3,8 @@ class MovesController < ApplicationController
   # GET /moves.json
   def index
     @moves = Move.all
-
+    @move = Move.new
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @moves }
@@ -35,6 +36,11 @@ class MovesController < ApplicationController
   # GET /moves/1/edit
   def edit
     @move = Move.find(params[:id])
+
+    respond_to do |format|
+      format.js
+      format.html
+    end
   end
 
   # POST /moves
@@ -44,6 +50,7 @@ class MovesController < ApplicationController
 
     respond_to do |format|
       if @move.save
+        format.js
         format.html { redirect_to @move, notice: 'Move was successfully created.' }
         format.json { render json: @move, status: :created, location: @move }
       else
@@ -60,6 +67,7 @@ class MovesController < ApplicationController
 
     respond_to do |format|
       if @move.update_attributes(params[:move])
+        format.js
         format.html { redirect_to @move, notice: 'Move was successfully updated.' }
         format.json { head :no_content }
       else
@@ -76,6 +84,7 @@ class MovesController < ApplicationController
     @move.destroy
 
     respond_to do |format|
+      format.js
       format.html { redirect_to moves_url }
       format.json { head :no_content }
     end

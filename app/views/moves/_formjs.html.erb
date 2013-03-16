@@ -1,0 +1,20 @@
+<%= form_for(@move, :remote => true) do |f| %>
+
+  <td></td>
+  <td><%= f.text_field :move_number, :class => "span1", :placeholder => "#" %></td>
+  <td><%= f.select :piece_white, [['...','...'],['♟','♟'],['♞','♞'],['♝','♝'],['♜','♜'],['♛','♛'],['♚','♚']],{}, {:class => 'span1'}%></td>
+  <td><%= f.text_field :starting_coordinate_white, :class => 'span1', :placeholder => "start"  %></td>
+  <td><%= f.text_field :ending_coordinate_white, :class => 'span1', :placeholder => "end"  %></td>
+  <td><%= f.select :piece_black, [['...','...'],['♟','♟'],['♞','♞'],['♝','♝'],['♜','♜'],['♛','♛'],['♚','♚']],{}, {:class => 'span1'}%></td>
+  <td><%= f.text_field :starting_coordinate_black, :class => 'span1', :placeholder => "start"  %></td>
+  <td><%= f.text_field :ending_coordinate_black, :class => 'span1', :placeholder => "end"  %></td>
+  <td><%= f.text_area :explanation, :class => 'text_area', :rows =>'2' %></td>  
+  <td><%= f.radio_button :computer, true %> White
+  <%= f.radio_button :computer, false %> Black </td>
+  
+
+  <td><%= f.collection_select :exercise_id, Exercise.all, :id, :title, {:include_blank => true}, {:class => 'span2'} %></td>
+  <td></td>
+  <td><%= f.submit "submit", :class => 'btn btn-primary' %></td>
+  <td></td>
+<% end %>
