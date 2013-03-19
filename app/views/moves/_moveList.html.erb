@@ -1,14 +1,14 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:move_number) %></th>
+      <th class="move_id"><%= model_class.human_attribute_name(:id) %></th>
+      <th>#</th>
       <th colspan="3">White</th>
       <th colspan="3">Black</th>
       <th><%= model_class.human_attribute_name(:explanation) %></th>
-      <th><%= model_class.human_attribute_name(:computer) %></th>
-      <th><%= model_class.human_attribute_name(:exercise_id) %></th>
-      <th><% model_class.human_attribute_name(:updated_at) %>Updated</th>
+      <th class="computer"><%= model_class.human_attribute_name(:computer) %></th>
+      <th class="exercise_title"><%= model_class.human_attribute_name(:exercise_id) %></th>
+      <th class="updated"><% model_class.human_attribute_name(:updated_at) %>Updated</th>
       <th></th>
       <th></th>
     </tr>
@@ -23,6 +23,3 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_move_path,
-            :class => 'btn btn-primary' %>

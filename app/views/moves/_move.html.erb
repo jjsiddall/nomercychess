@@ -1,20 +1,20 @@
 <tr id="move_<%= move.id %>" class="move" data-movenumber="<%= move.move_number %>" data-white="<%= move.piece_white %>:<%= move.starting_coordinate_white %>-<%= move.ending_coordinate_white %>" data-black="<%= move.piece_black %>:<%= move.starting_coordinate_black %>-<%= move.ending_coordinate_black %>">
-    <td><%= link_to move.id, move_path(move) %></td>
-    <td><%= move.move_number %></td>
-    <td><%= move.piece_white %></td>
-    <td><%= move.starting_coordinate_white %></td>
-    <td><%= move.ending_coordinate_white %></td>
-    <td><%= move.piece_black %></td>
-    <td><%= move.starting_coordinate_black %></td>
-    <td><%= move.ending_coordinate_black %></td>
-    <td><%= move.explanation %></td>
+    <td class="move_id"><%= link_to move.id, move_path(move) %></td>
+    <td class="move_number"><%= move.move_number %></td>
+    <td class="piece_white"><%= move.piece_white %></td>
+    <td class="start_white"><%= move.starting_coordinate_white %></td>
+    <td class="end_white"><%= move.ending_coordinate_white %></td>
+    <td class="piece_black"><%= move.piece_black %></td>
+    <td class="start_black"><%= move.starting_coordinate_black %></td>
+    <td class="end_black"><%= move.ending_coordinate_black %></td>
+    <td class="explanation"><%= move.explanation %></td>
 
-    <td><%= move.computer ? "White" : "Black" %></td>
-    <td><%= move.exercise.title %></td>     
+    <td class="computer"><%= move.computer ? "White" : "Black" %></td>
+    <td class="exercise_title"><%= move.exercise.title %></td>     
 
-    <td><%= time_ago_in_words(l move.updated_at) %> ago</td>
+    <td class="updated"><%= time_ago_in_words(l move.updated_at) %> ago</td>
 
-  	<td><%= link_to('Edit',edit_move_url(move.id), :remote => true, :class => "btn btn-inverse") %></td>
-  	<td><%= link_to('Delete', move_url(move.id), :method => 'delete', :remote => true, :class => "btn btn-danger") %></td>
+  	<td class="button_edit"><%= link_to('Edit',edit_move_url(move.id), :remote => true, :class => "btn btn-inverse") %></td>
+  	<td class="button_delete"><%= link_to('Delete', move_url(move.id), :method => 'delete', :remote => true, :class => "btn btn-danger") %></td>
     
 </tr>

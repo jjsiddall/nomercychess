@@ -1,10 +1,36 @@
 $('.exercises.builder').ready(function() {
 	
-	$('td').on('click', function() {
-		$(this).parent().addClass("playToHere");
+	$('.move:last').addClass('playToHere');
+	playMove();
 
-		//run "playMove" goes one move at a time
-		playMove();
+	$('td:not(.new, .explanation)').on('click', function() {
+
+		//if .warning is already there it means there is something being edited and now we are clicking it again so we should save
+		if ($(".warning").length === 0) {
+
+			$(this).parent().addClass("playToHere").addClass("warning");
+
+			//store what is currently in the Explanation column
+			var currentExplanation = $(".warning td.explanation").html();
+			//remove current html from Explanation cell
+			$(".warning td.explanation").html("");
+			//append a textbox to the Explanation cell
+			$(".warning td.explanation").append('<textarea id="edit-Explanation" rows="2"></textarea>');
+			//add what was in the Explanation cell to the textarea
+			$("#edit-Explanation").val(currentExplanation);
+
+			//run "playMove" goes one move at a time
+			playMove();		
+		}
+		else {
+			console.log($("#edit-Explanation").val())
+
+			 $(".warning td.explanation").html($("#edit-Explanation").val());
+
+			updateMove();		
+			$(".warning").removeClass("warning");			
+		}
+
 	});
 
 	//this commits the move after its been made
@@ -33,48 +59,126 @@ $('.exercises.builder').ready(function() {
 			pieceBeingMoved.css("top", "");
 			pieceBeingMoved.css("left", "");
 
-			showMove(movedPiece, movedFrom, movedTo, movedColor);
-//			saveMove(movedPiece, movedFrom, movedTo, movedColor);
+			if ($(".warning").length != 0) {
+				editMove(movedPiece, movedFrom, movedTo, movedColor);
+			}
+			else {
+				newMove(movedPiece, movedFrom, movedTo, movedColor);
+			}
     	}
   	});
 
 });
 
-function showMove(movedPiece, movedFrom, movedTo, movedColor){
-	console.log($(".new-move"))
-	
-	//get last move number in the current list and add one for the current move number
-	var moveNumber = parseInt($('.move:last td:first-child').html())+1;
-	//set moveNumber to 1 if not defined
-	if (isNaN(moveNumber)){ moveNumber = 1 };
+function newMove(movedPiece, movedFrom, movedTo, movedColor){
 
-console.log(moveNumber)
-
-	if ($("#move-number").length===0){
-		$('#move-list').append("<tr id='new-move'> \
-			<td id='move-number'>"+ moveNumber +"</td> \
-			<td id='white-piece'>...</td> \
-            <td id='white-start'></td> \
-            <td id='white-end'></td> \
-			<td id='black-piece'>...</td> \
-            <td id='black-start'></td> \
-            <td id='black-end'></td> \
-            <td id='explanation'><textarea id='exp-textbox' rows='3' class='span5'></textarea></td> \
-          </tr>")
-	}
+	//if the user has clicked a specific row then they are intending to update that row
+	//here we update the UI to match the user change
 
 	if (movedColor === "white"){
-		$('#white-piece').html(movedPiece);
-        $('#white-start').html(movedFrom);
-        $('#white-end').html(movedTo); 
+		$("#move_piece_white").val(movedPiece);
+	    $("#move_starting_coordinate_white").val(movedFrom);
+	    $("#move_ending_coordinate_white").val(movedTo); 
 	}
 	else{
-		$('#black-piece').html(movedPiece);
-        $('#black-start').html(movedFrom);
-        $('#black-end').html(movedTo); 
+		$("#move_piece_black").val(movedPiece);
+	    $("#move_starting_coordinate_black").val(movedFrom);
+	    $("#move_ending_coordinate_black").val(movedTo); 
 	}
 	
+	//true === White is computer, false === Black is computer
+	var user = $('input:radio[name=optionsRadios]:checked').val()
+	if (user === "white"){
+		$('#move_computer_false').attr('checked', true);
+		$('#move_computer_true').attr('checked', false);
+	}
+	else {
+		$('#move_computer_false').attr('checked', false);
+		$('#move_computer_true').attr('checked', true);
+	}
+
+	$('#move_move_number').val($('.move_number').length);
+	$('#move_exercise_id').val($('#board').data('id'));
 }
+
+function editMove(movedPiece, movedFrom, movedTo, movedColor){
+
+	//if the user has clicked a specific row then they are intending to update that row
+	//here we update the UI to match the user change
+
+	if (movedColor === "white"){
+		$(".warning td:nth-child(3)").html(movedPiece);
+	    $(".warning td:nth-child(4)").html(movedFrom);
+	    $(".warning td:nth-child(5)").html(movedTo); 
+	}
+	else{
+		$(".warning td:nth-child(6)").html(movedPiece);
+	    $(".warning td:nth-child(7)").html(movedFrom);
+	    $(".warning td:nth-child(8)").html(movedTo); 
+	}
+}
+
+//update Move
+//similar to saveMove(), but is used for moves already in the DB (so uses PUT rather than POST)
+function updateMove(){
+
+	var tableName = "moves";
+	var columnName= tableName.slice(0, -1);
+
+	console.log($(".warning td:nth-child(1)"))
+
+	//build the URL I am sending data to
+	var url_field =  $(".warning td:nth-child(1)").children().attr("href");
+
+	console.log(url_field);
+
+	//create the json as a string for the field and data that will be passed in the ajax call
+	//we use all the columns of table as it is easier to do a blanket update
+	var dataObj = "{\"" + columnName + '[move_number]' + "\":\"" + $(".warning td:nth-child(2)").html() +
+			   "\", \"" + columnName + '[piece_white]' + "\":\"" + $(".warning td:nth-child(3)").html() +
+			   "\", \"" + columnName + '[starting_coordinate_white]' + "\":\"" + $(".warning td:nth-child(4)").html() +
+			   "\", \"" + columnName + '[ending_coordinate_white]' + "\":\"" + $(".warning td:nth-child(5)").html() +
+			   "\", \"" + columnName + '[piece_black]' + "\":\"" + $(".warning td:nth-child(6)").html() +
+			   "\", \"" + columnName + '[starting_coordinate_black]' + "\":\"" + $(".warning td:nth-child(7)").html() +
+			   "\", \"" + columnName + '[ending_coordinate_black]' + "\":\"" + $(".warning td:nth-child(8)").html() +
+			   "\", \"" + columnName + '[explanation]' + "\":\"" + $(".warning td:nth-child(9)").html() +
+			   "\", \"" + columnName + '[exercise_id]' + "\":\"" + $('#board').data('id') +
+			   "\", \"" + columnName + '[computer]' + "\":\"" + $('input[name=optionsRadios]:checked').val() +
+			   "\"}" ;
+
+	//convert the json string into json
+	dataObj = jQuery.parseJSON(dataObj);
+
+    $.ajax({
+    	url: url_field,
+    	type: 'PUT',
+    	data: dataObj,
+		dataType: 'json'
+	});
+
+}
+
+
+// 	//get last move number in the current list and add one for the current move number
+// 	var moveNumber = parseInt($('.move:last td:first-child').html())+1;
+// 	//set moveNumber to 1 if not defined
+// 	if (isNaN(moveNumber)){ moveNumber = 1 };
+
+// console.log(moveNumber)
+
+// 	if ($("#move-number").length===0){
+// 		$('#move-list').append("<tr id='new-move'> \
+// 			<td id='move-number'>"+ moveNumber +"</td> \
+// 			<td id='white-piece'>...</td> \
+//             <td id='white-start'></td> \
+//             <td id='white-end'></td> \
+// 			<td id='black-piece'>...</td> \
+//             <td id='black-start'></td> \
+//             <td id='black-end'></td> \
+//             <td id='explanation'><textarea id='exp-textbox' rows='3' class='span5'></textarea></td> \
+//           </tr>")
+// 	}
+
 
 //update / add Move
 function saveMove(){

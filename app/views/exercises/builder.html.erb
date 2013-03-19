@@ -28,35 +28,38 @@
     font-size:18px;
     padding-left: 4.5px; padding-top: 3px;
   }
+/*  #new_move_tr {display: none;}*/
+  .move_id {display:none;}
+  .computer {display:none;}
+  .exercise_title {display:none;}
+  .updated {display:none;}
 </style>
 
 <div class="row">
-  <div class="span4">
+  <div class="span3">
   	<%- model_class = Exercise -%>
   	<div class="page-header">
   	  <h1><%=@exercise.title %> Builder</h1>
   	</div>
-    <%= render :partial => 'board' %>
-
+    
+    <%= render :partial => 'setupboard' %>
     <fieldset>
       <legend>User Plays:</legend>
       <label>Label name</label>
       <label class="radio">
-        <input type="radio" name="optionsRadios" checked value="true">White
+        <input type="radio" name="optionsRadios" checked value="white">White
       </label>
       <label class="radio">
-        <input type="radio" name="optionsRadios" value="false">Black
+        <input type="radio" name="optionsRadios" value="black">Black
       </label>
     </fieldset>
   </div>
 <!-- </div>
 <div class="row"> -->
-  <div class="span8">
-    <button class='save-Move btn btn-primary'>Save Move</button>
+  <div class="span9">
 
       <%= render('moves/moveList', :model_class => Move, :show_moves => @exercise.moves) %>
     
-    <button class='save-Move btn btn-primary'>Save Move</button>
   </div>    
 </div>
 

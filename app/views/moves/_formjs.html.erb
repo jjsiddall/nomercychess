@@ -1,20 +1,23 @@
 <%= form_for(@move, :remote => true) do |f| %>
 
-  <td></td>
-  <td><%= f.text_field :move_number, :class => "span1", :placeholder => "#" %></td>
-  <td><%= f.select :piece_white, [['...','...'],['♟','♟'],['♞','♞'],['♝','♝'],['♜','♜'],['♛','♛'],['♚','♚']],{}, {:class => 'span1'}%></td>
-  <td><%= f.text_field :starting_coordinate_white, :class => 'span1', :placeholder => "start"  %></td>
-  <td><%= f.text_field :ending_coordinate_white, :class => 'span1', :placeholder => "end"  %></td>
-  <td><%= f.select :piece_black, [['...','...'],['♟','♟'],['♞','♞'],['♝','♝'],['♜','♜'],['♛','♛'],['♚','♚']],{}, {:class => 'span1'}%></td>
-  <td><%= f.text_field :starting_coordinate_black, :class => 'span1', :placeholder => "start"  %></td>
-  <td><%= f.text_field :ending_coordinate_black, :class => 'span1', :placeholder => "end"  %></td>
-  <td><%= f.text_area :explanation, :class => 'text_area', :rows =>'2' %></td>  
-  <td><%= f.radio_button :computer, true %> White
+  <td class="new move_id"></td>
+  <td class="new move_number"><%= f.text_field :move_number, :class => "span1", :placeholder => "#" %></td>
+  <td class="new piece_white"><%= f.select :piece_white, [['...','...'],['♟','♟'],['♞','♞'],['♝','♝'],['♜','♜'],['♛','♛'],['♚','♚']],{}, {:class => 'span1'}%></td>
+  <td class="new start_white"><%= f.text_field :starting_coordinate_white, :class => 'span1', :placeholder => "start"  %></td>
+  <td class="new end_white"><%= f.text_field :ending_coordinate_white, :class => 'span1', :placeholder => "end"  %></td>
+  <td class="new piece_black"><%= f.select :piece_black, [['...','...'],['♟','♟'],['♞','♞'],['♝','♝'],['♜','♜'],['♛','♛'],['♚','♚']],{}, {:class => 'span1'}%></td>
+  <td class="new start_black"><%= f.text_field :starting_coordinate_black, :class => 'span1', :placeholder => "start"  %></td>
+  <td class="new end_black"><%= f.text_field :ending_coordinate_black, :class => 'span1', :placeholder => "end"  %></td>
+  <td class="new explanation"><%= f.text_area :explanation, :class => 'text_area', :rows =>'2' %></td>  
+  <td class="new computer"><%= f.radio_button :computer, true %> White
   <%= f.radio_button :computer, false %> Black </td>
   
 
-  <td><%= f.collection_select :exercise_id, Exercise.all, :id, :title, {:include_blank => true}, {:class => 'span2'} %></td>
-  <td></td>
-  <td><%= f.submit "submit", :class => 'btn btn-primary' %></td>
+  <td class="new exercise_title"><%= f.collection_select :exercise_id, Exercise.all, :id, :title, {:include_blank => true}, {:class => 'span2'} %></td>
+  <td class="new updated"></td>
+  <td><%= f.submit "submit", :class => 'new btn btn-primary' %></td>
   <td></td>
 <% end %>
+   
+
+    
