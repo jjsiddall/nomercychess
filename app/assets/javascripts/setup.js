@@ -1,9 +1,4 @@
 $('.exercises.edit').ready(function() {
-	//"edit" the button "clear" for removing all the pieces (and updating the db)
-	$('#clear-board').on('click', function() { clearBoard(); });
-
-	//"edit" the button "reset" for removing all the pieces (and updating the db)
-	$('#reset-board').on('click', function() { resetBoard(); });
 
 	//only update the db with the board setup if it is the exercise "edit" screen
   	//used for making the board able to take items that are dropped on it

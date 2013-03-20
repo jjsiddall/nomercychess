@@ -1,37 +1,41 @@
 $('.exercises.builder').ready(function() {
 	
+	$('#initialSetup').on('click', function() {
+		saveCurrentBoard();
+	});
+
 	$('.move:last').addClass('playToHere');
 	playMove();
 
-	$('td:not(.new, .explanation)').on('click', function() {
+	makeTableClickable();
+	// $('td:not(.new, .explanation)').on('click', function() {
 
-		//if .warning is already there it means there is something being edited and now we are clicking it again so we should save
-		if ($(".warning").length === 0) {
+	// 	//if .warning is already there it means there is something being edited and now we are clicking it again so we should save
+	// 	if ($(".warning").length === 0) {
 
-			$(this).parent().addClass("playToHere").addClass("warning");
+	// 		$(this).parent().addClass("playToHere").addClass("warning");
 
-			//store what is currently in the Explanation column
-			var currentExplanation = $(".warning td.explanation").html();
-			//remove current html from Explanation cell
-			$(".warning td.explanation").html("");
-			//append a textbox to the Explanation cell
-			$(".warning td.explanation").append('<textarea id="edit-Explanation" rows="2"></textarea>');
-			//add what was in the Explanation cell to the textarea
-			$("#edit-Explanation").val(currentExplanation);
+	// 		//store what is currently in the Explanation column
+	// 		var currentExplanation = $(".warning td.explanation").html();
+	// 		//remove current html from Explanation cell
+	// 		$(".warning td.explanation").html("");
+	// 		//append a textbox to the Explanation cell
+	// 		$(".warning td.explanation").append('<textarea id="edit-Explanation" rows="2"></textarea>');
+	// 		//add what was in the Explanation cell to the textarea
+	// 		$("#edit-Explanation").val(currentExplanation);
 
-			//run "playMove" goes one move at a time
-			playMove();		
-		}
-		else {
-			console.log($("#edit-Explanation").val())
+	// 		//run "playMove" goes one move at a time
+	// 		playMove();		
+	// 	}
+	// 	else {
+	// 		console.log($("#edit-Explanation").val())
 
-			 $(".warning td.explanation").html($("#edit-Explanation").val());
+	// 		 $(".warning td.explanation").html($("#edit-Explanation").val());
 
-			updateMove();		
-			$(".warning").removeClass("warning");			
-		}
-
-	});
+	// 		updateMove();		
+	// 		$(".warning").removeClass("warning");			
+	// 	}
+	// });
 
 	//this commits the move after its been made
 	$('.save-Move').on('click', function() {
@@ -238,3 +242,33 @@ function updateIds(){
     $('#explanation').attr('id', "");
 }
 
+function makeTableClickable(){
+	$('td:not(.new, .explanation)').on('click', function() {
+
+		//if .warning is already there it means there is something being edited and now we are clicking it again so we should save
+		if ($(".warning").length === 0) {
+
+			$(this).parent().addClass("playToHere").addClass("warning");
+
+			//store what is currently in the Explanation column
+			var currentExplanation = $(".warning td.explanation").html();
+			//remove current html from Explanation cell
+			$(".warning td.explanation").html("");
+			//append a textbox to the Explanation cell
+			$(".warning td.explanation").append('<textarea id="edit-Explanation" rows="2"></textarea>');
+			//add what was in the Explanation cell to the textarea
+			$("#edit-Explanation").val(currentExplanation);
+
+			//run "playMove" goes one move at a time
+			playMove();		
+		}
+		else {
+			console.log($("#edit-Explanation").val())
+
+			 $(".warning td.explanation").html($("#edit-Explanation").val());
+
+			updateMove();		
+			$(".warning").removeClass("warning");			
+		}
+	});
+}

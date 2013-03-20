@@ -3,6 +3,7 @@ class ExercisesController < ApplicationController
   # GET /exercises.json
   def index
     @exercises = Exercise.all
+    @move = Move.new
 
     respond_to do |format|
       format.html # index.html.erb

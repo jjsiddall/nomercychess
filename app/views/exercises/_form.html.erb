@@ -1,25 +1,26 @@
 <%= form_for @exercise, :html => { :class => '' } do |f| %>
-  <div class="control-group">
-    <%= f.label :title, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :title, :class => 'text_field' %>
+  <div class="span3">
+    <div class="control-group">
+      <%= f.label :title, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :title, :class => 'text_field' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :lesson_id, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.collection_select :lesson_id, Lesson.all, :id, :title, :include_blank => true %>
+      </div>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :lesson_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.collection_select :lesson_id, Lesson.all, :id, :title, :include_blank => true %>
+  <div class="span6">
+    <div class="control-group">
+      <%= f.label :description, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_area :description, :class => 'text_area span6', :rows =>'3' %>
+      </div>
     </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :description, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :description, :class => 'text_area' %>
-    </div>
-  </div>
-
-  <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-mini btn-primary' %>
-    <%= link_to 'Cancel', exercises_path, :class => 'btn btn-mini' %>
+      <%= f.submit nil, :class => 'btn btn-mini btn-primary' %>
+      <%= link_to 'Cancel', exercises_path, :class => 'btn btn-mini' %>
   </div>
 <% end %>

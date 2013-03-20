@@ -106,7 +106,7 @@ function move_rank(squareName, distanceInSquares){
 
     var newSpot = oldSpot-(distanceInSquares*square_size);
     //animate the movement
-  	$(pieceBeingMoved).animate( {"top": newSpot +"px"}, 500 );	
+  	$(pieceBeingMoved).animate( {"top": newSpot +"px"}, animationSpeed );	
 }
 
 //Basic Movement: Right or left on the board
@@ -126,7 +126,7 @@ function move_file(old_square, new_square, distanceInSquares){
 
     var newSpot = oldSpot+(distanceInSquares * square_size);
     //animate the movement
-  	$(pieceBeingMoved).animate( {"left": newSpot +"px"}, 500, function() {
+  	$(pieceBeingMoved).animate( {"left": newSpot +"px"}, animationSpeed, function() {
     	// Animation complete append piece
 		append_to_square(old_square, new_square);
   	 });
@@ -152,7 +152,7 @@ function move_diagonal(old_square, new_square, rank_change, file_change){
   	$(pieceBeingMoved).animate({
   		"top": oldSpotTop-(rank_change * square_size) +"px", 
 		"left": oldSpotLeft+(file_change * square_size) +"px", 
-  		}, 500 , function() {
+  		}, animationSpeed , function() {
     		// Animation complete append piece
 			append_to_square(old_square, new_square);
   	 });

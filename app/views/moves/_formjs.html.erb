@@ -15,8 +15,8 @@
 
   <td class="new exercise_title"><%= f.collection_select :exercise_id, Exercise.all, :id, :title, {:include_blank => true}, {:class => 'span2'} %></td>
   <td class="new updated"></td>
-  <td><%= f.submit "submit", :class => 'new btn btn-primary' %></td>
-  <td></td>
+  <td class="new"><%= f.submit "submit", :class => 'new btn btn-primary', :id => 'commit-Move' %></td>
+  <td class="new"></td>
 <% end %>
    
 
