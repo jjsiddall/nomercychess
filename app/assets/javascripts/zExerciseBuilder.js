@@ -1,4 +1,4 @@
-$('.exercises.builder').ready(function() {
+$('.exercises.edit, .exercises.new').ready(function() {
 	
 	$('#initialSetup').on('click', function() {
 		saveCurrentBoard();
@@ -69,6 +69,8 @@ $('.exercises.builder').ready(function() {
 			else {
 				newMove(movedPiece, movedFrom, movedTo, movedColor);
 			}
+ 	    	//reset the extra piece set
+			resetExtraPiece($(ui.draggable));
     	}
   	});
 

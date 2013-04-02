@@ -1,7 +1,7 @@
 var animationSpeed = 500;
 
 //sets up the board for where there is a board show ("show" and "edit")
-$('.exercises.show, .exercises.edit, .exercises.practice, .exercises.builder').ready(function() {
+$('.exercises.show, .exercises.edit, .exercises.practice, .exercises.new').ready(function() {
 	//we load pieces on exercises "show" and "edit", but no others
 
 	loadPiecesOnBoard($("#board").data('initial_setup').split(","));
@@ -11,7 +11,7 @@ $('.exercises.show, .exercises.edit, .exercises.practice, .exercises.builder').r
 	// });
 });
 
-$('.exercises.practice, .exercises.edit, .exercises.builder').ready(function() {
+$('.exercises.practice, .exercises.edit, .exercises.new').ready(function() {
 	//makes pieces only draggable for
 	makeDraggable();
 });
@@ -20,7 +20,7 @@ $('.exercises.builder').ready(function() {
 	animationSpeed = 1;
 });
 
-$('.exercises.edit, .exercises.builder').ready(function() {
+$('.exercises.edit, .exercises.new').ready(function() {
 	//"edit" the button "clear" for removing all the pieces (and updating the db)
 	$('#clear-board').on('click', function() { clearBoard(); });
 

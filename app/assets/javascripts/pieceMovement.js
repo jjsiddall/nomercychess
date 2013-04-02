@@ -46,6 +46,8 @@ $('.exercises.show, .exercises.builder').ready(function() {
 
 function one_move(current_move, piece){
 
+	// console.log(current_move + " " + piece)
+	// console.log(current_move[1].charAt(1))
 	//bail out of this function if the piece coming in is not a piece (but is "..." instead)
 	if (piece === "..."){return};
 
@@ -81,6 +83,16 @@ function one_move(current_move, piece){
 	//debugging
 	highlightSquare(current_move[0], "yellow");
 	highlightSquare(current_move[1], "yellow");
+
+	if ((piece === "♟") && ((current_move[1].charAt(1) === "8") || (current_move[1].charAt(1) ==="1" ))) {
+		console.log("promotion!")
+
+
+		$("#"+current_move[0]).children().promise().done(function() {
+			$("#"+ current_move[1]).children().html("♛")
+			highlightSquare(current_move[1], "gold");	
+		})
+	}
 
 }
 
@@ -166,7 +178,7 @@ function append_to_square(old_square, new_square_id){
 	var new_square = $("#"+new_square_id);
 
 	if (new_square.children().length > 0){
-		console.log(new_square_id)
+		//console.log(new_square_id)
 		highlightSquare(new_square_id, "red");
 		new_square.children().remove();
 	}
@@ -186,7 +198,7 @@ function highlightSquare(boardSquare, highlightColor){ $('#'+boardSquare).effect
 
 //Executes a move that will get the showingMove a accordion closer to playToHere accordion (or points out that they are the same)
 function playMove(){
-	console.log("playMove");
+	//console.log("playMove");
 
 	//cache the DOM elements
 	var showingAccordion = $(".showingMove");  //this is the move that is currently shown on the board
@@ -195,7 +207,7 @@ function playMove(){
 	//check if the showingAccodion is greater than the playToHereAccodion
 	//slightly counter intuitive: in this case "greater" actually refers to "earlier in the list" so we are moving up the list/screen visually
 	if (showingAccordion.data("movenumber") > playToHereAccordion.data("movenumber")) {
-		console.log('going up!')
+		//console.log('going up!')
 
 		moveBlackThenWhite(showingAccordion);
 
@@ -206,7 +218,7 @@ function playMove(){
 	}
 	//this is the opposite code as above - here we are moving down visually the list of accordions
 	else if (showingAccordion.data("movenumber") < playToHereAccordion.data("movenumber")){
-		console.log("going down!");
+		//console.log("going down!");
 		
 		//The major change between this and the above is here when the first move is made
 		//In the case of the first move, no accordion has "showingMove" so if it is null we tell it to put showing move on the same accordion as the
@@ -256,12 +268,12 @@ function moveWhiteThenBlack(showingAccordion){
 
 	//attaches a promise to the DOM move that has been sent in for WHITE
 	$("#"+current_move_white[0]).children().promise().done(function() {
-		console.log("white move done");
+		//console.log("white move done");
 		
 		//make the move for black
 		one_move(current_move_black, piece_black);
 		$("#"+current_move_black[0]).children().promise().done(function() {
-			console.log("black move done");
+			//console.log("black move done");
 			
 			//This is a trigger used to notify the app that the move is complete and then next 
 			//one can start (without it things will happen together and tend to overlap)

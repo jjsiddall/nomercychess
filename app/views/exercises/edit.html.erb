@@ -1,26 +1,4 @@
-
-
-<div class="row">
-  <div class="span4">
-  	<%- model_class = Exercise -%>
-  	<div class="page-header">
-  	  <h1><%=t '.title', :default => t('helpers.titles.edit', :model => model_class.model_name.human,
-  	                                   :default => "Edit '#{@exercise.title}'") %></h1>
-  	</div>
-  	<%= render :partial => 'form' %>
-	<%= link_to 'Destroy', exercise_path, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %>
-  </div>
-<!-- </div>
-<div class="row"> -->
-  <div class="span8">
-    <%= render :partial => 'setupboard' %>
-    <div class="form-actions">
-      <button id='reset-board' class='btn'>Reset</button>
-      <button id='clear-board' class='btn'>Clear</button>
-    </div>
-  </div>
-
-</div>
+<%= render('builder', :page_type => "Edit") %>
 
 
 

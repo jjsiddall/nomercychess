@@ -43,7 +43,7 @@
   <div class="span3">  
     <%- model_class = Exercise -%>
     <div class="page-header">
-      <h1><%=@exercise.title %> Builder</h1>
+      <h1><%=@exercise.title %> - <%= page_type %></h1>
     </div>
   </div>
 
@@ -68,7 +68,6 @@
       
       <fieldset>
         <legend>User Plays:</legend>
-        <label>Label name</label>
         <label class="radio">
           <input type="radio" name="optionsRadios" checked value="white">White
         </label>

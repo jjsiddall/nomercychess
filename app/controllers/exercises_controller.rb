@@ -37,7 +37,8 @@ class ExercisesController < ApplicationController
   # GET /exercises/new.json
   def new
     @exercise = Exercise.new
-
+    @move = Move.new
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @exercise }
@@ -47,13 +48,14 @@ class ExercisesController < ApplicationController
   # GET /exercises/1/edit
   def edit
     @exercise = Exercise.find(params[:id])
-  end
-
-  # GET /exercises/1/builder
-  def builder
-    @exercise = Exercise.find(params[:id])
     @move = Move.new
   end
+
+  # # GET /exercises/1/builder
+  # def builder
+  #   @exercise = Exercise.find(params[:id])
+  #   @move = Move.new
+  # end
 
   # POST /exercises
   # POST /exercises.json
