@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
   before_save :update_stripe
   before_destroy :cancel_subscription
 
+  def completed_exercises_for_lesson(lesson)
+  end
+  
   def update_plan(role)
     self.role_ids = []
     self.add_role(role.name)

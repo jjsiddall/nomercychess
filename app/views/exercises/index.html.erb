@@ -5,9 +5,7 @@
     <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
   </div>
   <!-- 'new Exercise' button -->
-  <%= link_to t('.new', :default => t("helpers.links.new")),
-              new_exercise_path,
-              :class => 'btn btn-primary' %>
+  <%= link_to 'New Exercise', new_exercise_path, :class => 'btn btn-primary' %>
   </div>
 </div>
 <div class="row">

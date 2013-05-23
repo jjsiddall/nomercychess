@@ -1,4 +1,4 @@
-$("#new_move_tr").before("<%= escape_javascript(render('move', :move => @move)) %>");
+$("#new_move_tr").after("<%= escape_javascript(render('move', :move => @move)) %>");
 
 $("#move_<%= @move.id %>").css("display", "none");
 $("#move_<%= @move.id %>").slideToggle();

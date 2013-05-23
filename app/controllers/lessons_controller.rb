@@ -1,4 +1,5 @@
 class LessonsController < ApplicationController
+
   # GET /lessons
   # GET /lessons.json
   def index
@@ -32,6 +33,17 @@ class LessonsController < ApplicationController
     end
   end
 
+  # GET /lessons/1
+  # GET /lessons/1.json
+  def test
+
+
+    respond_to do |format|
+      format.html 
+      format.json { render json: @lesson }
+    end
+  end
+
   # GET /lessons/new
   # GET /lessons/new.json
   def new
@@ -55,7 +67,7 @@ class LessonsController < ApplicationController
 
     respond_to do |format|
       if @lesson.save
-        format.html { redirect_to @lesson, notice: 'Lesson was successfully created.' }
+        format.html { redirect_to builder_lessons_path, notice: 'Lesson was successfully created.' }
         format.json { render json: @lesson, status: :created, location: @lesson }
       else
         format.html { render action: "new" }
@@ -71,7 +83,7 @@ class LessonsController < ApplicationController
 
     respond_to do |format|
       if @lesson.update_attributes(params[:lesson])
-        format.html { redirect_to @lesson, notice: 'Lesson was successfully updated.' }
+        format.html { redirect_to builder_lessons_path, notice: 'Lesson was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -87,8 +99,21 @@ class LessonsController < ApplicationController
     @lesson.destroy
 
     respond_to do |format|
-      format.html { redirect_to lessons_url }
+      format.html { redirect_to builder_lessons_path }
       format.json { head :no_content }
     end
   end
+
+  def clone
+    @lesson = Lesson.find(params[:id]).dup
+
+    if @lesson.save
+      flash[:notice] = 'Item was successfully cloned.'
+    else
+      flash[:notice] = 'ERROR: Item can\'t be cloned.'
+    end
+
+    redirect_to(builder_lessons_path)
+  end 
+
 end

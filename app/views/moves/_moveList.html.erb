@@ -14,11 +14,10 @@
     </tr>
   </thead>
   <tbody>
-    <% show_moves.each do |move| %>
+    <tr id="new_move_tr"><%= render('moves/formjs') %></tr>
+    <% show_moves.reverse.each do |move| %>
       <%= render('moves/move', :move => move) %>
     <% end %>
-
-    <tr id="new_move_tr"><%= render('moves/formjs') %></tr>
 
   </tbody>
 </table>

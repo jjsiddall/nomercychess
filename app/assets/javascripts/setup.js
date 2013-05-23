@@ -79,9 +79,11 @@ function saveCurrentBoard(){
 	var url_field = '/' + save_to_table + '/' + id;
 
 	//create the json as a string for the field and data that will be passed in the ajax call
-	var dataObj = "{\"" + start_field + "\":\"" + initial_setup +"\" }" ;
+	//var dataObj = "{\"" + start_field + "\":\"" + initial_setup +"\" }" ;
+	var dataObj = {};
+	dataObj[start_field] = initial_setup;
 	//convert the json string into json
-	dataObj = jQuery.parseJSON(dataObj);
+	//dataObj = jQuery.parseJSON(dataObj);
 
     $.ajax({
     	url: url_field,

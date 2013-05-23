@@ -26,6 +26,14 @@ class ExercisesController < ApplicationController
   # GET /exercises/1.json
   def practice
     @exercise = Exercise.find(params[:id])
+    # @next_exercise = @exercise.lesson.next_exercise(@exercise)
+    # User.mark_exercise_complete(@exercise)
+    # if !@next_exercise
+    #   redirect_to @exercise.lesson.next_quiz
+    # else
+    #   User.start_exercise(@next_exercise) 
+    # end
+
     
     respond_to do |format|
       format.html # show.html.erb
@@ -64,7 +72,7 @@ class ExercisesController < ApplicationController
 
     respond_to do |format|
       if @exercise.save
-        format.html { redirect_to @exercise, notice: 'Exercise was successfully created.' }
+        format.html { redirect_to edit_exercise_path(@exercise), notice: 'Exercise was successfully created.' }
         format.json { render json: @exercise, status: :created, location: @exercise }
       else
         format.html { render action: "new" }
@@ -80,7 +88,7 @@ class ExercisesController < ApplicationController
 
     respond_to do |format|
       if @exercise.update_attributes(params[:exercise])
-        format.html { redirect_to @exercise, notice: 'Exercise was successfully updated.' }
+        format.html { redirect_to edit_exercise_path(@exercise), notice: 'Exercise was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

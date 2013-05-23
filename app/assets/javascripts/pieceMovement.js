@@ -1,13 +1,13 @@
 //var showPopover = true;
 
-$('.exercises.show, .exercises.builder').ready(function() {
+$('.exercises.show, .exercises.edit').ready(function() {
 	//shows the opening lessons Modal - describes the lesson
 	$('#descriptionModal').modal('show');
 
 	//Adds the click event to the "Next" button
 	$('#nextMove').on('click', function() {
-		//grab the first notShownMove in the list
-		var accordion = $('.notShownMove:first')
+		//grab the last notShownMove in the list
+		var accordion = $('.notShownMove:last');   ////////ORDER CHANGE HAPPENS HERE!
 		//Gets the notShown's ID - this will be used further on for the "click" event of the accordion
 		var accordionID = accordion.data("movenumber");
 		//checks that there is an accordion for the next move
@@ -23,6 +23,11 @@ $('.exercises.show, .exercises.builder').ready(function() {
 			$('#conclusionModal').modal('show');
 		}
 		
+		//if there is no more "notShownMove" then change the button to show "Finish"
+		if ($('.notShownMove').length < 1){
+			console.log("no more moves")
+			$('#nextMove').html("Finish")
+		}
 	});
 
 	//event that is triggered when the accordion is shown for the specific level
@@ -31,8 +36,9 @@ $('.exercises.show, .exercises.builder').ready(function() {
 		$(this).parent().addClass("playToHere");
 		//run "playMove" goes one move at a time
 		playMove();
-		//disables the "next" button so the user cannot go to the next move until the first is completed
-		$('#nextMove').prop('disabled', true);		
+		//disables the "next" button and accordion so the user cannot go to the next move until the first is completed
+		$('#nextMove').prop('disabled', true);
+		$('.move:not(.notShownMove) .accordion-heading .accordion-toggle').prop('disabled', true);	
 	});
 
 	//an event listener that pays attention to when the previous move completed (and then fires the next)
@@ -44,7 +50,13 @@ $('.exercises.show, .exercises.builder').ready(function() {
 	});
 });
 
-function one_move(current_move, piece){
+function one_move(current_move, piece, color){
+
+	//find out if there is nothing on the square that is being proposed to be moved...if there isn't put the piece on that square
+	if($("#"+current_move[0]).children().length === 0){
+		console.log("there's nothing here");
+		$("#"+current_move[0]).append('<div class="piece '+ color +'" style="">'+piece+'</div>');
+	}
 
 	// console.log(current_move + " " + piece)
 	// console.log(current_move[1].charAt(1))
@@ -213,7 +225,7 @@ function playMove(){
 
 		//Now we need to switch the "showingMove" class to the accordion above (visually in the browser) the current accordion we just executed
 		//we do this by accessing the DOM because we are traversing a tree (and the cached object does not know about those accordions around it)
-		$(".showingMove").removeClass("showingMove").prev().addClass("showingMove");
+		$(".showingMove").removeClass("showingMove").next().addClass("showingMove");  ////////ORDER CHANGE HAPPENS HERE!
 	
 	}
 	//this is the opposite code as above - here we are moving down visually the list of accordions
@@ -230,12 +242,12 @@ function playMove(){
 
 			// playToHereAccordion.addClass("showingMove");
 
-			$(".move:first").addClass("showingMove");
+			$(".move:last").addClass("showingMove");   ////////ORDER CHANGE HAPPENS HERE!
 
 		}
 		else{
 			//otherwise, we remove showingMove from the showingMove accordion and add it to the next accordion using the DOM
-			$(".showingMove").removeClass("showingMove").next().addClass("showingMove")
+			$(".showingMove").removeClass("showingMove").prev().addClass("showingMove");   ////////ORDER CHANGE HAPPENS HERE!
 		}
 
 		moveWhiteThenBlack($(".showingMove"));
@@ -243,8 +255,9 @@ function playMove(){
 	}
 	//Here the showingMove and playToHere are on the same accordion (so the moves are completed)
 	else{
-		//since we are done - re-enable the button
+		//since we are done - re-enable the button and the accordion
 		$('#nextMove').prop('disabled', false);
+		$('.move:not(.notShownMove) .accordion-heading .accordion-toggle').prop('disabled', false);	
 		//take off playToHere as the move progression is complete
 		playToHereAccordion.removeClass("playToHere")
 	}
@@ -264,14 +277,14 @@ function moveWhiteThenBlack(showingAccordion){
 	var current_move_black = showingAccordion.data('black').split(":")[1].split("-");
 
 	// and sends WHITE to "one_move"
-	one_move(current_move_white, piece_white);
+	one_move(current_move_white, piece_white, "white");
 
 	//attaches a promise to the DOM move that has been sent in for WHITE
 	$("#"+current_move_white[0]).children().promise().done(function() {
 		//console.log("white move done");
 		
 		//make the move for black
-		one_move(current_move_black, piece_black);
+		one_move(current_move_black, piece_black, "black");
 		$("#"+current_move_black[0]).children().promise().done(function() {
 			//console.log("black move done");
 			
@@ -299,14 +312,14 @@ function moveBlackThenWhite(showingAccordion){
 	var current_move_black = showingAccordion.data('black').split(":")[1].split("-").reverse();
 
 	// and sends BLACK to "one_move"
-	one_move(current_move_black, piece_black);
+	one_move(current_move_black, piece_black, "black");
 
 	//attaches a promise to the DOM move that has been sent in for BLACK
 	$("#"+current_move_black[0]).children().promise().done(function() {
 		console.log("black move done");
 		
 		//make the move for WHITE
-		one_move(current_move_white, piece_white);
+		one_move(current_move_white, piece_white, "white");
 		$("#"+current_move_white[0]).children().promise().done(function() {
 			console.log("white move done");
 			

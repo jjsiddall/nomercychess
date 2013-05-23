@@ -4,7 +4,7 @@ $('.exercises.edit, .exercises.new').ready(function() {
 		saveCurrentBoard();
 	});
 
-	$('.move:last').addClass('playToHere');
+	$('.move:first').addClass('playToHere');
 	playMove();
 
 	makeTableClickable();

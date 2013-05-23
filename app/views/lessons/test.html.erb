@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="span12">
+      <% @randomExercise.each do |exercise| %> 
+          <div class="row">
+            <div class="span8 form-inline">
+                <%= link_to exercise.title, exercise_path(exercise) %>
+            </div>
+          </div>
+      <% end %>
+  </div>
+</div>

@@ -11,13 +11,17 @@
     <div class="span5">
       <%- model_class = Exercise -%>
       <div class="page-header" data-modal="yes">
-        <h1><%=t '.title', :default => @exercise.title %><a data-toggle="modal" href="#descriptionModal" class="btn btn-mini btn-primary">...</a></h1>
-        <button id="nextMove" class='btn btn-primary'>Next Move</button>
+        <h1>
+          <button id="nextMove" class='btn btn-primary btn-large'>Next Move</button>
+<!--           <a data-toggle="modal" href="#descriptionModal" class="pull-right"><%=t '.title', :default => @exercise.title %></a> -->
+          <%=t '.title', :default => @exercise.title %>
+        </h1>
           <!-- <button id="prevMove" class='btn btn-primary'>Previous</button> -->
       </div>
     <!-- Puts all the move on the screen in the format to show them -->
       <div class="accordion" id="accordion2">
-        <% @exercise.moves.each do |move| %>
+        <!-- ORDER CHANGE HAPPENS HERE! -->
+        <% @exercise.moves.reverse.each do |move| %> 
         <div class="accordion-group notShownMove move" data-moveNumber="<%= move.move_number %>" data-white="<%= move.piece_white %>:<%= move.starting_coordinate_white %>-<%= move.ending_coordinate_white %>" data-black="<%= move.piece_black %>:<%= move.starting_coordinate_black %>-<%= move.ending_coordinate_black %>">
           <div class="accordion-heading">
             <a id="toggleMe-<%= move.move_number %>" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-<%= move.move_number %>">
@@ -62,7 +66,7 @@
     <h3 id="descriptionModalLabel">Exercise Complete!</h3>
   </div>
   <div class="modal-body">
-    <%= @exercise.description %>
+    <%= @exercise.conclusion %>
   </div>
 
   <div class="modal-footer">

@@ -8,15 +8,9 @@
           <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion2" href="#exer<%= exercise.id %>">
             <%= exercise.title %>
           </a>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      exercise_path(exercise),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger pull-right' %>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_exercise_path(exercise), :class => 'btn btn-mini pull-right' %>
-          <%= link_to t('.show', :default => t("helpers.links.show")),
-                      exercise_path(exercise), :class => 'btn btn-primary btn-mini pull-right' %>
+          <%= link_to 'Destroy', exercise_path(exercise), :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-mini btn-danger pull-right' %>
+          <%= link_to 'Edit', edit_exercise_path(exercise), :class => 'btn btn-mini pull-right' %>
+          <%= link_to 'Show', exercise_path(exercise), :class => 'btn btn-primary btn-mini pull-right' %>
         </div>
       </div>
     </div>
@@ -30,6 +24,4 @@
   </div>
   <% end %>
 </div>
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_exercise_path,
-            :class => 'btn btn-primary' %>
+<%= link_to 'New Exercise', new_exercise_path, :class => 'btn btn-primary' %>

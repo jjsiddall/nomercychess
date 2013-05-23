@@ -1,14 +1,21 @@
 NoMercyChess::Application.routes.draw do
   resources :lessons do 
     collection do
+      #used for lesson building
       get 'builder'
+    end
+    member do
+      #used for a "test" at the end of a lesson
+      get 'test'
+      get 'clone'
     end
   end
 
   resources :exercises do
     member do
       get 'practice'
-      get 'builder'
+      get 'test'
+      # get 'builder'
     end
   end
   resources :moves

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130220192542) do
+ActiveRecord::Schema.define(:version => 20130403024456) do
 
   create_table "exercises", :force => true do |t|
     t.string   "title"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20130220192542) do
     t.datetime "updated_at",    :null => false
     t.string   "nextExercise"
     t.integer  "sortForLesson"
+    t.text     "conclusion"
   end
 
   create_table "lessons", :force => true do |t|

@@ -31,7 +31,7 @@ $('.exercises.practice').ready(function() {
 			if (startPiece.html() != undefined){
 				if (verifyCorrectMove(startPiece, $(this))===true){
 					//showPopover = false;
-					one_move(userMove, startPiece.html());
+					one_move(userMove, startPiece.html(), "white");
 					$("#"+userMove[0]).children().promise().done(function() {
 						whiteMoveCompleteNowBlack(nextMove);
 					});
@@ -76,7 +76,7 @@ $('.exercises.practice').ready(function() {
 				//if this is a castling move then we need the computer to move the rook (using the castle() function )
 				var current_move = new Array(pieceBeingMoved.parent().attr('id'), droppedOnSquare.attr('id'));
 				var file_change = find_change_in_file(current_move)
-				if (((file_change != 1) || (file_change != -1)) && (pieceBeingMoved.html() === "♚")){
+				if (((file_change > 1) || (file_change < -1)) && (pieceBeingMoved.html() === "♚")){
 					console.log("castle")
 					//we know this is a castle and have moved the King, now need to move the associated rook
 					castle(current_move, file_change);
@@ -90,7 +90,14 @@ $('.exercises.practice').ready(function() {
 				//add the dragged piece to the board
 				droppedOnSquare.append(pieceBeingMoved);
 
-				whiteMoveCompleteNowBlack($('.alert-success:not(.notShownMove):Last'));
+				//if the move is a PAWN moving to either last rank (1 or 8), convert to a QUEEN
+				var rank = droppedOnSquare.attr('id').charAt(1);
+				if (((rank === '8') || (rank === '1')) && (pieceBeingMoved.html() === "♟")){
+					console.log("promotion...")
+					pieceBeingMoved.html("♛");
+				}
+
+				whiteMoveCompleteNowBlack($('.alert-success:not(.notShownMove):first'));
 
 				pieceBeingMoved.css("top", "");
 				pieceBeingMoved.css("left", "");
@@ -117,13 +124,13 @@ function verifyCorrectMove(pieceBeingMoved, droppedOnSquare){
 	console.log(madeMove);
 	
 	//caching DOM element
-	nextMove = $('.nextMove:First');
+	nextMove = $('.nextMove:last');
 
 	if (nextMove.data("computer") === "black"){
-		var correctMove = $('.nextMove:First').data("white");
+		var correctMove = $('.nextMove:last').data("white");
 	}
 	else{
-		var correctMove = $('.nextMove:First').data("black");
+		var correctMove = $('.nextMove:last').data("black");
 	}
 	
 	console.log(correctMove);
@@ -143,7 +150,7 @@ function verifyCorrectMove(pieceBeingMoved, droppedOnSquare){
 
 function computersMoveOrLastMove(){
 	//check to see if the next move is one the computer should make
-	var nextMoveInList = $('.nextMove:First');
+	var nextMoveInList = $('.nextMove:last');
 	// if (nextMoveInList.data('computer') === true){
 	// 	console.log("its a computer move!")
 
@@ -160,20 +167,20 @@ function computersMoveOrLastMove(){
 	// 	nextMoveInList.remove();
 	// }
 	//look and see if all the moves are done
-	if ($('.notShownMove:First').length === 0){
+	if ($('.notShownMove:last').length === 0){
   		$('#conclusionModal').modal('show');  		
   	}
 
 }
 function updateDisplayedMove(){
 	//show the move and pull it off the "next move list"
-	$('.nextMove:First').removeClass("notShownMove").removeClass("nextMove");
+	$('.nextMove:last').removeClass("notShownMove").removeClass("nextMove");
 }
 function showIncorrectMove(madeMove, correctMove){
 
 	//build the error and show it under the list as a alert-error (and make it more readable ":" = "From" & "-" = "To")
 	madeMove = '<div class="alert alert-error">' + "Incorrect: " + madeMove.replace(":", " from ").replace("-", " to ") + '<div class="pull-right hint">hint?</div></div>'
-	$(madeMove).insertBefore('.notShownMove:first');
+	$(madeMove).insertBefore('.notShownMove:last');
 
 	var correctMoveArray = correctMove.split(":")[1].split("-");
 	// console.log(correctMoveArray[2]);

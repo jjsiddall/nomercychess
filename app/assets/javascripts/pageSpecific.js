@@ -16,7 +16,7 @@ $('.exercises.practice, .exercises.edit, .exercises.new').ready(function() {
 	makeDraggable();
 });
 
-$('.exercises.builder').ready(function() {
+$('.exercises.edit').ready(function() {
 	animationSpeed = 1;
 });
 
