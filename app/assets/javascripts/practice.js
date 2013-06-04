@@ -168,7 +168,8 @@ function computersMoveOrLastMove(){
 	// }
 	//look and see if all the moves are done
 	if ($('.notShownMove:last').length === 0){
-  		$('#conclusionModal').modal('show');  		
+  		$('#conclusionModal').modal('show');
+  		completion("practice", $("#board").data('id'));  		
   	}
 
 }

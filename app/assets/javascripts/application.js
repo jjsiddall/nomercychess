@@ -15,3 +15,49 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree .
+
+			
+function completion(lastCompleted, exercise_id){
+
+	//if no user is logged in <OR> icon-check is present then dont save any progress
+	if (user_id === 0 || $('.icon-check').length >0 ){ return };
+	
+	console.log("Completed the " + lastCompleted);
+
+	var tableName = "completions";
+	var columnName= tableName.slice(0, -1);
+
+	//set to POST first for the inital creation of the record in the Completions table
+	var databaseCallType = "POST";
+	//build the URL I am sending data to
+	var url_field = '/' + tableName; //+ '/' + exercise_id;
+
+	//find the user that is logged in (its hidden on the view - specifically where we show logged in)
+	var user_id = parseInt($("#nav-log").data('navid').split("-")[1]);
+
+	// //as a practice we want to change the type of database call and then address to the call
+	// if (lastCompleted === "practice"){ 
+	// 	databaseCallType = "PUT";
+	// 	url_field = url_field + '/' + exercise_id;
+
+	// }
+
+	//create the json as a string for the field and data that will be passed in the ajax call
+	var dataObj = "{\"" + columnName + '[user_id]' + "\":\"" + user_id +
+			   "\", \"" + columnName + '[exercise_id]' + "\":\"" + exercise_id +
+			   "\", \"" + columnName + '[last_completed]' + "\":\"" + lastCompleted +
+			   "\"}" ;
+
+	//convert the json string into json
+	dataObj = jQuery.parseJSON(dataObj);
+
+// console.log(url_field)
+ console.log(dataObj)
+
+    $.ajax({
+    	url: url_field,
+    	type: databaseCallType,
+    	data: dataObj,
+		dataType: 'json'
+	});
+}

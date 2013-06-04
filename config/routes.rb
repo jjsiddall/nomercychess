@@ -1,4 +1,7 @@
 NoMercyChess::Application.routes.draw do
+  resources :completions
+
+
   resources :lessons do 
     collection do
       #used for lesson building
@@ -6,7 +9,7 @@ NoMercyChess::Application.routes.draw do
     end
     member do
       #used for a "test" at the end of a lesson
-      get 'test'
+      #get 'test'
       get 'clone'
     end
   end
@@ -14,7 +17,7 @@ NoMercyChess::Application.routes.draw do
   resources :exercises do
     member do
       get 'practice'
-      get 'test'
+      #get 'test'
       # get 'builder'
     end
   end

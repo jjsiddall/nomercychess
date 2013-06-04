@@ -1,10 +1,10 @@
-<ul class="nav pull-right">
+<ul  class="nav pull-right" >
   <% if user_signed_in? %>
-    <li>
+    <li id="nav-log" data-navid= "navigation-<%= current_user.id %>">
     <%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %>        
     </li>
   <% else %>
-    <li>
+    <li id="nav-log" data-navid= "navigation-0">
     <%= link_to 'Sign In', new_user_session_path %>  
     </li>
     <li>

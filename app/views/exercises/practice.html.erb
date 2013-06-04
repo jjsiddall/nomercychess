@@ -6,7 +6,10 @@
   <div class="span5">
       <%- model_class = Exercise -%>
       <div class="page-header">
-        <h1><%=t '.title', :default => @exercise.title %> <small>Practice</small></h1>
+        <h1>
+          <%=t '.title', :default => @exercise.title %> <small>Practice</small>
+          <%= !@completion.nil? && @completion.last_completed === "practice" ? "<i class='icon-check'></i>".html_safe : "<i class='icon-edit'></i>".html_safe %>
+        </h1>
       </div>
 
 <!-- Butchering the Collapse Bootstrap component in order to make this screen look like the demo screen -->
@@ -41,7 +44,7 @@
   <div class="modal-footer">
     <%= link_to "Back to the Demo", exercise_path(@exercise.id), :class => 'btn' %>
     <%= link_to "Practice Again", practice_exercise_path(@exercise.id), :class => 'btn' %>
-    <%= link_to "Next Exercise", exercise_path(@exercise.nextExercise), :class => 'btn btn-primary btn-large' %> 
+    <%= link_to "Next Exercise", exercise_path(1), :class => 'btn btn-primary btn-large' %> 
   </div>
 </div>
 

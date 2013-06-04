@@ -1,0 +1,31 @@
+<h1>Listing completions</h1>
+
+<table class= 'table table-striped table-bordered table-condensed table-hover'>
+  <tr>
+    <th>User</th>
+    <th>Exercise</th>
+    <th>Last completed</th>
+    <th></th>
+  </tr>
+
+<% @completions.each do |completion| %>
+  <tr>
+  <% if completion.user.nil? %>
+    <td> User Does Not Exist </td>
+  <% else %>
+    <td><%= completion.user.name %></td>
+  <% end %>
+    <td><%= completion.exercise.title %></td>
+    <td><%= completion.last_completed %></td>
+    <td>
+      <%= link_to 'Show', completion, :class => 'btn btn-mini btn-primary' %>
+      <%= link_to 'Edit', edit_completion_path(completion), :class => 'btn btn-mini' %>
+      <%= link_to 'Destroy', completion, method: :delete, :class => 'btn btn-mini btn-danger' %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Completion', new_completion_path %>

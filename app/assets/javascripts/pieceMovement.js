@@ -2,6 +2,7 @@
 
 $('.exercises.show, .exercises.edit').ready(function() {
 	//shows the opening lessons Modal - describes the lesson
+	console.log($('.icon-check').length)
 	$('#descriptionModal').modal('show');
 
 	//Adds the click event to the "Next" button
@@ -21,6 +22,7 @@ $('.exercises.show, .exercises.edit').ready(function() {
 		else{
 			//show the conclusion popover when there are no more moves on the list
 			$('#conclusionModal').modal('show');
+		    completion("exercise", $("#board").data('id')); 
 		}
 		
 		//if there is no more "notShownMove" then change the button to show "Finish"

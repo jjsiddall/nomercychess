@@ -1,4 +1,6 @@
-<%= form_for @move, :html => { :class => 'form-horizontal' } do |f| %>
+<%= simple_form_for @move, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.error_notification %>
+
   <div class="control-group">
     <%= f.label :exercise_id, :class => 'control-label' %>
     <div class="controls">

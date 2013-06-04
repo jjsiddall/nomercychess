@@ -6,7 +6,9 @@
     </div>
   </div>
 
-  <%= form_for @exercise, :html => { :class => '' } do |f| %>
+  <%= simple_form_for(@exercise) do |f| %>
+  <%= f.error_notification %>
+
     <div class="span3">
       <div class="control-group">
         <%= f.label :title, :class => 'control-label' %>

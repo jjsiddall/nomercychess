@@ -14,7 +14,15 @@ class ExercisesController < ApplicationController
   # GET /exercises/1
   # GET /exercises/1.json
   def show
+    
+    # See if the user is signed in
+    if user_signed_in?
+      # Search for a "Completion of the selected Exercise and User" 
+      @completion = Completion.where(:exercise_id =>params[:id], :user_id => current_user.id, :last_completed => "exercise").first
+    end
+
     @exercise = Exercise.find(params[:id])
+
 
     respond_to do |format|
       format.html # show.html.erb
@@ -25,7 +33,14 @@ class ExercisesController < ApplicationController
   # GET /exercises/1
   # GET /exercises/1.json
   def practice
+    # See if the user is signed in
+    if user_signed_in?
+      # Search for a "Completion of the selected Exercise and User" 
+      @completion = Completion.where(:exercise_id =>params[:id], :user_id => current_user.id, :last_completed => "practice").first
+    end
+    
     @exercise = Exercise.find(params[:id])
+
     # @next_exercise = @exercise.lesson.next_exercise(@exercise)
     # User.mark_exercise_complete(@exercise)
     # if !@next_exercise

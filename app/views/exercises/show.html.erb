@@ -1,6 +1,4 @@
-<!-- <button type="button" class="btn btn-danger" id="test">
-  simple collapsible
-</button> -->
+
 
 <div class="row">
   <!-- Left column: the board  -->
@@ -12,9 +10,9 @@
       <%- model_class = Exercise -%>
       <div class="page-header" data-modal="yes">
         <h1>
-          <button id="nextMove" class='btn btn-primary btn-large'>Next Move</button>
-<!--           <a data-toggle="modal" href="#descriptionModal" class="pull-right"><%=t '.title', :default => @exercise.title %></a> -->
-          <%=t '.title', :default => @exercise.title %>
+          <button id="nextMove" class='btn btn-primary btn-large'>Next</button>
+          <%= @exercise.title %>
+          <%= !@completion.nil? && @completion.last_completed === "exercise" ? "<i class='icon-check'></i>".html_safe : "<i class='icon-edit'></i>".html_safe %>
         </h1>
           <!-- <button id="prevMove" class='btn btn-primary'>Previous</button> -->
       </div>
