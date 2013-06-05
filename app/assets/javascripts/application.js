@@ -18,10 +18,13 @@
 
 			
 function completion(lastCompleted, exercise_id){
-
+	//find the user that is logged in (its hidden on the view - specifically where we show logged in)
+	var user_id = parseInt($("#nav-log").data('navid').split("-")[1]);
+	
 	//if no user is logged in <OR> icon-check is present then dont save any progress
 	if (user_id === 0 || $('.icon-check').length >0 ){ return };
 	
+	console
 	console.log("Completed the " + lastCompleted);
 
 	var tableName = "completions";
@@ -31,9 +34,6 @@ function completion(lastCompleted, exercise_id){
 	var databaseCallType = "POST";
 	//build the URL I am sending data to
 	var url_field = '/' + tableName; //+ '/' + exercise_id;
-
-	//find the user that is logged in (its hidden on the view - specifically where we show logged in)
-	var user_id = parseInt($("#nav-log").data('navid').split("-")[1]);
 
 	// //as a practice we want to change the type of database call and then address to the call
 	// if (lastCompleted === "practice"){ 
