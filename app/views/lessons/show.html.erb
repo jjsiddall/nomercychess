@@ -1,9 +1,9 @@
 <%- model_class = Lesson -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => @lesson.title %></h1>
+  <h1>
+    <%=t '.title', :default => @lesson.title %> <%= link_to "Let's Go!", exercise_path(@lesson.sorted_exercises.first), :class => 'btn btn-primary' %>
+  </h1>
 </div>
-
-<%= link_to "Let's Go!", exercise_path(@lesson.sorted_exercises.first), :class => 'btn btn-primary' %>
 
 <dl class="dl-horizontal">
 <!--   <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
@@ -17,14 +17,22 @@
       <thead>
         <tr>
           <th>Exercise Name</th>
-          <th>Status</th>
+          <th>Exercise</th>
+          <th>Practice</th>
         </tr>
       </thead>
       <tbody>
         <% @lesson.sorted_exercises.each do |exercise| %> 
         <tr>
           <td><%= link_to exercise.title, exercise_path(exercise) %></td>
-          <td> </td>
+          
+          <% if !current_user.nil? %>
+            <% exerciseDone = exercise.isDoneForUser("exercise", current_user.id) %>
+            <% practiceDone = exercise.isDoneForUser("practice", current_user.id) %>
+          <% end %> 
+          
+          <td><%= link_to exerciseDone.nil? ? "Do it Now!" : "Completed " + time_ago_in_words(exerciseDone) + " ago", exercise_path(exercise) %></td>
+          <td><%= link_to practiceDone.nil? ? "Do it Now!" : "Completed " + time_ago_in_words(practiceDone) + " ago", practice_exercise_path(exercise) %></td>
         </tr>
         <% end %>
       </tbody>

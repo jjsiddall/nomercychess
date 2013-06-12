@@ -40,15 +40,6 @@ class ExercisesController < ApplicationController
     end
     
     @exercise = Exercise.find(params[:id])
-
-    # @next_exercise = @exercise.lesson.next_exercise(@exercise)
-    # User.mark_exercise_complete(@exercise)
-    # if !@next_exercise
-    #   redirect_to @exercise.lesson.next_quiz
-    # else
-    #   User.start_exercise(@next_exercise) 
-    # end
-
     
     respond_to do |format|
       format.html # show.html.erb

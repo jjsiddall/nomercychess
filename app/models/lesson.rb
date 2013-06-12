@@ -4,6 +4,8 @@ class Lesson < ActiveRecord::Base
   #Lessons contain multiple exercises and tests - the user does a lesson which means working through several exercises
   has_many :exercises
 
+  has_many :completions, :through => :exercises
+
   def next_exercise(exercise)
   	exercises.find_by_sortForLesson(exercise.sortForLesson + 1)
   end

@@ -35,13 +35,33 @@ class LessonsController < ApplicationController
 
   # GET /lessons/1
   # GET /lessons/1.json
-  def test
+  def quiz
+
+    if user_signed_in?
+      # Search for a "Completion of the selected Exercise and User" 
+      # @completions = Completion.where( :user_id => current_user.id, :last_completed => "exercise")
+       @completions = Lesson.find(params[:id]).completions.where( :user_id => current_user.id, :last_completed => "exercise")
+      #@completions = Lesson(13).completions.where( :user_id => current_user.id, :last_completed => "exercise")
+
+#this is where I am leaving off for the night
+      redirect_to practice_exercise_path(@completions.first.exercise_id)
 
 
-    respond_to do |format|
-      format.html 
-      format.json { render json: @lesson }
     end
+
+    # respond_to do |format|
+    #   format.html # show.html.erb
+    #   format.json { render json: @lesson }
+    # end
+
+    # @next_exercise = @exercise.lesson.next_exercise(@exercise)
+    # User.mark_exercise_complete(@exercise)
+    # if !@next_exercise
+    #   redirect_to @exercise.lesson.next_quiz
+    # else
+    #   User.start_exercise(@next_exercise) 
+    # end
+  
   end
 
   # GET /lessons/new
