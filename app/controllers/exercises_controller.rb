@@ -53,7 +53,8 @@ class ExercisesController < ApplicationController
     if user_signed_in?
       # Search for a "Completion of the selected Exercise and User" 
       @completion = Completion.where(:exercise_id =>params[:id], :user_id => current_user.id, :last_completed => "quiz").first
-      @completed_quizzes = Completion.where(:user_id => current_user.id, :last_completed => "quiz").count +1
+      @completed_quizzes = Completion.where(:user_id => current_user.id, :last_completed => "quiz").count
+      @completed_quizzes = @completed_quizzes+1
     end
 
     @exercise = Exercise.find(params[:id])
