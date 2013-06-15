@@ -9,7 +9,7 @@
 
       <%= link_to 'Destroy', lesson_path(lesson), :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-mini btn-danger pull-right' %>      
       <%= link_to 'Edit', edit_lesson_path(lesson), :class => 'btn btn-mini pull-right' %>
-      <%= link_to "Duplicate", {:action => "clone", :id => lesson.id}, :class => 'btn btn-mini pull-right' %>
+      <%= link_to 'Duplicate', {:action => "clone", :id => lesson.id}, :class => 'btn btn-mini pull-right' %>
       <%= link_to 'Show', lesson_path(lesson), :class => 'btn btn-primary btn-mini pull-right' %>
     </h4>
     <div id="<%= lesson.id %>" class="connectedSortable canSort well">

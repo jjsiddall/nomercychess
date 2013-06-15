@@ -9,7 +9,7 @@ NoMercyChess::Application.routes.draw do
     end
     member do
       #used for a "test" at the end of a lesson
-      get 'quiz'
+      get 'quizzes'
       get 'clone'
     end
   end
@@ -17,7 +17,8 @@ NoMercyChess::Application.routes.draw do
   resources :exercises do
     member do
       get 'practice'
-      #get 'test'
+      get 'clone'
+      get 'quiz'
       # get 'builder'
     end
   end

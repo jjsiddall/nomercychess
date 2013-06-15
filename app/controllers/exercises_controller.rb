@@ -23,7 +23,6 @@ class ExercisesController < ApplicationController
 
     @exercise = Exercise.find(params[:id])
 
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @exercise }
@@ -47,6 +46,24 @@ class ExercisesController < ApplicationController
     end
   end
   
+  # GET /exercises/1
+  # GET /exercises/1.json
+  def quiz
+    # See if the user is signed in
+    if user_signed_in?
+      # Search for a "Completion of the selected Exercise and User" 
+      @completion = Completion.where(:exercise_id =>params[:id], :user_id => current_user.id, :last_completed => "quiz").first
+      @completed_quizzes = Completion.where(:user_id => current_user.id, :last_completed => "quiz").count +1
+    end
+
+    @exercise = Exercise.find(params[:id])
+    
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @exercise }
+    end
+  end
+
   # GET /exercises/new
   # GET /exercises/new.json
   def new
@@ -114,4 +131,17 @@ class ExercisesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def clone
+    @exercise = Exercise.find(params[:id]).dup
+
+    if @exercise.save
+      flash[:notice] = 'Item was successfully cloned.'
+    else
+      flash[:notice] = 'ERROR: Item can\'t be cloned.'
+    end
+
+    redirect_to(builder_lessons_path)
+  end 
+
 end

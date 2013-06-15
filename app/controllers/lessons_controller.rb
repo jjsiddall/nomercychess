@@ -35,32 +35,27 @@ class LessonsController < ApplicationController
 
   # GET /lessons/1
   # GET /lessons/1.json
-  def quiz
+  def quizzes
 
     if user_signed_in?
-      # Search for a "Completion of the selected Exercise and User" 
-      # @completions = Completion.where( :user_id => current_user.id, :last_completed => "exercise")
-       @completions = Lesson.find(params[:id]).completions.where( :user_id => current_user.id, :last_completed => "exercise")
-      #@completions = Lesson(13).completions.where( :user_id => current_user.id, :last_completed => "exercise")
+      # get all exercises in the lesson
+      exercises_to_quiz = Lesson.find(params[:id]).exercise_ids
+      
+      #get lesson's exercises that have been quizzed
+      completed_quizzes = Lesson.find(params[:id]).completions.where(:user_id => current_user.id, :last_completed => 'quiz')
 
-#this is where I am leaving off for the night
-      redirect_to practice_exercise_path(@completions.first.exercise_id)
+      #remove exercises that have completed quizzes
+      completed_quizzes.each do |quizzed|
+        exercises_to_quiz.delete(quizzed.exercise_id)
+      end
 
-
+      if exercises_to_quiz.empty?
+        redirect_to lesson_path(params[:id])
+      else        
+        #redirect to the next quiz
+        redirect_to quiz_exercise_path(exercises_to_quiz.first)
+      end
     end
-
-    # respond_to do |format|
-    #   format.html # show.html.erb
-    #   format.json { render json: @lesson }
-    # end
-
-    # @next_exercise = @exercise.lesson.next_exercise(@exercise)
-    # User.mark_exercise_complete(@exercise)
-    # if !@next_exercise
-    #   redirect_to @exercise.lesson.next_quiz
-    # else
-    #   User.start_exercise(@next_exercise) 
-    # end
   
   end
 

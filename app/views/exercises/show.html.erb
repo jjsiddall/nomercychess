@@ -12,7 +12,7 @@
         <h1>
           <button id="nextMove" class='btn btn-primary btn-large'>Next</button>
           <%= @exercise.title %>
-          <%= !@completion.nil? && @completion.last_completed === "exercise" ? "<i class='icon-check'></i>".html_safe : "<i class='icon-edit'></i>".html_safe %>
+          <%= !@completion.nil? ? "<i class='icon-check'></i>".html_safe : "<i class='icon-edit'></i>".html_safe %>
         </h1>
           <!-- <button id="prevMove" class='btn btn-primary'>Previous</button> -->
       </div>

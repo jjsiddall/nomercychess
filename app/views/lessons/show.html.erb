@@ -37,13 +37,21 @@
         <% end %>
       </tbody>
     </table>
+    
+  <% if !current_user.nil? %>
+    <div class="progress">
+      <div class="bar bar-success" style="width: <%= number_to_percentage(@lesson.find_percent_complete("exercise", current_user.id)) %>;"></div>
+      <div class="bar bar-warning" style="width: <%= number_to_percentage(@lesson.find_percent_complete("practice", current_user.id)) %>;"></div>
+      <div class="bar bar-danger" style="width: <%= number_to_percentage(@lesson.find_percent_complete("quiz", current_user.id)) %>;"></div>
+    </div>
+  <% end %> 
+  
   </div>
 </div>
 
-<!-- <div class="form-actions"> -->
-  <%= link_to "Let's Go!", exercise_path(@lesson.sorted_exercises.first), :class => 'btn btn-primary' %>
-  <%= link_to 'Back', lessons_path, :class => 'btn'  %>
-<!-- </div> -->
+<% if (@lesson.find_percent_complete("exercise", current_user.id) === 1.to_f / 3 * 100) && (@lesson.find_percent_complete("practice", current_user.id) === 1.to_f / 3 * 100) && (@lesson.find_percent_complete("quiz", current_user.id) != 1.to_f / 3 * 100) %>
+  <%= link_to "Quiz Me!", quizzes_lesson_path(@lesson), :class => 'btn btn-danger btn-large' %>
+<% end %>
 
 
 

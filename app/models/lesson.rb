@@ -13,4 +13,13 @@ class Lesson < ActiveRecord::Base
   def sorted_exercises
   	exercises.sort_by { |exercise| exercise.sortForLesson }
   end
+
+  def find_percent_complete(completionType, user_id)
+    count = 0
+    exercises.each do |exercise|
+      count = count + exercise.completions.where(:last_completed => completionType, :user_id => user_id).count
+    end
+    count = count.to_f / (exercises.count*3)*100
+    return count
+  end
 end

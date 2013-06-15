@@ -1,0 +1,13 @@
+  here?
+  <% if !@exercises_to_quiz.nil? %>
+	<%= @exercises_to_quiz.count %>
+	<ul>
+     <% @exercises_to_quiz.each do |quiz| %> 
+      <li>
+
+      	<%= quiz %>
+      </li>
+     <% end %>
+    </ul>
+  <% end %>
+

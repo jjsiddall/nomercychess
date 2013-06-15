@@ -2,7 +2,7 @@ var startSquare = "";
 var startPiece = "";
 
 //Used to make the exercise "practice" respond to ...
-$('.exercises.practice').ready(function() {
+$('.exercises.practice, .exercises.quiz').ready(function() {
 	//...CLICK
 	//used to allow the user to click a piece and then move it clicking the related square
 	$('.square').on('click', function() {
@@ -169,7 +169,8 @@ function computersMoveOrLastMove(){
 	//look and see if all the moves are done
 	if ($('.notShownMove:last').length === 0){
   		$('#conclusionModal').modal('show');
-  		completion("practice", $("#board").data('id'));  		
+  		//finds what screen the user is on (practice or quiz) and pushes that into the completion function to be saved
+  		completion(($('.exercises').attr("class").split(" ")[1]), $("#board").data('id'));  		
   	}
 
 }
