@@ -1,5 +1,13 @@
 var animationSpeed = 500;
 
+// profileUpdate
+
+// $('.registrations.edit').ready(function() {
+// 	$('#profileUpdate').on('click', function() {
+// 		console.log("testme")
+// 	});
+// });
+
 //sets up the board for where there is a board show ("show" and "edit")
 $('.exercises.show, .exercises.edit, .exercises.practice, .exercises.quiz, .exercises.new').ready(function() {
 	//we load pieces on exercises "show" and "edit", but no others

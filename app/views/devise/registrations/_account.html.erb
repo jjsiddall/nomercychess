@@ -1,0 +1,15 @@
+<h3>Subscription Plan</h3>
+<p>
+  <%= @user.roles.first.name.titleize %>
+  <a data-toggle="modal" href="#plan-options" class="btn btn-mini" type="button">Change plan</a>
+</p>
+
+<h3>Card</h3>
+<p>
+  Using card ending with <%= @user.last_4_digits %>
+  <a data-toggle="modal" href="#card-data" class="btn btn-mini" type="button">Change card</a>
+</p>
+
+<h3>Cancel my account</h3>
+
+<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-mini' %></p>

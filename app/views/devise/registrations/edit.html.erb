@@ -2,6 +2,7 @@
   <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
 <% end %>
 
+<!-- tabs on the user edit page -->
 <div class="tabbable tabs-left">
   <ul id="myTab" class="nav nav-tabs">
     <li class="active"><a href="#progress" data-toggle="tab">Progress</a></li>
@@ -10,37 +11,13 @@
   </ul>
   <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade active in" id="progress">
-      <p>Progress and Badges!</p>
+      <%= render('progress') %>
     </div>
     <div class="tab-pane fade" id="profile">
-      <div id="stripe_error" class="alert alert-error" style="display:none" ></div>
-      <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-vertical' }) do |f| %>
-        <%= f.error_notification %>
-        <%= display_base_errors resource %>
-        <%= f.input :name, :autofocus => true %>
-        <%= f.input :email, :required => true %>
-        <%= f.input :password, :autocomplete => "off", :hint => "Leave blank if you don't want to change it", :required => false %>
-        <%= f.input :password_confirmation, :required => false %>
-        <%= f.input :current_password, :hint => "We need your current password to confirm your changes", :required => true %>
-        <%= f.button :submit, 'Update', :class => 'btn-primary' %>
-      <% end %>
+      <%= render('profile') %>
     </div>
     <div class="tab-pane fade" id="account">
-      <h3>Subscription Plan</h3>
-      <p>
-        <%= @user.roles.first.name.titleize %>
-        <a data-toggle="modal" href="#plan-options" class="btn btn-mini" type="button">Change plan</a>
-      </p>
-
-      <h3>Card</h3>
-      <p>
-        Using card ending with <%= @user.last_4_digits %>
-        <a data-toggle="modal" href="#card-data" class="btn btn-mini" type="button">Change card</a>
-      </p>
-
-      <h3>Cancel my account</h3>
-
-      <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-mini' %></p>
+      <%= render('account') %>
     </div>
   </div>
 </div>

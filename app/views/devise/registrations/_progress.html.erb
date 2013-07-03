@@ -1,0 +1,30 @@
+<% currentLesson = "" %>
+<div class="accordion" id="accordion2">
+  <% current_user.completions.each do |completion| %>
+    <% if currentLesson != completion.exercise.lesson.title %>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-<%= completion.exercise.id %>">
+          <span><%= completion.exercise.lesson.title %></span>
+          <span class="pull-right"><%= number_to_percentage(completion.exercise.lesson.find_percent_complete_all(current_user.id), :precision => 0) %></span>
+        </a>
+
+        <div class="progress">
+          <div class="bar bar-success" style="width: <%= number_to_percentage(completion.exercise.lesson.find_percent_complete("exercise", current_user.id)) %>;"></div>
+          <div class="bar bar-warning" style="width: <%= number_to_percentage(completion.exercise.lesson.find_percent_complete("practice", current_user.id)) %>;"></div>
+          <div class="bar bar-danger" style="width: <%= number_to_percentage(completion.exercise.lesson.find_percent_complete("quiz", current_user.id)) %>;"></div>
+        </div>
+
+      </div>
+      <div id="collapse-<%= completion.exercise.id %>" class="accordion-body collapse">
+        <div class="accordion-inner">
+         <%= completion.id %>
+
+        </div>
+      </div>
+    </div>
+      <% currentLesson = completion.exercise.lesson.title%>
+    <% end %>
+  <% end %>
+</div>
