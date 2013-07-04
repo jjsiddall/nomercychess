@@ -1,6 +1,12 @@
+<p>
+  Download:
+  <%= link_to "CSV", moves_path(format: "csv") %> 
+</p>
+
 <%- model_class = Move -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
 </div>
 
 <%= render('moveList', :model_class => Move, :show_moves => @moves) %>
+

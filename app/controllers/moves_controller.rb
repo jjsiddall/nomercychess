@@ -8,6 +8,7 @@ class MovesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @moves }
+      format.csv { render text: Move.to_csv(@moves) }
     end
   end
 
