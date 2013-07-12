@@ -8,9 +8,29 @@ class MovesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @moves }
-      format.csv { render text: Move.to_csv(@moves) }
+      # format.csv { render text: Move.to_csv(@moves), filename: "test.csv" }
+      format.csv { 
+        send_data(
+          Move.to_csv(@moves),
+          :type => 'application/excel',
+          :filename => 'moves.csv',
+          :disposition => 'attachment'
+        ) 
+      }
+
     end
   end
+
+  # def csv
+  #   @moves = Move.where(:move_number => "1")
+  #   send_data(
+  #     Move.to_csv(@moves),
+  #     :type => 'text/csv',
+  #     :filename => 'export.csv',
+  #     :disposition => 'attachment'
+  #   )
+  # end
+
 
   # GET /moves/1
   # GET /moves/1.json
@@ -89,5 +109,10 @@ class MovesController < ApplicationController
       format.html { redirect_to moves_url }
       format.json { head :no_content }
     end
+  end
+
+  def import
+    Move.import(params[:file])
+    redirect_to builder_lessons_path, notice: "Moves imported."
   end
 end

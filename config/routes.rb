@@ -1,7 +1,6 @@
 NoMercyChess::Application.routes.draw do
   resources :completions
 
-
   resources :lessons do 
     collection do
       #used for lesson building
@@ -11,18 +10,29 @@ NoMercyChess::Application.routes.draw do
       #used for a "test" at the end of a lesson
       get 'quizzes'
       get 'clone'
+      get 'csv'
     end
   end
 
   resources :exercises do
+    collection do
+      get :csv
+      post :import
+    end
     member do
       get 'practice'
       get 'clone'
       get 'quiz'
+      get 'csv'
       # get 'builder'
     end
   end
-  resources :moves
+  resources :moves do
+    collection do
+      get :csv
+      post :import
+    end
+  end
 
   mount StripeEvent::Engine => '/stripe'
   get "content/gold"

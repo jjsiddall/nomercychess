@@ -8,6 +8,14 @@ class LessonsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @lessons }
+      format.csv { 
+        send_data(
+          Lesson.to_csv(@lessons),
+          :type => 'text/csv',
+          :filename => 'lessons.csv',
+          :disposition => 'attachment'
+        ) 
+      }
     end
   end
 
@@ -22,6 +30,18 @@ class LessonsController < ApplicationController
     end
   end
   
+  # used to download csv of exercises for a specific lesson
+  # GET /lessons/1.csv
+  def csv
+    lesson = Lesson.find(params[:id])
+    @exercises = lesson.exercises
+    send_data(
+      Exercise.to_csv(@exercises),
+      :type => 'text/csv',
+      :filename => lesson.title + '.csv',
+      :disposition => 'attachment'
+    )
+  end
   # GET /lessons/1
   # GET /lessons/1.json
   def show

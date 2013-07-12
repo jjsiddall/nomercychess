@@ -8,7 +8,28 @@ class ExercisesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @exercises }
+      format.csv { 
+        send_data(
+          Exercise.to_csv(@exercises),
+          :type => 'text/csv',
+          :filename => 'exercises.csv',
+          :disposition => 'attachment'
+        ) 
+      }
     end
+  end
+
+  # used to download csv of moves for a specific exercise
+  # GET /exercises/1.csv
+  def csv
+    exercise = Exercise.find(params[:id])
+    @moves = exercise.moves
+    send_data(
+      Move.to_csv(@moves),
+      :type => 'text/csv',
+      :filename => exercise.title + '.csv',
+      :disposition => 'attachment'
+    )
   end
 
   # GET /exercises/1
@@ -144,5 +165,10 @@ class ExercisesController < ApplicationController
 
     redirect_to(builder_lessons_path)
   end 
+
+  def import
+    Exercise.import(params[:file])
+    redirect_to builder_lessons_path, notice: "Exercises imported."
+  end
 
 end

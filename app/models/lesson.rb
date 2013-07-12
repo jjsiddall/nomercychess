@@ -26,4 +26,5 @@ class Lesson < ActiveRecord::Base
   def find_percent_complete_all(user_id)
     return find_percent_complete("exercise", user_id) + find_percent_complete("practice", user_id) + find_percent_complete("quiz", user_id)
   end
+
 end

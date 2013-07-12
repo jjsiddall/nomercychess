@@ -1,13 +1,30 @@
 <div class="row">
-  <div class="span12">
-  <%- model_class = Exercise -%>
-  <div class="page-header">
-    <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
-  </div>
-  <!-- 'new Exercise' button -->
-  <%= link_to 'New Exercise', new_exercise_path, :class => 'btn btn-primary' %>
+  <div class="span6">
+    <div class="page-header">
+      <h1><%= link_to "Exercises", exercises_path(format: "csv") %></h1>
+    </div>  
+  </div>  
+
+  <div class="span6">
+    <%= form_tag import_exercises_path, multipart: true do %>
+    <div class="fileupload fileupload-new pull-right" data-provides="fileupload">
+      <div class="input-append">
+        <div class="uneditable-input span3">
+          <i class="icon-file fileupload-exists"></i> <span class="fileupload-preview"></span>
+        </div>
+        <span class="btn btn-file">
+          <span class="fileupload-new">Select file</span>
+          <span class="fileupload-exists">Change</span>
+          <%= file_field_tag :file %>
+        </span>
+        <%= submit_tag "Upload", :class => "btn fileupload-exists" %>
+        <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+      </div>
+    </div>
+    <% end %>
   </div>
 </div>
+
 <div class="row">
   <div class="span12">
     <!-- Show Exercises in an accodian -->

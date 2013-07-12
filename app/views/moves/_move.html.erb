@@ -10,7 +10,7 @@
     <td class="explanation"><%= move.explanation %></td>
 
     <td class="computer"><%= move.computer ? "White" : "Black" %></td>
-    <td class="exercise_title"><%= move.exercise.title %></td>     
+    <td class="exercise_title"><%= move.exercise.nil? ? "" : move.exercise.title %></td>     
 
     <td class="updated"><%= time_ago_in_words(l move.updated_at) %> ago</td>
 

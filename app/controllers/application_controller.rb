@@ -20,4 +20,13 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  
+  def self.to_csv(all_moves)
+    CSV.generate do |csv|
+      csv << column_names
+      all_moves.each do |move|
+        csv << move.attributes.values_at(*column_names)
+      end
+    end
+  end
 end

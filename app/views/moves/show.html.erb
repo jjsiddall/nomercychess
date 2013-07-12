@@ -21,7 +21,7 @@
   <dt><strong><%= model_class.human_attribute_name(:explanation) %>:</strong></dt>
   <dd><%= @move.explanation %></dd>
   <dt><strong><%= model_class.human_attribute_name(:exercise_id) %>:</strong></dt>
-  <dd><%= @move.exercise.title %></dd>
+  <dd><%= @move.exercise.nil? ? "" : @move.exercise.title %></dd>
 </dl>
 
 <div class="form-actions">
