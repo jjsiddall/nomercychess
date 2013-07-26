@@ -1,23 +1,4 @@
 <div class="row">
-  <div class="span6">    
-    <%= link_to "CSV of All Moves", moves_path(format: "csv") %><br> 
-    <%= form_tag import_moves_path, multipart: true do %>
-    <div class="fileupload fileupload-new" data-provides="fileupload">
-      <div class="input-append">
-        <div class="uneditable-input span3">
-          <i class="icon-file fileupload-exists"></i> <span class="fileupload-preview"></span>
-        </div>
-        <span class="btn btn-file">
-          <span class="fileupload-new">Select file</span>
-          <span class="fileupload-exists">Change</span>
-          <%= file_field_tag :file %>
-        </span>
-        <%= submit_tag "Upload", :class => "btn fileupload-exists" %>
-        <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
-      </div>
-    </div>
-    <% end %>    
-  </div>
   <div class="span6"> 
     <%= link_to "CSV of All Exercises", exercises_path(format: "csv") %><br>
     <%= form_tag import_exercises_path, multipart: true do %>
@@ -37,6 +18,25 @@
     </div>
     <% end %>
   </div>
+  <div class="span6">    
+    <%= link_to "CSV of All Moves", moves_path(format: "csv") %><br> 
+    <%= form_tag import_moves_path, multipart: true do %>
+    <div class="fileupload fileupload-new" data-provides="fileupload">
+      <div class="input-append">
+        <div class="uneditable-input span3">
+          <i class="icon-file fileupload-exists"></i> <span class="fileupload-preview"></span>
+        </div>
+        <span class="btn btn-file">
+          <span class="fileupload-new">Select file</span>
+          <span class="fileupload-exists">Change</span>
+          <%= file_field_tag :file %>
+        </span>
+        <%= submit_tag "Upload", :class => "btn fileupload-exists" %>
+        <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+      </div>
+    </div>
+    <% end %>    
+  </div>
 </div>
 
 <div class="row">
@@ -46,13 +46,13 @@
     </div>
    <% @lessons.each do |lesson| %>
     <h4>
-      <%= lesson.id %> - <%= lesson.title %>
+      <%= lesson.id %> - <%= link_to lesson.title, lesson_path(lesson) %>
 
       <%= link_to '<i class="icon-trash icon-white"></i>'.html_safe, lesson_path(lesson), :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-mini btn-danger pull-right' %>
+      <%= link_to 'Dup', {:action => "clone", :id => lesson.id}, :class => 'btn btn-mini pull-right' %>
       <%= link_to '<i class="icon-download-alt"></i>'.html_safe, csv_lesson_path(lesson), :class => 'btn btn-mini pull-right' %>
       <%= link_to '<i class="icon-edit"></i>'.html_safe, edit_lesson_path(lesson), :class => 'btn btn-mini pull-right' %>
-      <%= link_to '<i class="icon-share"></i>'.html_safe, lesson_path(lesson), :class => 'btn btn-mini pull-right' %>
-      <%= link_to 'Dup', {:action => "clone", :id => lesson.id}, :class => 'btn btn-mini pull-right' %>
+<!--       <%= link_to '<i class="icon-share"></i>'.html_safe, lesson_path(lesson), :class => 'btn btn-mini pull-right' %> -->
 
     </h4>
     <div id="<%= lesson.id %>" class="connectedSortable canSort well">

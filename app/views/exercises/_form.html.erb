@@ -2,7 +2,7 @@
   <div class="span3">  
     <%- model_class = Exercise -%>
     <div class="page-header">
-      <h1><%=@exercise.title %> - <%= page_type %></h1>
+      <h1><%= link_to @exercise.title, exercise_path %> - <%= page_type %></h1>
     </div>
   </div>
 
