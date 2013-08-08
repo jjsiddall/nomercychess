@@ -3,6 +3,10 @@ var startPiece = "";
 
 //Used to make the exercise "practice" respond to ...
 $('.exercises.practice, .exercises.quiz').ready(function() {
+
+	//look to see if there is a move for white - if there isn't: go straight to black's move
+	checkIfThereIsNoNextMoveForWhite();
+
 	//...CLICK
 	//used to allow the user to click a piece and then move it clicking the related square
 	$('.square').on('click', function() {
@@ -39,6 +43,8 @@ $('.exercises.practice, .exercises.quiz').ready(function() {
 					updateDisplayedMove();
 					setTimeout(function() {
 						computersMoveOrLastMove();
+						//look to see if there is a move for white - if there isn't: go straight to black's move
+						checkIfThereIsNoNextMoveForWhite();
 					}, 750); 
 					
 				}
@@ -104,8 +110,9 @@ $('.exercises.practice, .exercises.quiz').ready(function() {
 
 				computersMoveOrLastMove();	
 
+				//look to see if there is a move for white - if there isn't: go straight to black's move
+				checkIfThereIsNoNextMoveForWhite();
 			}
-
     	}
   	});
   	//after the click or drag-drop of pieces, this looks to see if the computer has a move to make
@@ -120,8 +127,6 @@ function verifyCorrectMove(pieceBeingMoved, droppedOnSquare){
 
 	//generate an identical statement to the moves written out
 	var madeMove = pieceBeingMoved.html() + ":" + pieceBeingMoved.parent().attr("id") + "-" + droppedOnSquare.attr("id");
-
-	console.log(madeMove);
 	
 	//caching DOM element
 	nextMove = $('.nextMove:last');
@@ -149,30 +154,12 @@ function verifyCorrectMove(pieceBeingMoved, droppedOnSquare){
 }
 
 function computersMoveOrLastMove(){
-	//check to see if the next move is one the computer should make
-	var nextMoveInList = $('.nextMove:last');
-	// if (nextMoveInList.data('computer') === true){
-	// 	console.log("its a computer move!")
-
-	// 	//do not show the popover for the move the user is on
-	// 	//showPopover = false;
-	// 	//pulls apart HTML and sends the from, to, and piece to "one_move"
- //    	var shown_move = trim(nextMoveInList.children().eq(0).children().html()).split(" ");
-
-	// 	var current_move = [shown_move[2]];
-	// 	current_move.push(shown_move[4]);
-
-	// 	//sends in the current move
-	// 	one_move(current_move, shown_move[0]);
-	// 	nextMoveInList.remove();
-	// }
 	//look and see if all the moves are done
 	if ($('.notShownMove:last').length === 0){
   		$('#conclusionModal').modal('show');
   		//finds what screen the user is on (practice or quiz) and pushes that into the completion function to be saved
   		completion(($('.exercises').attr("class").split(" ")[1]), $("#board").data('id'));  		
   	}
-
 }
 function updateDisplayedMove(){
 	//show the move and pull it off the "next move list"
@@ -209,4 +196,17 @@ function whiteMoveCompleteNowBlack(nextMove){
 		one_move(current_move_black, piece_black);
 	}
 }
+function checkIfThereIsNoNextMoveForWhite(){
+	//find out if the first move is "..." if it is, move to the next move
+	if ($('.nextMove:last').data('white') === "...:-"){
 
+		//update the move list to show the right move was made
+		updateDisplayedMove();
+		whiteMoveCompleteNowBlack($('.alert-success:not(.notShownMove):first'));
+
+		// pieceBeingMoved.css("top", "");
+		// pieceBeingMoved.css("left", "");
+
+		computersMoveOrLastMove();	
+	}
+}

@@ -2,7 +2,7 @@
 
 $('.exercises.show, .exercises.edit').ready(function() {
 	//shows the opening lessons Modal - describes the lesson
-	console.log($('.icon-check').length)
+	//console.log($('.icon-check').length)
 	$('#descriptionModal').modal('show');
 
 	//Adds the click event to the "Next" button
@@ -27,7 +27,7 @@ $('.exercises.show, .exercises.edit').ready(function() {
 		
 		//if there is no more "notShownMove" then change the button to show "Finish"
 		if ($('.notShownMove').length < 1){
-			console.log("no more moves")
+			//console.log("no more moves")
 			$('#nextMove').html("Finish")
 		}
 	});
@@ -53,17 +53,15 @@ $('.exercises.show, .exercises.edit').ready(function() {
 });
 
 function one_move(current_move, piece, color){
+	//bail out of this function if the piece coming in is not a piece (but is "..." instead)
+	if (piece === "..."){return};
 
+	//console.log(current_move)
 	//find out if there is nothing on the square that is being proposed to be moved...if there isn't put the piece on that square
 	if($("#"+current_move[0]).children().length === 0){
 		console.log("there's nothing here");
 		$("#"+current_move[0]).append('<div class="piece '+ color +'" style="">'+piece+'</div>');
 	}
-
-	// console.log(current_move + " " + piece)
-	// console.log(current_move[1].charAt(1))
-	//bail out of this function if the piece coming in is not a piece (but is "..." instead)
-	if (piece === "..."){return};
 
 	//remove any popovers that are currently on the board
 	//clear_popovers();
@@ -283,12 +281,10 @@ function moveWhiteThenBlack(showingAccordion){
 
 	//attaches a promise to the DOM move that has been sent in for WHITE
 	$("#"+current_move_white[0]).children().promise().done(function() {
-		//console.log("white move done");
 		
 		//make the move for black
 		one_move(current_move_black, piece_black, "black");
 		$("#"+current_move_black[0]).children().promise().done(function() {
-			//console.log("black move done");
 			
 			//This is a trigger used to notify the app that the move is complete and then next 
 			//one can start (without it things will happen together and tend to overlap)
