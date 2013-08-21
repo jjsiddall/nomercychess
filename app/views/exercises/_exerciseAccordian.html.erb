@@ -18,7 +18,7 @@
       <div class="accordion-inner">
         <%= exercise.description %>
         <!-- Show off the MOVES for the exercises inside  -->
-        <%= render('moves/moveList', :model_class => Move, :show_moves => exercise.moves) %>
+        <%= render('moves/moveList', :model_class => Move, :show_moves => exercise.moves, :page_type => "index") %>
       </div>
     </div>
   </div>

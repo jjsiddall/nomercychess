@@ -19,6 +19,13 @@
       <%= render('moves/move', :move => move) %>
     <% end %>
 
+    <% if page_type === "Edit" %>
+        <tr>
+          <td class="opening">0</td>
+          <td class="opening" colspan="10">Opening Setup</td>
+        </tr>
+    <% end %>
+
   </tbody>
 </table>
 

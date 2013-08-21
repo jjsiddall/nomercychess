@@ -70,13 +70,19 @@ function one_move(current_move, piece, color){
 	var file_change = find_change_in_file(current_move);
 		
 	if (((file_change > 1) || (file_change < -1)) && (piece === "♚")){
-		console.log("castle!")
 		
 		//the initial King move (no different than basic movement)
 		move_file(current_move[0], current_move[1], file_change );
 
-		//we know this is a castle and have moved the King, now need to move the associated rook
-		castle(current_move, file_change);
+
+		if (current_move[0].charAt(0) === "g" || current_move[0].charAt(0) === "c"){
+			reverseCastle(current_move, file_change);
+		}
+		else {
+			//we know this is a castle and have moved the King, now need to move the associated rook
+			castle(current_move, file_change);			
+		}
+
 
 	}	//need to determine if its a knight move or a bishop/queen/king as they have particular movement
 	else if ((rank_change != 0) && (file_change != 0) && (piece != "♞")){
@@ -343,33 +349,22 @@ function castle(current_move, file_change){
 	else { move_file("a"+current_move[0].charAt(1) , "d"+current_move[0].charAt(1), -(file_change-1) );}
 }
 
+//used to trigger the rook to move if the king's move is greater than 2 squares, but in this case does the reverse of a castle
+//(so rewinding works!)
+function reverseCastle(current_move, file_change){
 
-// //Potentially "junk code" - originally was going to put the text on the board with the move, but the feedback from users was that it was too distracting
-// function show_popover_info(pieceMoved, newSquareID){
-// 	var file = newSquareID.charAt(0);
+	console.log(current_move);
+	console.log(file_change);
 
-// 	var moveExplained = $(".currentMove:last").data('explanation');
-// 	var moveNumber =  $(".currentMove:last").data('movenumber');
-// 	var popoverSide = "right"
-// 	var popoverTitle = pieceMoved.html() + " to " + newSquareID;
+	//near side Castle of rook
+	if (file_change === -2){ 
+		console.log("short castle");
+		move_file("f"+current_move[0].charAt(1) , "h"+current_move[0].charAt(1), -file_change );
+	}
+	//farside Castle of rook
+	else { 
+		console.log("long castle");
+		move_file("d"+current_move[0].charAt(1) , "a"+current_move[0].charAt(1), -(file_change+1) );
+	}
+}
 
-// 	//make the popover appear to the side (makes readability easier)
-// 	if (file === "a" || file === "b" || file === "c" || file === "d" ){
-// 		popoverSide = "left";
-// 	}
-		
-// 	pieceMoved.popover(
-// 	    {
-// 	        title: popoverTitle,
-// 	        content: moveExplained,
-// 	        placement: popoverSide,
-// 	        trigger: "manual"
-// 	    }
-// 	).popover('show');	
-// }
-// function clear_popovers(){
-// 	$(".piece").each(function(e) {
-// 		var this_piece = $(this);
-// 		this_piece.popover('destroy');
-// 	});
-// }

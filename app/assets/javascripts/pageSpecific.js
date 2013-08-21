@@ -102,7 +102,10 @@ $('.exercises.edit').ready(function() {
 
 $('.exercises.edit, .exercises.new').ready(function() {
 	//"edit" the button "clear" for removing all the pieces (and updating the db)
-	$('#clear-board').on('click', function() { clearBoard(); });
+	$('#clear-board').on('click', function() { 
+		clearBoard(); 
+		saveCurrentBoard();
+	});
 
 	//"edit" the button "reset" for removing all the pieces (and updating the db)
 	$('#reset-board').on('click', function() { resetBoard(); });
@@ -113,6 +116,12 @@ $('.lessons.builder').ready(function() {
       connectWith: ".connectedSortable" //, 
 //      placeholder: "well-small well"
     }).disableSelection();
+});
+
+$('.lessons.index').ready(function() {
+	$('.gallery > div').hoverdir( {
+		hoverDelay	: 75
+	});
 });
 
 $('.home.index').ready(function() {

@@ -8,38 +8,20 @@ $('.exercises.edit, .exercises.new').ready(function() {
 	playMove();
 
 	makeTableClickable();
-	// $('td:not(.new, .explanation)').on('click', function() {
-
-	// 	//if .warning is already there it means there is something being edited and now we are clicking it again so we should save
-	// 	if ($(".warning").length === 0) {
-
-	// 		$(this).parent().addClass("playToHere").addClass("warning");
-
-	// 		//store what is currently in the Explanation column
-	// 		var currentExplanation = $(".warning td.explanation").html();
-	// 		//remove current html from Explanation cell
-	// 		$(".warning td.explanation").html("");
-	// 		//append a textbox to the Explanation cell
-	// 		$(".warning td.explanation").append('<textarea id="edit-Explanation" rows="2"></textarea>');
-	// 		//add what was in the Explanation cell to the textarea
-	// 		$("#edit-Explanation").val(currentExplanation);
-
-	// 		//run "playMove" goes one move at a time
-	// 		playMove();		
-	// 	}
-	// 	else {
-	// 		console.log($("#edit-Explanation").val())
-
-	// 		 $(".warning td.explanation").html($("#edit-Explanation").val());
-
-	// 		updateMove();		
-	// 		$(".warning").removeClass("warning");			
-	// 	}
-	// });
 
 	//this commits the move after its been made
 	$('.save-Move').on('click', function() {
   		if ($("#move-number").length != 0){ saveMove();}
+  	});
+
+	//this is for the last row of the moves table - it takes to all the way back to the setup
+	$('.opening').on('click', function() {
+  		clearBoard();
+		loadPiecesOnBoard($("#board").data('initial_setup').split(","));
+		makeDraggable();
+		$(".showingMove").removeClass("showingMove");
+		$(".warning td.explanation").html($("#edit-Explanation").val());
+		$(".warning").removeClass("warning");
   	});
 
   	$('.square').droppable({
@@ -164,28 +146,6 @@ function updateMove(){
 
 }
 
-
-// 	//get last move number in the current list and add one for the current move number
-// 	var moveNumber = parseInt($('.move:last td:first-child').html())+1;
-// 	//set moveNumber to 1 if not defined
-// 	if (isNaN(moveNumber)){ moveNumber = 1 };
-
-// console.log(moveNumber)
-
-// 	if ($("#move-number").length===0){
-// 		$('#move-list').append("<tr id='new-move'> \
-// 			<td id='move-number'>"+ moveNumber +"</td> \
-// 			<td id='white-piece'>...</td> \
-//             <td id='white-start'></td> \
-//             <td id='white-end'></td> \
-// 			<td id='black-piece'>...</td> \
-//             <td id='black-start'></td> \
-//             <td id='black-end'></td> \
-//             <td id='explanation'><textarea id='exp-textbox' rows='3' class='span5'></textarea></td> \
-//           </tr>")
-// 	}
-
-
 //update / add Move
 function saveMove(){
 
@@ -245,7 +205,7 @@ function updateIds(){
 }
 
 function makeTableClickable(){
-	$('td:not(.new, .explanation)').on('click', function() {
+	$('td:not(.new, .explanation, .button_edit, .button_delete, .opening)').on('click', function() {
 
 		//if .warning is already there it means there is something being edited and now we are clicking it again so we should save
 		if ($(".warning").length === 0) {
@@ -265,7 +225,6 @@ function makeTableClickable(){
 			playMove();		
 		}
 		else {
-			console.log($("#edit-Explanation").val())
 
 			 $(".warning td.explanation").html($("#edit-Explanation").val());
 

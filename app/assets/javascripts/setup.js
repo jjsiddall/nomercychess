@@ -62,7 +62,6 @@ function clearBoard(){
 	$(".square:not(.unused)").each(function(e) {
 		$(this).children().remove();
 	});
-	saveCurrentBoard();
 }
 
 //Saves the pieces - as they are on the board - to the db
