@@ -217,7 +217,7 @@ function makeTableClickable(){
 			//remove current html from Explanation cell
 			$(".warning td.explanation").html("");
 			//append a textbox to the Explanation cell
-			$(".warning td.explanation").append('<textarea id="edit-Explanation" rows="2"></textarea>');
+			$(".warning td.explanation").append('<textarea id="edit-Explanation" rows="10"></textarea>');
 			//add what was in the Explanation cell to the textarea
 			$("#edit-Explanation").val(currentExplanation);
 

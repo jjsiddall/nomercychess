@@ -1,4 +1,4 @@
-var animationSpeed = 100;
+var animationSpeed = 500;
 
 // profileUpdate
 
@@ -19,26 +19,16 @@ $('.exercises.show, .exercises.edit, .exercises.practice, .exercises.quiz, .exer
 //used to find and replace for mouse overs
 $('.exercises.show').ready(function() {
 
-    // var squareMap = [
-    // 	"a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8",
-    // 	"b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8",
-    // 	"c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8",
-    // 	"d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8",
-    // 	"e1", "e2", "e3", "e4", "e5", "e6", "e7", "e8",
-    // 	"f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8",
-    // 	"g1", "g2", "g3", "g4", "g5", "g6", "g7", "g8",
-    // 	"h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8"
-    // 	];
 
     //look through each accordion and determine if there is a square that we can add a highlight to
 	$('.accordion-inner').each(function() {
     	 var text = $(this).html();
 
     	//replace brackets with a span for use in a mouse over to make pieces move
-    	text = text.replace(/[\[]+/g,'<span class="move-me">').replace(/[\]]+/g,'</span>');
+    	text = text.replace(/[\[]+/g,'<abbr title="move"><span class="move-me">').replace(/[\]]+/g,'</span></abbr>');
 
     	//replace brackets with a span for use in a mouse over to make pieces shake	
-		text = text.replace(/[\{]+/g, '<span class="shake-me">').replace(/[\}]+/g, '</span>');
+		text = text.replace(/[\{]+/g, '<abbr title="shake"><span class="shake-me">').replace(/[\}]+/g, '</span></abbr>');
 
     	$(this).html(text); 
 	});
@@ -46,13 +36,65 @@ $('.exercises.show').ready(function() {
 	//add a mouse over handler to the word coordinates that is are {}s - it will cause the related square to shake
 	$('.shake-me').mouseover(function() {
 		var square = $(this).text();
-		//"shakes the piece"
-		$('#'+square).addClass("animated shake");
-		//highlights the right square to move to
-		highlightSquare(square, "pink");		
+		if (square.length === 2){
+			//"shakes the piece"
+			$('#'+square).addClass("animated shake");
+			//highlights the right square to move to
+			highlightSquare(square, "pink");		
+		}
+		else if(square.length === 1){
+			if (isNaN(parseInt(square))){
+
+				$('#'+square + "1").addClass("animated pulse").effect("highlight", {"color" : "yellow"}, 500);
+				$('#'+square + "2").addClass("animated pulse").effect("highlight", {"color" : "yellow"}, 500);
+				$('#'+square + "3").addClass("animated pulse").effect("highlight", {"color" : "yellow"}, 500);
+				$('#'+square + "4").addClass("animated pulse").effect("highlight", {"color" : "yellow"}, 500);
+				$('#'+square + "5").addClass("animated pulse").effect("highlight", {"color" : "yellow"}, 500);
+				$('#'+square + "6").addClass("animated pulse").effect("highlight", {"color" : "yellow"}, 500);
+				$('#'+square + "7").addClass("animated pulse").effect("highlight", {"color" : "yellow"}, 500);
+				$('#'+square + "8").addClass("animated pulse").effect("highlight", {"color" : "yellow"}, 500);
+				$('#'+square + "9").addClass("animated pulse").effect("highlight", {"color" : "yellow"}, 500);
+
+			}
+			else {
+				$('#a'+square).addClass("animated pulse").effect("highlight", {"color" : "yellow"}, 500);
+				$('#b'+square).addClass("animated pulse").effect("highlight", {"color" : "yellow"}, 500);
+				$('#c'+square).addClass("animated pulse").effect("highlight", {"color" : "yellow"}, 500);
+				$('#d'+square).addClass("animated pulse").effect("highlight", {"color" : "yellow"}, 500);
+				$('#e'+square).addClass("animated pulse").effect("highlight", {"color" : "yellow"}, 500);
+				$('#f'+square).addClass("animated pulse").effect("highlight", {"color" : "yellow"}, 500);
+				$('#g'+square).addClass("animated pulse").effect("highlight", {"color" : "yellow"}, 500);
+				$('#h'+square).addClass("animated pulse").effect("highlight", {"color" : "yellow"}, 500);
+			}
+		}
 	}).mouseout(function(){
 		var square = $(this).text();
-    	$('#'+square).removeClass("animated shake");
+		if (square.length === 2){
+    		$('#'+square).removeClass("animated shake");
+    	}
+    	else if(square.length === 1){
+			if (isNaN(parseInt(square))){
+				$('#'+square + "1").removeClass("animated pulse");
+				$('#'+square + "2").removeClass("animated pulse");
+				$('#'+square + "3").removeClass("animated pulse");
+				$('#'+square + "4").removeClass("animated pulse");
+				$('#'+square + "5").removeClass("animated pulse");
+				$('#'+square + "6").removeClass("animated pulse");
+				$('#'+square + "7").removeClass("animated pulse");
+				$('#'+square + "8").removeClass("animated pulse");
+				$('#'+square + "9").removeClass("animated pulse");
+			}
+			else {
+				$('#a'+square).removeClass("animated pulse");
+				$('#b'+square).removeClass("animated pulse");
+				$('#c'+square).removeClass("animated pulse");
+				$('#d'+square).removeClass("animated pulse");
+				$('#e'+square).removeClass("animated pulse");
+				$('#f'+square).removeClass("animated pulse");
+				$('#g'+square).removeClass("animated pulse");
+				$('#h'+square).removeClass("animated pulse");
+			}
+		}
   	});
 
   	//add a mouse over handler to the coordinates that are in []s to make the piece move

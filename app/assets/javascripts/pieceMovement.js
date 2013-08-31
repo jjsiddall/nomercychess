@@ -1,9 +1,26 @@
 //var showPopover = true;
 
-$('.exercises.show, .exercises.edit').ready(function() {
+$('.exercises.show').ready(function() {
 	//shows the opening lessons Modal - describes the lesson
 	//console.log($('.icon-check').length)
 	$('#descriptionModal').modal('show');
+
+	//event that is triggered when the accordion is shown for the specific level
+	$('.accordion-body').on('show', function(){
+
+		if (!$(this).parent().hasClass("showingMove")){
+			//add "playToHere" to the accordion that is the final move to show
+			$(this).parent().addClass("playToHere");
+			//run "playMove" goes one move at a time
+			playMove();
+			//disables the "next" button and accordion so the user cannot go to the next move until the first is completed
+			$('#nextMove').prop('disabled', true);
+			$('.move:not(.notShownMove) .accordion-heading .accordion-toggle').prop('disabled', true);
+		}	
+
+	});
+});
+$('.exercises.show, .exercises.edit').ready(function() {
 
 	//Adds the click event to the "Next" button
 	$('#nextMove').on('click', function() {
@@ -30,17 +47,7 @@ $('.exercises.show, .exercises.edit').ready(function() {
 			//console.log("no more moves")
 			$('#nextMove').html("Finish")
 		}
-	});
 
-	//event that is triggered when the accordion is shown for the specific level
-	$('.accordion-body').on('show', function(){
-		//add "playToHere" to the accordion that is the final move to show
-		$(this).parent().addClass("playToHere");
-		//run "playMove" goes one move at a time
-		playMove();
-		//disables the "next" button and accordion so the user cannot go to the next move until the first is completed
-		$('#nextMove').prop('disabled', true);
-		$('.move:not(.notShownMove) .accordion-heading .accordion-toggle').prop('disabled', true);	
 	});
 
 	//an event listener that pays attention to when the previous move completed (and then fires the next)
@@ -232,7 +239,7 @@ function playMove(){
 		//Now we need to switch the "showingMove" class to the accordion above (visually in the browser) the current accordion we just executed
 		//we do this by accessing the DOM because we are traversing a tree (and the cached object does not know about those accordions around it)
 		$(".showingMove").removeClass("showingMove").next().addClass("showingMove");  ////////ORDER CHANGE HAPPENS HERE!
-	
+		
 	}
 	//this is the opposite code as above - here we are moving down visually the list of accordions
 	else if (showingAccordion.data("movenumber") < playToHereAccordion.data("movenumber")){
@@ -242,11 +249,6 @@ function playMove(){
 		//In the case of the first move, no accordion has "showingMove" so if it is null we tell it to put showing move on the same accordion as the
 		//playToHere accordion
 		if (showingAccordion.data("movenumber") === null){
-
-
-//its all broken because of this!!!!
-
-			// playToHereAccordion.addClass("showingMove");
 
 			$(".move:last").addClass("showingMove");   ////////ORDER CHANGE HAPPENS HERE!
 
