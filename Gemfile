@@ -8,6 +8,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 group :development, :test do
   gem 'sqlite3'
@@ -43,7 +44,7 @@ gem "binding_of_caller", ">= 0.6.8", :group => :development
 gem "hub", ">= 1.10.2", :require => nil, :group => [:development]
 
 #for seed file generation
-gem "seed_dump", "~> 0.4.2"
+gem "seed_dump"
 
 #for heroku deployment
 gem "rails_12factor"
