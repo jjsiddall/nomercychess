@@ -44,3 +44,6 @@ gem "hub", ">= 1.10.2", :require => nil, :group => [:development]
 
 #for seed file generation
 gem "seed_dump", "~> 0.4.2"
+
+#for heroku deployment
+gem "rails_12factor"
