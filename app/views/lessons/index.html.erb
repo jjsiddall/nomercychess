@@ -1,6 +1,6 @@
-<% number_of_rows = (@lessons.count.to_f/4).ceil %>
+<% number_of_rows = (@lessons.count.to_f/3).ceil %>
 <% start_lesson_for_row = 0 %>
-<% end_lesson_for_row = 3 %>
+<% end_lesson_for_row = 2 %>
 
   <div class="row">
     <div class="span12">
@@ -16,9 +16,9 @@
     <div class="span12">
       <ul class="thumbnails">
        <% @lessons[start_lesson_for_row..end_lesson_for_row].each do |lesson| %> 
-        <li class="span3">
+        <li class="span4">
           <div class="thumbnail">
-            <img alt="300x200" src="http://placehold.it/300x200">
+            <img alt="300x200" src="http://placehold.it/400x200">
             <div class="caption">
               <h3><%= lesson.title%></h3>
               <p><%= lesson.description%></p>
@@ -50,8 +50,8 @@
       </ul>
     </div>
   </div>
-  <% start_lesson_for_row = start_lesson_for_row +4 %>
-  <% end_lesson_for_row = end_lesson_for_row +4 %>
+  <% start_lesson_for_row = start_lesson_for_row +3 %>
+  <% end_lesson_for_row = end_lesson_for_row +3 %>
 <% end %>
 
 
@@ -62,7 +62,7 @@
       <div>
         <a href="#">
           <img alt="300x200" src="http://placehold.it/300x200">
-          <div class='film'><span>Lorem ipsum dolor.</span></div>
+          <div><span>Lorem ipsum dolor.</span></div>
         </a>
       </div>
       <div>

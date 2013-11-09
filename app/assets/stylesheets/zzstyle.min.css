@@ -5,7 +5,15 @@
 .gallery div a img{display:block;position:relative;}
 .gallery div a div{position:absolute;background:rgba(75, 75, 75, 0.7);width:100%;height:100%;text-align:center;}
 .gallery div a div.da-animate{-webkit-transition:all 0.3s ease;-moz-transition:all 0.3s ease-in-out;-o-transition:all 0.3s ease-in-out;-ms-transition:all 0.3s ease-in-out;transition:all 0.3s ease-in-out;}
-.gallery div a div span{display:inline-block;text-transform:uppercase;font-weight:normal;color:rgba(255, 255, 255, 0.9);text-shadow:1px 1px 1px rgba(0, 0, 0, 0.2);border-bottom:1px solid rgba(255, 255, 255, 0.5);margin-top:20%;}
+.gallery div a div span{
+	display:inline-block;
+/*	text-transform:uppercase;*/
+	font-weight:normal;
+	color:rgba(255, 255, 255, 0.9);
+	text-shadow:1px 1px 1px rgba(0, 0, 0, 0.2);
+/*	border-bottom:1px solid rgba(255, 255, 255, 0.5);*/
+	margin-top:20%;
+}
 .da-slideFromTop{left:0px;top:-100%;}
 .da-slideFromBottom{left:0px;top:100%;}
 .da-slideFromLeft{top:0px;left:-100%;}
