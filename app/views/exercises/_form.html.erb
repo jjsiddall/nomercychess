@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="span3">  
+  <div class="col-md-3">  
     <%- model_class = Exercise -%>
     <div class="page-header">
       <h1><%= link_to @exercise.title, exercise_path %> - <%= page_type %></h1>
@@ -9,7 +9,7 @@
   <%= simple_form_for(@exercise) do |f| %>
   <%= f.error_notification %>
 
-    <div class="span3">
+    <div class="col-md-3">
       <div class="control-group">
         <%= f.label :title, :class => 'control-label' %>
         <div class="controls">
@@ -23,11 +23,11 @@
         </div>
       </div>
     </div>
-    <div class="span3">
+    <div class="col-md-3">
       <div class="control-group">
         <%= f.label :description, :class => 'control-label' %>
         <div class="controls">
-          <%= f.text_area :description, :class => 'text_area span3', :rows =>'3' %>
+          <%= f.text_area :description, :class => 'text_area col-md-3', :rows =>'3' %>
         </div>
       </div>
       <div class="control-group">
@@ -36,11 +36,11 @@
         </div>
       </div>
     </div>
-    <div class="span3">
+    <div class="col-md-3">
       <div class="control-group">
         <%= f.label :conclusion, :class => 'control-label' %>
         <div class="controls">
-          <%= f.text_area :conclusion, :class => 'text_area span3', :rows =>'3' %>
+          <%= f.text_area :conclusion, :class => 'text_area col-md-3', :rows =>'3' %>
         </div>
       </div>
         <%= f.submit nil, :class => 'btn btn-mini btn-primary' %>

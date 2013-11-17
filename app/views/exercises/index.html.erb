@@ -1,32 +1,34 @@
 <div class="row">
-  <div class="span6">
+  <div class="col-md-6">
     <div class="page-header">
       <h1><%= link_to "Exercises", exercises_path(format: "csv") %></h1>
     </div>  
   </div>  
 
-  <div class="span6">
+  <div class="col-md-6">
     <%= form_tag import_exercises_path, multipart: true do %>
-    <div class="fileupload fileupload-new pull-right" data-provides="fileupload">
-      <div class="input-append">
-        <div class="uneditable-input span3">
-          <i class="icon-file fileupload-exists"></i> <span class="fileupload-preview"></span>
+    <div class="fileinput fileinput-new" data-provides="fileinput">
+      <div class="input-group">
+        <div class="form-control uneditable-input" data-trigger="fileinput">
+          <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span>
         </div>
-        <span class="btn btn-file">
-          <span class="fileupload-new">Select file</span>
-          <span class="fileupload-exists">Change</span>
+        <span class="input-group-addon btn btn-default btn-file">
+          <span class="fileinput-new">Select file</span>
+          <span class="fileinput-exists">Change</span>
           <%= file_field_tag :file %>
         </span>
-        <%= submit_tag "Upload", :class => "btn fileupload-exists" %>
-        <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+        <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+        <%= submit_tag "Upload", :class => "upload input-group-addon btn btn-default fileinput-exists" %>
       </div>
     </div>
+
+
     <% end %>
   </div>
 </div>
 
 <div class="row">
-  <div class="span12">
+  <div class="col-md-12">
     <!-- Show Exercises in an accodian -->
     <%= render('exerciseAccordian', :show_exercises => @exercises) %>
   </div>

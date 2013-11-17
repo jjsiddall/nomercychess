@@ -1,9 +1,9 @@
 <div class="row">
-  <div class="span7">
+  <div class="col-md-7">
 
     <%= render 'board' %>   
   </div>
-  <div class="span5">
+  <div class="col-md-5">
       <%- model_class = Exercise -%>
       <div class="page-header">
         <h1>
@@ -12,11 +12,11 @@
         </h1>
       </div>
 
+    <div class="panel-group">
 <!-- Butchering the Collapse Bootstrap component in order to make this screen look like the demo screen -->
     <% @exercise.moves.reverse.each do |move| %>
-      <div class="accordion-group alert-success nextMove notShownMove" data-computer= "<%= (move.computer == true ? 'white' : 'black') %>" data-white="<%= move.piece_white %>:<%= move.starting_coordinate_white %>-<%= move.ending_coordinate_white %>" data-black="<%= move.piece_black %>:<%= move.starting_coordinate_black %>-<%= move.ending_coordinate_black %>">
-        <div class="accordion-heading">
-          <span class="accordion-toggle">
+      <div class="panel panel-success nextMove notShownMove" data-computer= "<%= (move.computer == true ? 'white' : 'black') %>" data-white="<%= move.piece_white %>:<%= move.starting_coordinate_white %>-<%= move.ending_coordinate_white %>" data-black="<%= move.piece_black %>:<%= move.starting_coordinate_black %>-<%= move.ending_coordinate_black %>">
+        <div class="panel-heading">
               <table>
                 <tr>
                   <td class="moveTableFirstColumn"><%= move.move_number %></td>
@@ -24,38 +24,39 @@
                   <td class="moveTableNonfirstColumn"><%= move.piece_black %><%= move.ending_coordinate_black %></td>
                 </tr>
               </table>
-          </span>
         </div>
       </div>
     <% end %>
-  </div>
-</div>
-<div id="conclusionModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="descriptionModalLabel" aria-hidden="true" style="display: none;">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="descriptionModalLabel">Practice Complete!</h3>
-  </div>
-  <div class="modal-body">
-    neat! you are done, on to the next?
-<!--     <%= @practice %> -->
-  </div>
-
-  <div class="modal-footer">
-    <%= link_to "Back to the Demo", exercise_path(@exercise.id), :class => 'btn' %>
-    <%= link_to "Practice Again", practice_exercise_path(@exercise.id), :class => 'btn' %>
-    
-    <% next_exercise = @exercise.lesson.next_exercise(@exercise) %>
-    <% if !next_exercise.nil? %>
-      <%= link_to "Next Exercise", exercise_path(next_exercise), :class => 'btn btn-primary btn-large' %> 
-    <% else %>
-      <% if current_user.nil? %>
-        <%= link_to "Another Lesson?", lessons_path, :class => 'btn btn-large btn-primary' %>       
-      <% else %>
-        <%= link_to "Quiz Me!", quizzes_lesson_path(@exercise.lesson), :class => 'btn btn-danger btn-large' %> 
-      <% end %>
-    <% end %>
+    </div>
   </div>
 </div>
 
-
-
+<!-- Closing Modal: describes the lessons conclusion -->
+<div id="conclusionModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="conclusionModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Practice Complete!</h4>
+      </div>
+      <div class="modal-body">
+        <p>neat! you are done, on to the next?</p>
+      </div>
+      <div class="modal-footer">
+        <%= link_to "Back to the Demo", exercise_path(@exercise.id), :class => 'btn btn-default' %>
+        <%= link_to "Practice Again", practice_exercise_path(@exercise.id), :class => 'btn btn-default' %>
+        
+        <% next_exercise = @exercise.lesson.next_exercise(@exercise) %>
+        <% if !next_exercise.nil? %>
+          <%= link_to "Next Exercise", exercise_path(next_exercise), :class => 'btn btn-primary btn-large' %> 
+        <% else %>
+          <% if current_user.nil? %>
+            <%= link_to "Another Lesson?", lessons_path, :class => 'btn btn-large btn-primary' %>       
+          <% else %>
+            <%= link_to "Quiz Me!", quizzes_lesson_path(@exercise.lesson), :class => 'btn btn-danger btn-large' %> 
+          <% end %>
+        <% end %>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

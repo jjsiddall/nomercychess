@@ -33,14 +33,14 @@
   .computer {display:none;}
   .exercise_title {display:none;}
   .updated {display:none;}
-/*  input.span1 {display:none;}
-  select.span1 {display:none;}
+/*  input.col-md-1 {display:none;}
+  select.col-md-1 {display:none;}
 */  /*textarea {display:none;}*/
 
 </style>
 
 <!-- <div class="row">
-  <div class="span3">  
+  <div class="col-md-3">  
     <%- model_class = Exercise -%>
     <div class="page-header">
       <h1><%=@exercise.title %> - <%= page_type %></h1>
@@ -51,14 +51,14 @@
 
 <hr noshade size=7>
 <!-- <div class="row">
-  <div class="span12">
+  <div class="col-md-12">
     <div class="well ">
     </div>
   </div>
 </div> -->
 
 <div class="row">
-  <div class="span3">
+  <div class="col-md-3">
     <div class="affix">
 
     <div class='unused square'>
@@ -98,7 +98,7 @@
   </div>
 <!-- </div>
 <div class="row"> -->
-  <div class="span9">
+  <div class="col-md-9">
 
       <%= render('moves/moveList', :model_class => Move, :show_moves => @exercise.moves, :page_type => "Edit") %>
     

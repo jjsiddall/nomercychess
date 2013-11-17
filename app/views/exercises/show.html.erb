@@ -2,11 +2,11 @@
 
 <div class="row">
   <!-- Left column: the board  -->
-  <div class="span7">
+  <div class="col-md-7">
     <%= render 'board' %>   
   </div>
   <!-- Right column: the moves  -->
-    <div class="span5">
+    <div class="col-md-5">
       <%- model_class = Exercise -%>
       <div class="page-header" data-modal="yes">
         <h1>
@@ -17,11 +17,11 @@
           <!-- <button id="prevMove" class='btn btn-primary'>Previous</button> -->
       </div>
     <!-- Puts all the move on the screen in the format to show them -->
-      <div class="accordion" id="accordion2">
+      <div class="panel-group" id="accordion2">
         <!-- ORDER CHANGE HAPPENS HERE! -->
         <% @exercise.moves.reverse.each do |move| %> 
-        <div class="accordion-group notShownMove move" data-moveNumber="<%= move.move_number %>" data-white="<%= move.piece_white %>:<%= move.starting_coordinate_white %>-<%= move.ending_coordinate_white %>" data-black="<%= move.piece_black %>:<%= move.starting_coordinate_black %>-<%= move.ending_coordinate_black %>">
-          <div class="accordion-heading">
+        <div class="panel panel-default notShownMove move" data-moveNumber="<%= move.move_number %>" data-white="<%= move.piece_white %>:<%= move.starting_coordinate_white %>-<%= move.ending_coordinate_white %>" data-black="<%= move.piece_black %>:<%= move.starting_coordinate_black %>-<%= move.ending_coordinate_black %>">
+          <div class="panel-heading">
             <a id="toggleMe-<%= move.move_number %>" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-<%= move.move_number %>">
               <table>
                 <tr>
@@ -32,8 +32,8 @@
               </table>
             </a>
           </div>
-          <div id="collapse-<%= move.move_number %>" class="accordion-body collapse">
-            <div class="accordion-inner">
+          <div id="collapse-<%= move.move_number %>" class="panel-collapse collapse">
+            <div class="panel-body">
               <%= move.explanation %>
             </div>
           </div>
@@ -44,35 +44,43 @@
 </div>
 
 <!-- Opening Modal: describes lesson start -->
-<div id="descriptionModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="descriptionModalLabel" aria-hidden="true" style="display: none;">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="descriptionModalLabel"><%= @exercise.title %></h3>
-  </div>
-  <div class="modal-body">
-    <%= @exercise.description %>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal">Close</button>
-  </div>
-</div>
+<div id="descriptionModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="descriptionModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><%= @exercise.title %></h4>
+      </div>
+      <div class="modal-body">
+        <p><%= @exercise.description %></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <!-- Closing Modal: describes the lessons conclusion -->
-<div id="conclusionModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="descriptionModalLabel" aria-hidden="true" style="display: none;">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="descriptionModalLabel">Exercise Complete!</h3>
-  </div>
-  <div class="modal-body">
-    <%= @exercise.conclusion %>
-  </div>
+<div id="conclusionModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="conclusionModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Exercise Complete</h4>
+      </div>
+      <div class="modal-body">
+        <p><%= @exercise.conclusion %></p>
+      </div>
+      <div class="modal-footer">
+        <%= link_to "Show it again", exercise_path(@exercise.id), :class => 'btn btn-default' %>
+        <button class="btn btn-default" data-dismiss="modal">Stay Here</button>
+        <%= link_to "Practice It!", practice_exercise_path(@exercise.id), :class => 'btn btn-primary btn-large' %> 
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
-  <div class="modal-footer">
-    <%= link_to "Show it again", exercise_path(@exercise.id), :class => 'btn' %>
-    <button class="btn" data-dismiss="modal">Stay Here</button>
-    <%= link_to "Practice It!", practice_exercise_path(@exercise.id), :class => 'btn btn-primary btn-large' %>    
-  </div>
-</div>
 
 
 

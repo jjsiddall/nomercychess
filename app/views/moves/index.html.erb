@@ -1,16 +1,16 @@
 <div class="row">
 <%- model_class = Move -%>
-	<div class="span6">
+	<div class="col-md-6">
 		<div class="page-header">
 			<h1><%= link_to "Moves", moves_path(format: "csv") %></h1>
 		</div>  
 	</div>  
 
-  	<div class="span6">
+  	<div class="col-md-6">
 		<%= form_tag import_moves_path, multipart: true do %>
 		<div class="fileupload fileupload-new" data-provides="fileupload">
 		  <div class="input-append">
-		    <div class="uneditable-input span3">
+		    <div class="uneditable-input col-md-3">
 		    	<i class="icon-file fileupload-exists"></i> <span class="fileupload-preview"></span>
 		    </div>
 		    <span class="btn btn-file">

@@ -1,10 +1,10 @@
 <div class="row">
-  <div class="span6"> 
+  <div class="col-md-6"> 
     <%= link_to "CSV of All Exercises", exercises_path(format: "csv") %><br>
     <%= form_tag import_exercises_path, multipart: true do %>
     <div class="fileupload fileupload-new" data-provides="fileupload">
       <div class="input-append">
-        <div class="uneditable-input span3">
+        <div class="uneditable-input col-md-3">
           <i class="icon-file fileupload-exists"></i> <span class="fileupload-preview"></span>
         </div>
         <span class="btn btn-file">
@@ -18,12 +18,12 @@
     </div>
     <% end %>
   </div>
-  <div class="span6">    
+  <div class="col-md-6">    
     <%= link_to "CSV of All Moves", moves_path(format: "csv") %><br> 
     <%= form_tag import_moves_path, multipart: true do %>
     <div class="fileupload fileupload-new" data-provides="fileupload">
       <div class="input-append">
-        <div class="uneditable-input span3">
+        <div class="uneditable-input col-md-3">
           <i class="icon-file fileupload-exists"></i> <span class="fileupload-preview"></span>
         </div>
         <span class="btn btn-file">
@@ -40,7 +40,7 @@
 </div>
 
 <div class="row">
-  <div class="span6">
+  <div class="col-md-6">
     <div class="page-header">
      <h1>Claimed  <%= link_to 'New Lesson', new_lesson_path, :class => 'btn btn-primary pull-right' %></h1> 
     </div>
@@ -64,7 +64,7 @@
    <% end %>
   </div>
 
-  <div class="span6">
+  <div class="col-md-6">
     <div class="page-header">
      <h1>Unclaimed</h1>
     </div>

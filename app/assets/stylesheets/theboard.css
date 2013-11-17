@@ -30,7 +30,6 @@
 .piece {
   font-size:38px;
   padding-left: 9.5px; 
-  padding-top: 17.5px;
   position:absolute;
   text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
  }
@@ -69,7 +68,7 @@
   }
   .piece {
     font-size:48px;
-    padding-left: 12px; padding-top: 24px;
+    padding-left: 12px;
   }
 
 }
@@ -97,7 +96,7 @@
   }
   .piece {
     font-size:28px;
-    padding-left: 7px; padding-top: 11px;
+    padding-left: 7px; /*padding-top: 11px;*/
   }
 
 }
@@ -133,7 +132,7 @@
   }
   .piece {
     font-size:18px;
-    padding-left: 4.5px; padding-top: 3px;
+    padding-left: 4.5px; /*padding-top: 3px;*/
   }
 }
 

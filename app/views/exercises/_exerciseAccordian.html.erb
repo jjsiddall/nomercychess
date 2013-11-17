@@ -1,21 +1,22 @@
-<div class="accordion" id="accordion2">
+<div class="panel-group" id="accordion2">
   <% show_exercises.each do |exercise| %> 
-  <div class="accordion-group">
-    <div class="accordion-heading">
+  <div class="panel panel-default">
+    <div class="panel-heading">
       <div class="row">
-        <div class="span11 form-inline">
-      
-          <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion2" href="#exer<%= exercise.id %>">
-            <%= exercise.title %>
-          </a>
-          <%= link_to 'Destroy', exercise_path(exercise), :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-mini btn-danger pull-right' %>
-          <%= link_to 'Edit', edit_exercise_path(exercise), :class => 'btn btn-mini pull-right' %>
-          <%= link_to 'Show', exercise_path(exercise), :class => 'btn btn-primary btn-mini pull-right' %>
+        <div class="col-md-12 form-inline">
+          <h4 class="panel-title">
+            <a class="pull-left" data-toggle="collapse" data-parent="#accordion2" href="#exer<%= exercise.id %>">
+              <%= exercise.title %>
+            </a>
+          </h4>
+          <%= link_to 'Destroy', exercise_path(exercise), :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-xs btn-danger pull-right' %>
+          <%= link_to 'Edit', edit_exercise_path(exercise), :class => 'btn btn-default btn-xs pull-right' %>
+          <%= link_to 'Show', exercise_path(exercise), :class => 'btn btn-primary btn-xs pull-right' %>
         </div>
       </div>
     </div>
-    <div id="exer<%= exercise.id %>" class="accordion-body collapse">
-      <div class="accordion-inner">
+    <div id="exer<%= exercise.id %>" class="panel-collapse collapse">
+      <div class="panel-body">
         <%= exercise.description %>
         <!-- Show off the MOVES for the exercises inside  -->
         <%= render('moves/moveList', :model_class => Move, :show_moves => exercise.moves, :page_type => "index") %>

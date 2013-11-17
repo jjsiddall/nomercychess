@@ -1,5 +1,5 @@
 .gallery{position:relative;padding:0;}
-.gallery .span4{margin-bottom:20px;}
+.gallery .col-md-4{margin-bottom:20px;}
 .gallery div{float:left;background:#fff;position:relative;box-shadow:0 1px 3px rgba(0, 0, 0, 0.1);}
 .gallery div a{overflow:hidden;display:block;position:relative;}
 .gallery div a img{display:block;position:relative;}
@@ -20,3 +20,8 @@
 .da-slideFromRight{top:0px;left:100%;}
 .da-slideTop{top:0px;}
 .da-slideLeft{left:0px;}
+
+.upload.input-group-addon:last-child{
+	width: 70px;
+	height: 34px;
+}

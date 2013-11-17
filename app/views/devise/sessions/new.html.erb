@@ -1,9 +1,9 @@
-<div class="span6 offset3">
+<div class="col-md-6 offset3">
 	<div class="hero-unit">
 		<legend>Please Sign In</legend>
 		<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-horizontal' }) do |f| %>
-		  <%= f.input :email, :autofocus => true, placeholder: "Email address", input_html: { class: 'span3' } %>
-		  <%= f.input :password, placeholder: "Password", input_html: { class: 'span3' } %>
+		  <%= f.input :email, :autofocus => true, placeholder: "Email address", input_html: { class: 'col-md-3' } %>
+		  <%= f.input :password, placeholder: "Password", input_html: { class: 'col-md-3' } %>
 		  <%= f.input :remember_me, inline_label: 'Remember me', label: false, :as => :boolean if devise_mapping.rememberable? %>
 		  <div class="controls">
 			  <%= f.button :submit, "Sign in", :class => 'btn-primary btn-large' %>

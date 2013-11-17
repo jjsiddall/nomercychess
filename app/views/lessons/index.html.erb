@@ -2,26 +2,24 @@
 <% start_lesson_for_row = 0 %>
 <% end_lesson_for_row = 2 %>
 
-  <div class="row">
-    <div class="span12">
-      <%- model_class = Lesson -%>
-      <div class="page-header">
-        <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
-      </div>
+<div class="row">
+  <div class="col-md-12">
+    <%- model_class = Lesson -%>
+    <div class="page-header">
+      <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
     </div>
   </div>
+</div>
 
 <% number_of_rows.times do |lesson| %>
   <div class="row">
-    <div class="span12">
-      <ul class="thumbnails">
-       <% @lessons[start_lesson_for_row..end_lesson_for_row].each do |lesson| %> 
-        <li class="span4">
-          <div class="thumbnail">
-            <img alt="300x200" src="http://placehold.it/400x200">
-            <div class="caption">
-              <h3><%= lesson.title%></h3>
-              <p><%= lesson.description%></p>
+    <% @lessons[start_lesson_for_row..end_lesson_for_row].each do |lesson| %> 
+      <div class="col-md-4">
+        <div class="thumbnail">
+          <img alt="300x200" src="http://placehold.it/400x200">
+          <div class="caption">
+            <h3><%= lesson.title%></h3>
+            <p><%= lesson.description%></p>
 
             <% if !current_user.nil? %>
               <div class="progress">
@@ -29,7 +27,7 @@
                 <div class="bar bar-warning" style="width: <%= number_to_percentage(lesson.find_percent_complete("practice", current_user.id)) %>;"></div>
                 <div class="bar bar-danger" style="width: <%= number_to_percentage(lesson.find_percent_complete("quiz", current_user.id)) %>;"></div>
               </div>
-              
+                
               <% if number_to_percentage(lesson.find_percent_complete("exercise", current_user.id) + lesson.find_percent_complete("practice", current_user.id) + lesson.find_percent_complete("quiz", current_user.id)) === number_to_percentage(100.00) %>
                <p><%= link_to 'Completed!', lesson_path(lesson.id), :class => 'btn btn-large btn-primary' %></p> 
               <% elsif number_to_percentage(lesson.find_percent_complete("exercise", current_user.id) + lesson.find_percent_complete("practice", current_user.id) + lesson.find_percent_complete("quiz", current_user.id)) === number_to_percentage(0)%>
@@ -41,14 +39,10 @@
             <% else %>
               <p><%= link_to 'Do It!', lesson_path(lesson.id), :class => 'btn btn-large btn-primary' %></p> 
             <% end %> 
-              
-
-            </div>
           </div>
-        </li>
-       <% end %>
-      </ul>
-    </div>
+        </div>
+      </div>
+    <% end %>
   </div>
   <% start_lesson_for_row = start_lesson_for_row +3 %>
   <% end_lesson_for_row = end_lesson_for_row +3 %>

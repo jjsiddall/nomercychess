@@ -1,4 +1,4 @@
-<ul  class="nav pull-right" >
+<ul  class="nav navbar-nav pull-right" >
   <% if user_signed_in? %>
     <li id="nav-log" data-navid= "navigation-<%= current_user.id %>">
       <div class="btn-group">
@@ -25,7 +25,7 @@
     </li>
   <% end %>
 </ul>
-<ul class='nav'>
+<ul class='nav navbar-nav'>
    <li>
     <%= link_to 'Pricing', home_pricing_path %>
   </li> 

@@ -6,7 +6,10 @@ $('.exercises.show').ready(function() {
 	$('#descriptionModal').modal('show');
 
 	//event that is triggered when the accordion is shown for the specific level
-	$('.accordion-body').on('show', function(){
+	$('.panel-collapse').on('show.bs.collapse', function(){
+
+			console.log("doing something")
+
 
 		if (!$(this).parent().hasClass("showingMove")){
 			//add "playToHere" to the accordion that is the final move to show

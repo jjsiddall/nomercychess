@@ -103,7 +103,7 @@ $('.exercises.practice, .exercises.quiz').ready(function() {
 					pieceBeingMoved.html("♛");
 				}
 
-				whiteMoveCompleteNowBlack($('.alert-success:not(.notShownMove):first'));
+				whiteMoveCompleteNowBlack($('.panel-success:not(.notShownMove):first'));
 
 				pieceBeingMoved.css("top", "");
 				pieceBeingMoved.css("left", "");
@@ -123,7 +123,7 @@ $('.exercises.practice, .exercises.quiz').ready(function() {
 function verifyCorrectMove(pieceBeingMoved, droppedOnSquare){
 
 	//take out any error moves that have been displayed
-	$('.alert-error').remove();
+	$('.alert-danger').remove();
 
 	//generate an identical statement to the moves written out
 	var madeMove = pieceBeingMoved.html() + ":" + pieceBeingMoved.parent().attr("id") + "-" + droppedOnSquare.attr("id");
@@ -167,8 +167,8 @@ function updateDisplayedMove(){
 }
 function showIncorrectMove(madeMove, correctMove){
 
-	//build the error and show it under the list as a alert-error (and make it more readable ":" = "From" & "-" = "To")
-	madeMove = '<div class="alert alert-error">' + "Incorrect: " + madeMove.replace(":", " from ").replace("-", " to ") + '<div class="pull-right hint">hint?</div></div>'
+	//build the error and show it under the list as a alert-danger (and make it more readable ":" = "From" & "-" = "To")
+	madeMove = '<div class="alert alert-danger">' + "Incorrect: " + madeMove.replace(":", " from ").replace("-", " to ") + '<div class="pull-right hint">hint?</div></div>'
 	$(madeMove).insertBefore('.notShownMove:last');
 
 	var correctMoveArray = correctMove.split(":")[1].split("-");
@@ -202,7 +202,7 @@ function checkIfThereIsNoNextMoveForWhite(){
 
 		//update the move list to show the right move was made
 		updateDisplayedMove();
-		whiteMoveCompleteNowBlack($('.alert-success:not(.notShownMove):first'));
+		whiteMoveCompleteNowBlack($('.panel-success:not(.notShownMove):first'));
 
 		// pieceBeingMoved.css("top", "");
 		// pieceBeingMoved.css("left", "");
