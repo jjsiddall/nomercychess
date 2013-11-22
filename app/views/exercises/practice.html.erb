@@ -48,12 +48,12 @@
         
         <% next_exercise = @exercise.lesson.next_exercise(@exercise) %>
         <% if !next_exercise.nil? %>
-          <%= link_to "Next Exercise", exercise_path(next_exercise), :class => 'btn btn-primary btn-large' %> 
+          <%= link_to "Next Exercise", exercise_path(next_exercise), :class => 'btn btn-primary btn-lg' %> 
         <% else %>
           <% if current_user.nil? %>
-            <%= link_to "Another Lesson?", lessons_path, :class => 'btn btn-large btn-primary' %>       
+            <%= link_to "Another Lesson?", lessons_path, :class => 'btn btn-lg btn-primary' %>       
           <% else %>
-            <%= link_to "Quiz Me!", quizzes_lesson_path(@exercise.lesson), :class => 'btn btn-danger btn-large' %> 
+            <%= link_to "Quiz Me!", quizzes_lesson_path(@exercise.lesson), :class => 'btn btn-danger btn-lg' %> 
           <% end %>
         <% end %>
       </div>

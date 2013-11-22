@@ -44,14 +44,14 @@
       <%= @completed_quizzes %> done, <%= @exercise.lesson.exercises.count - @completed_quizzes %> to go!
   </div>
   <div class="modal-footer">
-    <%= link_to "Next...", quizzes_lesson_path(@exercise.lesson), :class => 'btn btn-danger btn-large' %> 
+    <%= link_to "Next...", quizzes_lesson_path(@exercise.lesson), :class => 'btn btn-danger btn-lg' %> 
   </div>
 <% else %>
   <div class="modal-body">
       Congratulations! You Passed! Another Lesson?
   </div>
   <div class="modal-footer">
-    <%= link_to "Lessons", lessons_path, :class => 'btn btn-primary btn-large' %> 
+    <%= link_to "Lessons", lessons_path, :class => 'btn btn-primary btn-lg' %> 
   </div>
 <% end %>
 </div>

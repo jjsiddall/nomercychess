@@ -1,7 +1,7 @@
 <%- model_class = Lesson -%>
 <div class="page-header">
   <h1>
-    <%=t '.title', :default => @lesson.title %> <%= link_to "Let's Go!", exercise_path(@lesson.sorted_exercises.first), :class => 'btn btn-primary btn-large' %>
+    <%=t '.title', :default => @lesson.title %> <%= link_to "Let's Go!", exercise_path(@lesson.sorted_exercises.first), :class => 'btn btn-primary btn-lg' %>
   </h1>
 </div>
 
@@ -51,7 +51,7 @@
 
 <% if !current_user.nil? %>
   <% if (@lesson.find_percent_complete("exercise", current_user.id) === 1.to_f / 3 * 100) && (@lesson.find_percent_complete("practice", current_user.id) === 1.to_f / 3 * 100) && (@lesson.find_percent_complete("quiz", current_user.id) != 1.to_f / 3 * 100) %>
-    <%= link_to "Quiz Me!", quizzes_lesson_path(@lesson), :class => 'btn btn-danger btn-large' %>
+    <%= link_to "Quiz Me!", quizzes_lesson_path(@lesson), :class => 'btn btn-danger btn-lg' %>
   <% end %>
 <% end %>
 

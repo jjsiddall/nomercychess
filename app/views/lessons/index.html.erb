@@ -29,15 +29,15 @@
               </div>
                 
               <% if number_to_percentage(lesson.find_percent_complete("exercise", current_user.id) + lesson.find_percent_complete("practice", current_user.id) + lesson.find_percent_complete("quiz", current_user.id)) === number_to_percentage(100.00) %>
-               <p><%= link_to 'Completed!', lesson_path(lesson.id), :class => 'btn btn-large btn-primary' %></p> 
+               <p><%= link_to 'Completed!', lesson_path(lesson.id), :class => 'btn btn-lg btn-primary' %></p> 
               <% elsif number_to_percentage(lesson.find_percent_complete("exercise", current_user.id) + lesson.find_percent_complete("practice", current_user.id) + lesson.find_percent_complete("quiz", current_user.id)) === number_to_percentage(0)%>
-               <p><%= link_to 'Do It!', lesson_path(lesson.id), :class => 'btn btn-large btn-primary' %></p> 
+               <p><%= link_to 'Do It!', lesson_path(lesson.id), :class => 'btn btn-lg btn-primary' %></p> 
               <% else %>
-               <p><%= link_to 'Continue...', lesson_path(lesson.id), :class => 'btn btn-large btn-primary' %></p> 
+               <p><%= link_to 'Continue...', lesson_path(lesson.id), :class => 'btn btn-lg btn-primary' %></p> 
               <% end %>
 
             <% else %>
-              <p><%= link_to 'Do It!', lesson_path(lesson.id), :class => 'btn btn-large btn-primary' %></p> 
+              <p><%= link_to 'Do It!', lesson_path(lesson.id), :class => 'btn btn-lg btn-primary' %></p> 
             <% end %> 
           </div>
         </div>

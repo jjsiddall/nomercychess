@@ -10,7 +10,7 @@
       <%- model_class = Exercise -%>
       <div class="page-header" data-modal="yes">
         <h1>
-          <button id="nextMove" class='btn btn-primary btn-large'>Next</button>
+          <button id="nextMove" class='btn btn-primary btn-lg'>Next</button>
           <%= @exercise.title %>
           <%= !@completion.nil? ? "<i class='icon-check'></i>".html_safe : "<i class='icon-edit'></i>".html_safe %>
         </h1>
@@ -75,7 +75,7 @@
       <div class="modal-footer">
         <%= link_to "Show it again", exercise_path(@exercise.id), :class => 'btn btn-default' %>
         <button class="btn btn-default" data-dismiss="modal">Stay Here</button>
-        <%= link_to "Practice It!", practice_exercise_path(@exercise.id), :class => 'btn btn-primary btn-large' %> 
+        <%= link_to "Practice It!", practice_exercise_path(@exercise.id), :class => 'btn btn-primary btn-lg' %> 
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

@@ -21,7 +21,7 @@ $('.exercises.show').ready(function() {
 
 
     //look through each accordion and determine if there is a square that we can add a highlight to
-	$('.accordion-inner').each(function() {
+	$('.panel-body').each(function() {
     	 var text = $(this).html();
 
     	//replace brackets with a span for use in a mouse over to make pieces move
