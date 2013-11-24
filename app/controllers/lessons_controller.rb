@@ -23,7 +23,7 @@ class LessonsController < ApplicationController
   # GET /lessons.json
   def builder
     @lessons = Lesson.order("id DESC").all
-    @exercises = Exercise.order("sortForLesson DESC").all
+    @exercises = Exercise.order("sort_for_lesson DESC").all
     respond_to do |format|
       format.html # builder.html.erb
       format.json { render json: @lessons }

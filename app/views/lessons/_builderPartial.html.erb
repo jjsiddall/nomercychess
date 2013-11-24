@@ -1,7 +1,7 @@
 <div id="<%= exercise.id %>" class="well well-sm">
-	<%= exercise.sortForLesson %> - <%= link_to exercise.title, exercise_path(exercise) %>
+	<%= exercise.sort_for_lesson %> - <%= link_to exercise.title, exercise_path(exercise) %>
   
-  	<%= exercise.nextExercise %>
+  	<%= exercise.next_exercise %>
 
 	<%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, exercise_path(exercise), :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-xs btn-danger pull-right' %>
 	<%= link_to 'Dup', clone_exercise_path(exercise.id), :class => 'btn btn-default btn-xs pull-right' %>

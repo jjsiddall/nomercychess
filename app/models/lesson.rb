@@ -7,11 +7,11 @@ class Lesson < ActiveRecord::Base
   has_many :completions, :through => :exercises
 
   def next_exercise(exercise)
-  	exercises.find_by_sortForLesson(exercise.sortForLesson + 1)
+  	exercises.find_by_sort_for_lesson(exercise.sort_for_lesson + 1)
   end
 
   def sorted_exercises
-  	exercises.sort_by { |exercise| exercise.sortForLesson }
+  	exercises.sort_by { |exercise| exercise.sort_for_lesson }
   end
 
   def find_percent_complete(completionType, user_id)

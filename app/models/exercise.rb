@@ -1,5 +1,5 @@
 class Exercise < ActiveRecord::Base
-  attr_accessible :description, :lesson_id, :start, :title, :nextExercise, :sortForLesson, :conclusion
+  attr_accessible :description, :lesson_id, :start, :title, :next_exercise, :sort_for_lesson, :conclusion
 
   has_many :moves, :dependent => :destroy
   has_many :completions

@@ -60,7 +60,7 @@
     </h4>
     <div id="<%= lesson.id %>" class="connectedSortable canSort well">
 
-     <% lesson.exercises.sort_by{|exercise| exercise.sortForLesson}.each do |exercise| %>
+     <% lesson.exercises.sort_by{|exercise| exercise.sort_for_lesson}.each do |exercise| %>
         <%= render('builderPartial', :exercise => exercise) %>
      <%end%>
     </div>

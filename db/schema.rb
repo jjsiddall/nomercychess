@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130527030412) do
+ActiveRecord::Schema.define(:version => 20131124204010) do
 
   create_table "completions", :force => true do |t|
     t.integer  "user_id"
@@ -26,10 +26,10 @@ ActiveRecord::Schema.define(:version => 20130527030412) do
     t.text     "description"
     t.text     "start"
     t.integer  "lesson_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-    t.string   "nextExercise"
-    t.integer  "sortForLesson"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "next_exercise"
+    t.integer  "sort_for_lesson"
     t.text     "conclusion"
   end
 

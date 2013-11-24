@@ -57,17 +57,17 @@ function updateExercisesLessonId(exercise_id, new_lesson_id){
 }
 
 //updates Exercise's lesson_id
-function updateExercise(tableName, exercise_id, nextExercise, sortForLesson){
+function updateExercise(tableName, exercise_id, next_exercise, sort_for_lesson){
 
 	//build field name for table I am saving to
-	var save_to_column1 = tableName.slice(0, -1) + '[nextExercise]';
-	var save_to_column2 = tableName.slice(0, -1) + '[sortForLesson]';
+	var save_to_column1 = tableName.slice(0, -1) + '[next_exercise]';
+	var save_to_column2 = tableName.slice(0, -1) + '[sort_for_lesson]';
 
 	//build the URL I am sending data to
 	var url_field = '/' + tableName + '/' + exercise_id;
 
 	//create the json as a string for the field and data that will be passed in the ajax call
-	var dataObj = "{\"" + save_to_column1 + "\":\"" + nextExercise +"\", \"" + save_to_column2 + "\":\"" + sortForLesson +"\"}" ;
+	var dataObj = "{\"" + save_to_column1 + "\":\"" + next_exercise +"\", \"" + save_to_column2 + "\":\"" + sort_for_lesson +"\"}" ;
 
 
 	//convert the json string into json
