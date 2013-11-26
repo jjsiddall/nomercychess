@@ -7,26 +7,26 @@
 	</div>  
 
   	<div class="col-md-6">
-		<%= form_tag import_moves_path, multipart: true do %>
-		<div class="fileupload fileupload-new" data-provides="fileupload">
-		  <div class="input-append">
-		    <div class="uneditable-input col-md-3">
-		    	<i class="icon-file fileupload-exists"></i> <span class="fileupload-preview"></span>
-		    </div>
-		    <span class="btn btn-file">
-		    	<span class="fileupload-new">Select file</span>
-		    	<span class="fileupload-exists">Change</span>
-		    	<%= file_field_tag :file %>
-		    </span>
-		    <%= submit_tag "Upload", :class => "btn fileupload-exists" %>
-		    <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
-		  </div>
-		</div>
-		<% end %>
+	    <%= form_tag import_moves_path, multipart: true do %>
+	    <div class="fileinput fileinput-new" data-provides="fileinput">
+	      <div class="input-group">
+	        <div class="form-control uneditable-input" data-trigger="fileinput">
+	          <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span>
+	        </div>
+	        <span class="input-group-addon btn btn-default btn-file">
+	          <span class="fileinput-new">Select file</span>
+	          <span class="fileinput-exists">Change</span>
+	          <%= file_field_tag :file %>
+	        </span>
+	        <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+	        <%= submit_tag "Upload", :class => "upload input-group-addon btn btn-default fileinput-exists" %>
+	      </div>
+	    </div>
+	    <% end %>
 	</div>
 </div>
 
 
 
-<%= render('moveList', :model_class => Move, :show_moves => @moves) %>
+<%= render('moveList', :model_class => Move, :show_moves => @moves, :page_type => "index") %>
 

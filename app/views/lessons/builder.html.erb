@@ -1,50 +1,6 @@
 <div class="row">
 
   <div class="col-md-6">
-    <%= link_to "CSV of All Exercises", exercises_path(format: "csv") %><br>
-    <%= form_tag import_exercises_path, multipart: true do %>
-    <div class="fileinput fileinput-new" data-provides="fileinput">
-      <div class="input-group">
-        <div class="form-control uneditable-input" data-trigger="fileinput">
-          <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span>
-        </div>
-        <span class="input-group-addon btn btn-default btn-file">
-          <span class="fileinput-new">Select file</span>
-          <span class="fileinput-exists">Change</span>
-          <%= file_field_tag :file %>
-        </span>
-        <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-        <%= submit_tag "Upload", :class => "upload input-group-addon btn btn-default fileinput-exists" %>
-      </div>
-    </div>
-    <% end %>
-  </div>
-
-  <div class="col-md-6">
-    <%= link_to "CSV of All Moves", moves_path(format: "csv") %><br>
-    <%= form_tag import_moves_path, multipart: true do %>
-    <div class="fileinput fileinput-new" data-provides="fileinput">
-      <div class="input-group">
-        <div class="form-control uneditable-input" data-trigger="fileinput">
-          <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span>
-        </div>
-        <span class="input-group-addon btn btn-default btn-file">
-          <span class="fileinput-new">Select file</span>
-          <span class="fileinput-exists">Change</span>
-          <%= file_field_tag :file %>
-        </span>
-        <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-        <%= submit_tag "Upload", :class => "upload input-group-addon btn btn-default fileinput-exists" %>
-      </div>
-    </div>
-    <% end %>
-  </div>
-
-</div>
-
-<div class="row">
-
-  <div class="col-md-6">
     <div class="page-header">
      <h1>Claimed  <%= link_to 'New Lesson', new_lesson_path, :class => 'btn btn-primary pull-right' %></h1> 
     </div>
@@ -68,6 +24,69 @@
   </div>
 
   <div class="col-md-6">
+
+    <div class="page-header">
+     <h1>Bulk Import/Export</h1>
+    </div>
+
+    <!-- For uploading Moves -->
+    <%= link_to "CSV of All Moves", moves_path(format: "csv") %><br>
+    <%= form_tag import_moves_path, multipart: true do %>
+    <div class="fileinput fileinput-new" data-provides="fileinput">
+      <div class="input-group">
+        <div class="form-control uneditable-input" data-trigger="fileinput">
+          <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span>
+        </div>
+        <span class="input-group-addon btn btn-default btn-file">
+          <span class="fileinput-new">Select file</span>
+          <span class="fileinput-exists">Change</span>
+          <%= file_field_tag :file %>
+        </span>
+        <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+        <%= submit_tag "Upload", :class => "upload input-group-addon btn btn-default fileinput-exists" %>
+      </div>
+    </div>
+    <% end %>
+
+    <!-- For uploading Exercises -->
+    <%= link_to "CSV of All Exercises", exercises_path(format: "csv") %><br>
+    <%= form_tag import_exercises_path, multipart: true do %>
+    <div class="fileinput fileinput-new" data-provides="fileinput">
+      <div class="input-group">
+        <div class="form-control uneditable-input" data-trigger="fileinput">
+          <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span>
+        </div>
+        <span class="input-group-addon btn btn-default btn-file">
+          <span class="fileinput-new">Select file</span>
+          <span class="fileinput-exists">Change</span>
+          <%= file_field_tag :file %>
+        </span>
+        <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+        <%= submit_tag "Upload", :class => "upload input-group-addon btn btn-default fileinput-exists" %>
+      </div>
+    </div>
+    <% end %>
+
+    <!-- For uploading Lessons -->
+    <%= link_to "CSV of All Lessons", lessons_path(format: "csv") %><br>
+    <%= form_tag import_lessons_path, multipart: true do %>
+    <div class="fileinput fileinput-new" data-provides="fileinput">
+      <div class="input-group">
+        <div class="form-control uneditable-input" data-trigger="fileinput">
+          <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span>
+        </div>
+        <span class="input-group-addon btn btn-default btn-file">
+          <span class="fileinput-new">Select file</span>
+          <span class="fileinput-exists">Change</span>
+          <%= file_field_tag :file %>
+        </span>
+        <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+        <%= submit_tag "Upload", :class => "upload input-group-addon btn btn-default fileinput-exists" %>
+      </div>
+    </div>
+    <% end %>
+
+
     <div class="page-header">
      <h1>Unclaimed</h1>
     </div>

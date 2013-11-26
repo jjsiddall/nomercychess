@@ -5,6 +5,8 @@ NoMercyChess::Application.routes.draw do
     collection do
       #used for lesson building
       get 'builder'
+      get :csv
+      post :import
     end
     member do
       #used for a "test" at the end of a lesson

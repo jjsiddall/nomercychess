@@ -27,4 +27,24 @@ class Lesson < ActiveRecord::Base
     return find_percent_complete("exercise", user_id) + find_percent_complete("practice", user_id) + find_percent_complete("quiz", user_id)
   end
 
+  # this is duplication of what is in the "moves"
+  def self.to_csv(all_items)
+    CSV.generate do |csv|
+      csv << column_names
+      all_items.each do |item|
+        csv << item.attributes.values_at(*column_names)
+      end
+    end
+  end
+  
+
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      # Move.create! row.to_hash
+      item = find_by_id(row["id"]) || new
+      item.attributes = row.to_hash.slice(*accessible_attributes)
+      item.save!
+    end
+  end
+
 end

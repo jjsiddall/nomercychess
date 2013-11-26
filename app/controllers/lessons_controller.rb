@@ -149,6 +149,10 @@ class LessonsController < ApplicationController
     end
 
     redirect_to(builder_lessons_path)
-  end 
+  end
 
+  def import
+    Lesson.import(params[:file])
+    redirect_to builder_lessons_path, notice: "Lessons imported."
+  end
 end
