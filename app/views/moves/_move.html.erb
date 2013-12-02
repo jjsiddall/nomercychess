@@ -1,20 +1,26 @@
-<tr id="move_<%= move.id %>" class="move" data-movenumber="<%= move.move_number %>" data-white="<%= move.piece_white %>:<%= move.starting_coordinate_white %>-<%= move.ending_coordinate_white %>" data-black="<%= move.piece_black %>:<%= move.starting_coordinate_black %>-<%= move.ending_coordinate_black %>">
-    <td class="move_id"><%= link_to move.id, move_path(move) %></td>
-    <td class="move_number"><%= move.move_number %></td>
-    <td class="piece_white"><%= move.piece_white %></td>
-    <td class="start_white"><%= move.starting_coordinate_white %></td>
-    <td class="end_white"><%= move.ending_coordinate_white %></td>
-    <td class="piece_black"><%= move.piece_black %></td>
-    <td class="start_black"><%= move.starting_coordinate_black %></td>
-    <td class="end_black"><%= move.ending_coordinate_black %></td>
-    <td class="explanation"><%= move.explanation %></td>
-
-    <td class="computer"><%= move.computer ? "White" : "Black" %></td>
-    <td class="exercise_title"><%= move.exercise.nil? ? "" : move.exercise.title %></td>     
-
-    <td class="updated"><%= time_ago_in_words(l move.updated_at) %> ago</td>
-
-  	<td class="button_edit"><%= link_to('Edit',edit_move_url(move.id), :remote => true, :class => "btn btn-default") %></td>
-  	<td class="button_delete"><%= link_to('Delete', move_url(move.id), :method => 'delete', :remote => true, :class => "btn btn-danger") %></td>
-    
-</tr>
+<div class="row move" id="move_<%= move.id %>" data-movenumber="<%= move.move_number %>" data-white="<%= move.piece_white %>:<%= move.starting_coordinate_white %>-<%= move.ending_coordinate_white %>" data-black="<%= move.piece_black %>:<%= move.starting_coordinate_black %>-<%= move.ending_coordinate_black %>">
+<!--     <div class="col-xs-1 move_id"></div> -->
+    <div class="col-xs-1 move_number"><%= move.move_number %></div>
+    <div class="col-xs-1 piece_white"><%= move.piece_white %></div>
+    <div class="col-xs-1 start_white"><%= move.starting_coordinate_white %></div>
+    <div class="col-xs-1 end_white"><%= move.ending_coordinate_white %></div>
+    <div class="col-xs-1 piece_black"><%= move.piece_black %></div>
+    <div class="col-xs-1 start_black"><%= move.starting_coordinate_black %></div>
+    <div class="col-xs-1 end_black"><%= move.ending_coordinate_black %></div>
+    <div class="col-xs-1 explanation"><%= move.explanation %></div>
+    <div class="col-xs-1 computer"><%= move.computer ? "White" : "Black" %></div>
+    <div class="col-xs-1 exercise_title"><%= move.exercise.nil? ? "" : move.exercise.title %></div>     
+    <div class="col-xs-1 updated"><%= time_ago_in_words(l move.updated_at) %> ago</div>
+    <div class="col-xs-1 actions-button">
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            Actions <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><%= link_to "Go To "+ move.id.to_s, move_path(move) %></li>
+            <li><%= link_to('Edit',edit_move_url(move.id), :remote => true) %></li>
+            <li><%= link_to('Delete', move_url(move.id), remote: true, method: :delete) %></li>
+          </ul>
+        </div>
+    </div>    
+</div>

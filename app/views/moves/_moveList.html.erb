@@ -1,31 +1,28 @@
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th class="move_id"><%= model_class.human_attribute_name(:id) %></th>
-      <th>#</th>
-      <th colspan="3">White</th>
-      <th colspan="3">Black</th>
-      <th><%= model_class.human_attribute_name(:explanation) %></th>
-      <th class="computer"><%= model_class.human_attribute_name(:computer) %></th>
-      <th class="exercise_title"><%= model_class.human_attribute_name(:exercise_id) %></th>
-      <th class="updated"><% model_class.human_attribute_name(:updated_at) %>Updated</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr id="new_move_tr"><%= render('moves/formjs') %></tr>
-    <% show_moves.reverse.each do |move| %>
-      <%= render('moves/move', :move => move) %>
-    <% end %>
+<!-- Headings -->
+<div class="row">
+  <div class="col-xs-1 moveHeader showRightBorder">Move#</div>
+  <div class="col-xs-3 moveHeader showRightBorder">White</div>
+  <div class="col-xs-3 moveHeader showRightBorder">Black</div>
+  <div class="col-xs-1 moveHeader showRightBorder">Exp</div>
+  <div class="col-xs-1 computer moveHeader showRightBorder">Computer</div>
+  <div class="col-xs-1 exercise_title moveHeader showRightBorder">Exercise</div>
+  <div class="col-xs-1 updated moveHeader showRightBorder">Updated</div>
+  <div class="col-xs-1 moveHeader">Action</div>
+</div>
 
-    <% if page_type === "Edit" %>
-        <tr>
-          <td class="opening">0</td>
-          <td class="opening" colspan="10">Opening Setup</td>
-        </tr>
-    <% end %>
+<!-- Form for adding more MOVES -->
+<div class="row" id="new_move_tr">
+  <%= render('moves/formjs') %>
+</div>
 
-  </tbody>
-</table>
+<!-- Rows of MOVES -->
+<% show_moves.reverse.each do |move| %>
+  <%= render('moves/move', :move => move) %>
+<% end %>
 
+<% if page_type === "Edit" %>
+  <div class="row">
+    <div class="col-xs-1 opening">0</div>
+    <div class="col-xs-11 opening">Opening Setup</div>
+  </div>
+<% end %>

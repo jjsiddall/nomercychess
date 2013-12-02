@@ -1,0 +1,31 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th class="move_id"><%= model_class.human_attribute_name(:id) %></th>
+      <th>#</th>
+      <th colspan="3">White</th>
+      <th colspan="3">Black</th>
+      <th><%= model_class.human_attribute_name(:explanation) %></th>
+      <th class="computer"><%= model_class.human_attribute_name(:computer) %></th>
+      <th class="exercise_title"><%= model_class.human_attribute_name(:exercise_id) %></th>
+      <th class="updated"><% model_class.human_attribute_name(:updated_at) %>Updated</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id="new_move_tr"><%= render('moves/formjs') %></tr>
+    <% show_moves.reverse.each do |move| %>
+      <%= render('moves/move', :move => move) %>
+    <% end %>
+
+    <% if page_type === "Edit" %>
+        <tr>
+          <td class="opening">0</td>
+          <td class="opening" colspan="10">Opening Setup</td>
+        </tr>
+    <% end %>
+
+  </tbody>
+</table>
+

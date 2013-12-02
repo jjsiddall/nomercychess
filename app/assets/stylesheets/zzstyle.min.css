@@ -25,3 +25,13 @@
 	width: 70px;
 	height: 34px;
 }
+.moveHeader{
+	border-bottom:2px solid; 
+	text-align:center
+}
+.showRightBorder{
+	border-right:2px solid; 
+}
+.background-yellow{
+	background: yellow;
+}

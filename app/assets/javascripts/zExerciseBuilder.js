@@ -9,10 +9,10 @@ $('.exercises.edit, .exercises.new').ready(function() {
 
 	makeTableClickable();
 
-	//this commits the move after its been made
-	$('.save-Move').on('click', function() {
-  		if ($("#move-number").length != 0){ saveMove();}
-  	});
+	// //this commits the move after its been made
+	// $('.save-Move').on('click', function() {
+ //  		if ($("#move-number").length != 0){ saveMove();}
+ //  	});
 
 	//this is for the last row of the moves table - it takes to all the way back to the setup
 	$('.opening').on('click', function() {
@@ -20,8 +20,10 @@ $('.exercises.edit, .exercises.new').ready(function() {
 		loadPiecesOnBoard($("#board").data('initial_setup').split(","));
 		makeDraggable();
 		$(".showingMove").removeClass("showingMove");
-		$(".warning td.explanation").html($("#edit-Explanation").val());
-		$(".warning").removeClass("warning");
+
+		//if something is being edited
+		$(".background-yellow div.explanation").html($("#edit-Explanation").val());
+		$(".background-yellow").removeClass("background-yellow");
   	});
 
   	$('.square').droppable({
@@ -45,7 +47,7 @@ $('.exercises.edit, .exercises.new').ready(function() {
 			pieceBeingMoved.css("top", "");
 			pieceBeingMoved.css("left", "");
 
-			if ($(".warning").length != 0) {
+			if ($(".background-yellow").length != 0) {
 				editMove(movedPiece, movedFrom, movedTo, movedColor);
 			}
 			else {
@@ -95,14 +97,14 @@ function editMove(movedPiece, movedFrom, movedTo, movedColor){
 	//here we update the UI to match the user change
 
 	if (movedColor === "white"){
-		$(".warning td:nth-child(3)").html(movedPiece);
-	    $(".warning td:nth-child(4)").html(movedFrom);
-	    $(".warning td:nth-child(5)").html(movedTo); 
+		$(".background-yellow div.piece_white").html(movedPiece);
+	    $(".background-yellow div.white_start").html(movedFrom);
+	    $(".background-yellow div.white_end").html(movedTo); 
 	}
 	else{
-		$(".warning td:nth-child(6)").html(movedPiece);
-	    $(".warning td:nth-child(7)").html(movedFrom);
-	    $(".warning td:nth-child(8)").html(movedTo); 
+		$(".background-yellow div.piece_black").html(movedPiece);
+	    $(".background-yellow div.black_start").html(movedFrom);
+	    $(".background-yellow div.black_end").html(movedTo); 
 	}
 }
 
@@ -113,26 +115,25 @@ function updateMove(){
 	var tableName = "moves";
 	var columnName= tableName.slice(0, -1);
 
-	console.log($(".warning td:nth-child(1)"))
-
 	//build the URL I am sending data to
-	var url_field =  $(".warning td:nth-child(1)").children().attr("href");
+	var url_field =  "/" + tableName + "/" +$(".background-yellow div.move_number").html();
 
 	console.log(url_field);
 
 	//create the json as a string for the field and data that will be passed in the ajax call
 	//we use all the columns of table as it is easier to do a blanket update
-	var dataObj = "{\"" + columnName + '[move_number]' + "\":\"" + $(".warning td:nth-child(2)").html() +
-			   "\", \"" + columnName + '[piece_white]' + "\":\"" + $(".warning td:nth-child(3)").html() +
-			   "\", \"" + columnName + '[starting_coordinate_white]' + "\":\"" + $(".warning td:nth-child(4)").html() +
-			   "\", \"" + columnName + '[ending_coordinate_white]' + "\":\"" + $(".warning td:nth-child(5)").html() +
-			   "\", \"" + columnName + '[piece_black]' + "\":\"" + $(".warning td:nth-child(6)").html() +
-			   "\", \"" + columnName + '[starting_coordinate_black]' + "\":\"" + $(".warning td:nth-child(7)").html() +
-			   "\", \"" + columnName + '[ending_coordinate_black]' + "\":\"" + $(".warning td:nth-child(8)").html() +
-			   "\", \"" + columnName + '[explanation]' + "\":\"" + $(".warning td:nth-child(9)").html() +
-			   "\", \"" + columnName + '[exercise_id]' + "\":\"" + $('#board').data('id') +
-			   "\", \"" + columnName + '[computer]' + "\":\"" + $('input[name=optionsRadios]:checked').val() +
+	var dataObj = "{\"" + columnName + '[piece_white]' + "\":\"" + $(".background-yellow div.piece_white").html() +
+			   "\", \"" + columnName + '[starting_coordinate_white]' + "\":\"" + $(".background-yellow div.start_white").html() +
+			   "\", \"" + columnName + '[ending_coordinate_white]' + "\":\"" + $(".background-yellow div.end_white").html() +
+			   "\", \"" + columnName + '[piece_black]' + "\":\"" + $(".background-yellow div.piece_black").html() +
+			   "\", \"" + columnName + '[starting_coordinate_black]' + "\":\"" + $(".background-yellow div.start_black").html() +
+			   "\", \"" + columnName + '[ending_coordinate_black]' + "\":\"" + $(".background-yellow div.end_black").html() +
+			   "\", \"" + columnName + '[explanation]' + "\":\"" + $(".background-yellow div.explanation").html() +
+			   // "\", \"" + columnName + '[exercise_id]' + "\":\"" + $('#board').data('id') +
+			   // "\", \"" + columnName + '[computer]' + "\":\"" + $('input[name=optionsRadios]:checked').val() +
 			   "\"}" ;
+
+	console.log(dataObj)
 
 	//convert the json string into json
 	dataObj = jQuery.parseJSON(dataObj);
@@ -146,78 +147,78 @@ function updateMove(){
 
 }
 
-//update / add Move
-function saveMove(){
+// //update / add Move
+// function saveMove(){
 
-	var tableName = "moves";
-	var columnName= tableName.slice(0, -1);
+// 	var tableName = "moves";
+// 	var columnName= tableName.slice(0, -1);
 
-	//build the URL I am sending data to
-	var url_field = '/' + tableName; //+ '/' + exercise_id;
+// 	//build the URL I am sending data to
+// 	var url_field = '/' + tableName; //+ '/' + exercise_id;
 
-	//create the json as a string for the field and data that will be passed in the ajax call
-	var dataObj = "{\"" + columnName + '[piece_white]' + "\":\"" + $('#white-piece').html() +
-			   "\", \"" + columnName + '[starting_coordinate_white]' + "\":\"" + $('#white-start').html() +
-			   "\", \"" + columnName + '[ending_coordinate_white]' + "\":\"" + $('#white-end').html() +
-			   "\", \"" + columnName + '[piece_black]' + "\":\"" + $('#black-piece').html() +
-			   "\", \"" + columnName + '[starting_coordinate_black]' + "\":\"" + $('#black-start').html() +
-			   "\", \"" + columnName + '[ending_coordinate_black]' + "\":\"" + $('#black-end').html() +
-			   "\", \"" + columnName + '[explanation]' + "\":\"" + $('#exp-textbox').val() +
-			   "\", \"" + columnName + '[exercise_id]' + "\":\"" + $('#board').data('id') +
-			   "\", \"" + columnName + '[move_number]' + "\":\"" + $('#move-number').html() +
-			   "\", \"" + columnName + '[computer]' + "\":\"" + $('input[name=optionsRadios]:checked').val() +
-			   "\"}" ;
+// 	//create the json as a string for the field and data that will be passed in the ajax call
+// 	var dataObj = "{\"" + columnName + '[piece_white]' + "\":\"" + $('#white-piece').html() +
+// 			   "\", \"" + columnName + '[starting_coordinate_white]' + "\":\"" + $('#white-start').html() +
+// 			   "\", \"" + columnName + '[ending_coordinate_white]' + "\":\"" + $('#white-end').html() +
+// 			   "\", \"" + columnName + '[piece_black]' + "\":\"" + $('#black-piece').html() +
+// 			   "\", \"" + columnName + '[starting_coordinate_black]' + "\":\"" + $('#black-start').html() +
+// 			   "\", \"" + columnName + '[ending_coordinate_black]' + "\":\"" + $('#black-end').html() +
+// 			   "\", \"" + columnName + '[explanation]' + "\":\"" + $('#exp-textbox').val() +
+// 			   "\", \"" + columnName + '[exercise_id]' + "\":\"" + $('#board').data('id') +
+// 			   "\", \"" + columnName + '[move_number]' + "\":\"" + $('#move-number').html() +
+// 			   "\", \"" + columnName + '[computer]' + "\":\"" + $('input[name=optionsRadios]:checked').val() +
+// 			   "\"}" ;
 
-	//convert the json string into json
-	dataObj = jQuery.parseJSON(dataObj);
+// 	//convert the json string into json
+// 	dataObj = jQuery.parseJSON(dataObj);
 
-// console.log(url_field)
- console.log(dataObj)
+// // console.log(url_field)
+//  console.log(dataObj)
 
-    $.ajax({
-    	url: url_field,
-    	type: 'POST',
-    	data: dataObj,
-		dataType: 'json'
-	});
+//     $.ajax({
+//     	url: url_field,
+//     	type: 'POST',
+//     	data: dataObj,
+// 		dataType: 'json'
+// 	});
 
-	updateIds();
-}
+// 	updateIds();
+// }
 
-function updateIds(){
-	//moves what is in the TextArea into the associated table cell
-	$('#explanation').html($('#exp-textbox').val());
-	//removes the Text Area
-	$('#exp-textbox').remove();
+// function updateIds(){
+// 	//moves what is in the TextArea into the associated table cell
+// 	$('#explanation').html($('#exp-textbox').val());
+// 	//removes the Text Area
+// 	$('#exp-textbox').remove();
 	
-	//renames the newest move to be a "move"
-	$('#new-move').attr('class', "move").attr('id', "");
+// 	//renames the newest move to be a "move"
+// 	$('#new-move').attr('class', "move").attr('id', "");
 
-	//gets rid of all the ids needed for updating (they will be used for the next move)
-	$('#move-number').attr('id', "");
-	$('#white-piece').attr('id', "");
-    $('#white-start').attr('id', "");
-    $('#white-end').attr('id', "");
-	$('#black-piece').attr('id', "");
-    $('#black-start').attr('id', "");
-    $('#black-end').attr('id', "");
-    $('#explanation').attr('id', "");
-}
+// 	//gets rid of all the ids needed for updating (they will be used for the next move)
+// 	$('#move-number').attr('id', "");
+// 	$('#white-piece').attr('id', "");
+//     $('#white-start').attr('id', "");
+//     $('#white-end').attr('id', "");
+// 	$('#black-piece').attr('id', "");
+//     $('#black-start').attr('id', "");
+//     $('#black-end').attr('id', "");
+//     $('#explanation').attr('id', "");
+// }
 
 function makeTableClickable(){
-	$('td:not(.new, .explanation, .button_edit, .button_delete, .opening)').on('click', function() {
+	$('.move_number').on('click', function() {
 
 		//if .warning is already there it means there is something being edited and now we are clicking it again so we should save
-		if ($(".warning").length === 0) {
+		if ($(".background-yellow").length === 0) {
 
-			$(this).parent().addClass("playToHere").addClass("warning");
+			$(this).parent().addClass("playToHere").addClass("background-yellow");
 
 			//store what is currently in the Explanation column
-			var currentExplanation = $(".warning td.explanation").html();
+			var currentExplanation = $(".background-yellow div.explanation").html();
 			//remove current html from Explanation cell
-			$(".warning td.explanation").html("");
+			$(".background-yellow div.explanation").html("");
 			//append a textbox to the Explanation cell
-			$(".warning td.explanation").append('<textarea id="edit-Explanation" rows="10"></textarea>');
+			$(".background-yellow div.explanation").append('<textarea id="edit-Explanation" rows="10"></textarea>');
 			//add what was in the Explanation cell to the textarea
 			$("#edit-Explanation").val(currentExplanation);
 
@@ -226,10 +227,10 @@ function makeTableClickable(){
 		}
 		else {
 
-			 $(".warning td.explanation").html($("#edit-Explanation").val());
+			 $(".background-yellow div.explanation").html($("#edit-Explanation").val());
 
 			updateMove();		
-			$(".warning").removeClass("warning");			
+			$(".background-yellow").removeClass("background-yellow");			
 		}
 	});
 }

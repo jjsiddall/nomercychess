@@ -1,0 +1,18 @@
+$("#new_move_tr").after("<%= escape_javascript(render('move', :move => @move)) %>");
+
+$("#move_<%= @move.id %>").css("display", "none");
+$("#move_<%= @move.id %>").slideToggle();
+
+$("#move_move_number").val("");
+$("#move_piece_white").val("...");
+$("#move_starting_coordinate_white").val("");
+$("#move_ending_coordinate_white").val("");
+$("#move_piece_black").val("...");
+$("#move_starting_coordinate_black").val("");
+$("#move_ending_coordinate_black").val("");
+$("#move_explanation").val("");
+$("#move_computer_true").val("False");
+$("#move_computer_false").val("True"); 
+$("#move_exercise_id").val("");
+
+makeTableClickable();
