@@ -32,13 +32,41 @@ class LessonsController < ApplicationController
   
   # used to download csv of exercises for a specific lesson
   # GET /lessons/1.csv
-  def csv
+  def csv_lesson
+
+    lesson = [Lesson.find(params[:id])]
+    send_data(
+      Lesson.to_csv(lesson),
+      :type => 'text/csv',
+      :filename => lesson[0].title + '-lesson.csv',
+      :disposition => 'attachment'
+    )
+  end
+
+  def csv_lesson_exercises
     lesson = Lesson.find(params[:id])
     @exercises = lesson.exercises
     send_data(
       Exercise.to_csv(@exercises),
       :type => 'text/csv',
-      :filename => lesson.title + '.csv',
+      :filename => lesson.title + '-exercises.csv',
+      :disposition => 'attachment'
+    )
+  end
+
+  def csv_lesson_moves
+    lesson = Lesson.find(params[:id])
+    @exercises = lesson.exercises
+    @all_moves = []
+    @exercises.each do |exercise|
+      exercise.moves.each do |move|
+        @all_moves << move
+      end
+    end
+    send_data(
+      Move.to_csv(@all_moves),
+      :type => 'text/csv',
+      :filename => lesson.title + '-moves.csv',
       :disposition => 'attachment'
     )
   end

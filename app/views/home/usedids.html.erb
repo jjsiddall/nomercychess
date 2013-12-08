@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="page-header">
+      <h1>IDs In Use</h1>
+    </div>  
+  </div>  
+</div>  
+
+<div class="row">
+
+  <div class="col-sm-4">
+    <div class="page-header">
+      <h1>Moves - <%= @moves.last.id %></h1>
+    </div>  
+    <% @moves.reverse.each do |move| %>
+      <%= move.id %><br>
+    <% end %>
+  </div>
+  <div class="col-sm-4">
+    <div class="page-header">
+      <h1>Exercises - <%= @exercises.last.id %></h1>
+    </div>  
+    <% @exercises.reverse.each do |exercise| %>
+      <%= exercise.id %><br>
+    <% end %>
+  </div>
+  <div class="col-sm-4">
+    <div class="page-header">
+      <h1>Lessons - <%= @lessons.last.id %></h1>
+    </div>  
+    <% @lessons.reverse.each do |lesson| %>
+      <%= lesson.id %><br>
+    <% end %>
+  </div>
+
+</div>

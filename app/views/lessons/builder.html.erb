@@ -7,11 +7,21 @@
    <% @lessons.each do |lesson| %>
     <h4>
       <%= lesson.id %> - <%= link_to lesson.title, lesson_path(lesson) %>
-
-      <%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, lesson_path(lesson), :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-xs btn-danger pull-right' %>
-      <%= link_to 'Dup', {:action => "clone", :id => lesson.id}, :class => 'btn btn-default btn-xs pull-right' %>
-      <%= link_to '<span class="glyphicon glyphicon-download-alt"></span>'.html_safe, csv_lesson_path(lesson), :class => 'btn btn-default btn-xs pull-right' %>
-      <%= link_to '<span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_lesson_path(lesson), :class => 'btn btn-default btn-xs pull-right' %>
+      <div class="btn-group pull-right">
+        <button type="button" class="btn btn-default btn-xs">Actions</button>
+        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><%= link_to '<span class="glyphicon glyphicon-download-alt"> Lesson</span>'.html_safe, csv_lesson_lesson_path(lesson), :class => "lesson" + lesson.id.to_s %></li>
+          <li><%= link_to '<span class="glyphicon glyphicon-download-alt"> Exercises</span>'.html_safe, csv_lesson_exercises_lesson_path(lesson), :class => "lesson" + lesson.id.to_s  %></li>
+          <li><%= link_to '<span class="glyphicon glyphicon-download-alt"> Moves</span>'.html_safe, csv_lesson_moves_lesson_path(lesson), :class => "lesson" + lesson.id.to_s, :id => "lesson12"  %></li>
+          <li><%= link_to '<span class="glyphicon glyphicon-edit"> Edit</span>'.html_safe, edit_lesson_path(lesson) %></li>
+          <li><%= link_to '<span class="glyphicon glyphicon-random"> Duplicate</span>'.html_safe, {:action => "clone", :id => lesson.id} %></li>
+          <li><%= link_to '<span class="glyphicon glyphicon-trash"> Trash</span>'.html_safe, lesson_path(lesson), :method => :delete, :data => { :confirm => 'Are you sure?' } %></li>
+        </ul>
+      </div>
 
     </h4>
     <div id="<%= lesson.id %>" class="connectedSortable canSort well">

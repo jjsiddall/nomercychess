@@ -12,7 +12,9 @@ NoMercyChess::Application.routes.draw do
       #used for a "test" at the end of a lesson
       get 'quizzes'
       get 'clone'
-      get 'csv'
+      get 'csv_lesson'
+      get 'csv_lesson_moves'
+      get 'csv_lesson_exercises'
     end
   end
 
@@ -54,5 +56,6 @@ NoMercyChess::Application.routes.draw do
   resources :users
 
   get "home/pricing" 
+  get "home/usedids" 
 
 end

@@ -37,13 +37,21 @@ class Lesson < ActiveRecord::Base
     end
   end
   
-
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
       # Move.create! row.to_hash
-      item = find_by_id(row["id"]) || new
-      item.attributes = row.to_hash.slice(*accessible_attributes)
-      item.save!
+      if find_by_id(row["id"])
+        item = find_by_id(row["id"])
+        item.attributes = row.to_hash.slice(*accessible_attributes)
+        item.save!
+      else
+        item = Lesson.new
+        item.attributes = row.to_hash.slice(*accessible_attributes)
+        #this is code where I am going to try something)
+        item.id = row.to_hash.slice("id")["id"].to_i
+      
+        item.save!
+      end
     end
   end
 

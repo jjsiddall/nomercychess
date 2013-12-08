@@ -13,5 +13,13 @@ class HomeController < ApplicationController
       format.json { render json: @lessons }
     end
   end
+  def usedids
+    @lessons = Lesson.all
+    @exercises = Exercise.all
+    @moves = Move.all
+    respond_to do |format|
+      format.html # index.html.erb
+    end
+  end
 
 end
