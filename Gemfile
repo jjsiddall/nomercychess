@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
+
+ruby '2.1.1'
+
 gem 'rails', '3.2.17'
-gem 'ruby', '2.1.1'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -18,6 +20,7 @@ group :development, :test do
 end
 
 group :production do
+  
   gem 'pg'
   gem "thin", ">= 1.5.0"
 end
