@@ -160,12 +160,6 @@ $('.lessons.builder').ready(function() {
     }).disableSelection();
 });
 
-$('.lessons.index').ready(function() {
-	$('.gallery > div').hoverdir( {
-		hoverDelay	: 75
-	});
-});
-
 $('.home.index').ready(function() {
 	$('#myCarousel').carousel({
   		interval: 2000

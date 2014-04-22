@@ -1,18 +1,22 @@
 $('.exercises.edit, .exercises.new').ready(function() {
 	
+	//make the "Explaination" textbox bigger on the Exercise Builder page
+	$('.explanation').removeClass('col-xs-1').addClass('col-xs-4')
+
+	//adds click to "Set" button that resets the board to all pieces in their opening position
 	$('#initialSetup').on('click', function() {
 		saveCurrentBoard();
 	});
 
+	//Adds "showingMove" class to the bottom move and "playToHere" class to the top move preparing it for the "playMove()" function
+	$('.move:last').addClass('showingMove');
 	$('.move:first').addClass('playToHere');
+
+	//Looks at where the board currently is ("showingMove") and does all the moves to get it to "playToHere"
 	playMove();
 
+	//Allows user to click the table and update the explaination
 	makeTableClickable();
-
-	// //this commits the move after its been made
-	// $('.save-Move').on('click', function() {
- //  		if ($("#move-number").length != 0){ saveMove();}
- //  	});
 
 	//this is for the last row of the moves table - it takes to all the way back to the setup
 	$('.opening').on('click', function() {
@@ -20,9 +24,11 @@ $('.exercises.edit, .exercises.new').ready(function() {
 		loadPiecesOnBoard($("#board").data('initial_setup').split(","));
 		makeDraggable();
 		$(".showingMove").removeClass("showingMove");
+		$(this).parent().addClass("showingMove");
 
 		//if something is being edited
 		$(".background-yellow div.explanation").html($("#edit-Explanation").val());
+		updateMove();
 		$(".background-yellow").removeClass("background-yellow");
   	});
 
@@ -93,18 +99,20 @@ function newMove(movedPiece, movedFrom, movedTo, movedColor){
 
 function editMove(movedPiece, movedFrom, movedTo, movedColor){
 
+console.log(movedPiece+" : "+movedFrom+" : "+movedTo+" : "+movedColor)
+
 	//if the user has clicked a specific row then they are intending to update that row
 	//here we update the UI to match the user change
-
 	if (movedColor === "white"){
 		$(".background-yellow div.piece_white").html(movedPiece);
-	    $(".background-yellow div.white_start").html(movedFrom);
-	    $(".background-yellow div.white_end").html(movedTo); 
+	    $(".background-yellow div.start_white").html(movedFrom);
+	    $(".background-yellow div.end_white").html(movedTo); 
 	}
 	else{
+
 		$(".background-yellow div.piece_black").html(movedPiece);
-	    $(".background-yellow div.black_start").html(movedFrom);
-	    $(".background-yellow div.black_end").html(movedTo); 
+	    $(".background-yellow div.start_black").html(movedFrom);
+	    $(".background-yellow div.end_black").html(movedTo); 
 	}
 }
 
@@ -114,9 +122,12 @@ function updateMove(){
 
 	var tableName = "moves";
 	var columnName= tableName.slice(0, -1);
+	var moveid = $(".background-yellow").data("moveid");
+
+	if(moveid === undefined){return};
 
 	//build the URL I am sending data to
-	var url_field =  "/" + tableName + "/" +$(".background-yellow div.move_number").html();
+	var url_field =  "/" + tableName + "/" +moveid;
 
 	console.log(url_field);
 
@@ -206,8 +217,9 @@ function updateMove(){
 // }
 
 function makeTableClickable(){
-	$('.move_number').on('click', function() {
 
+	$('.move_number, .piece_white, .start_white, .end_white, .piece_black, .start_black, .end_black').on('click', function() {
+		
 		//if .warning is already there it means there is something being edited and now we are clicking it again so we should save
 		if ($(".background-yellow").length === 0) {
 
@@ -218,7 +230,7 @@ function makeTableClickable(){
 			//remove current html from Explanation cell
 			$(".background-yellow div.explanation").html("");
 			//append a textbox to the Explanation cell
-			$(".background-yellow div.explanation").append('<textarea id="edit-Explanation" rows="10"></textarea>');
+			$(".background-yellow div.explanation").append('<textarea id="edit-Explanation" class="form-control text_area" cols="40" rows="5"></textarea>');
 			//add what was in the Explanation cell to the textarea
 			$("#edit-Explanation").val(currentExplanation);
 

@@ -226,16 +226,18 @@ function highlightSquare(boardSquare, highlightColor){ $('#'+boardSquare).effect
 
 //Executes a move that will get the showingMove a accordion closer to playToHere accordion (or points out that they are the same)
 function playMove(){
-	//console.log("playMove");
+	console.log("playMove");
 
 	//cache the DOM elements
 	var showingAccordion = $(".showingMove");  //this is the move that is currently shown on the board
 	var playToHereAccordion = $(".playToHere"); //this is the move that we need to get to
 
+	console.log(playToHereAccordion)
+
 	//check if the showingAccodion is greater than the playToHereAccodion
 	//slightly counter intuitive: in this case "greater" actually refers to "earlier in the list" so we are moving up the list/screen visually
 	if (showingAccordion.data("movenumber") > playToHereAccordion.data("movenumber")) {
-		//console.log('going up!')
+		console.log('going up!')
 
 		moveBlackThenWhite(showingAccordion);
 
@@ -246,7 +248,7 @@ function playMove(){
 	}
 	//this is the opposite code as above - here we are moving down visually the list of accordions
 	else if (showingAccordion.data("movenumber") < playToHereAccordion.data("movenumber")){
-		//console.log("going down!");
+		console.log("going down!");
 		
 		//The major change between this and the above is here when the first move is made
 		//In the case of the first move, no accordion has "showingMove" so if it is null we tell it to put showing move on the same accordion as the
@@ -254,7 +256,6 @@ function playMove(){
 		if (showingAccordion.data("movenumber") === null){
 
 			$(".move:last").addClass("showingMove");   ////////ORDER CHANGE HAPPENS HERE!
-
 		}
 		else{
 			//otherwise, we remove showingMove from the showingMove accordion and add it to the next accordion using the DOM
@@ -266,6 +267,7 @@ function playMove(){
 	}
 	//Here the showingMove and playToHere are on the same accordion (so the moves are completed)
 	else{
+
 		//since we are done - re-enable the button and the accordion
 		$('#nextMove').prop('disabled', false);
 		$('.move:not(.notShownMove) .accordion-heading .accordion-toggle').prop('disabled', false);	

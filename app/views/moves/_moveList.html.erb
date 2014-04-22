@@ -3,7 +3,7 @@
   <div class="col-xs-1 moveHeader showRightBorder">Move#</div>
   <div class="col-xs-3 moveHeader showRightBorder">White</div>
   <div class="col-xs-3 moveHeader showRightBorder">Black</div>
-  <div class="col-xs-1 moveHeader showRightBorder">Exp</div>
+  <div class="col-xs-1 moveHeader showRightBorder explanation">Explanation</div>
   <div class="col-xs-1 computer moveHeader showRightBorder">Computer</div>
   <div class="col-xs-1 exercise_title moveHeader showRightBorder">Exercise</div>
   <div class="col-xs-1 updated moveHeader showRightBorder">Updated</div>
@@ -21,7 +21,7 @@
 <% end %>
 
 <% if page_type === "Edit" %>
-  <div class="row">
+  <div class="row move" data-movenumber="0">
     <div class="col-xs-1 opening">0</div>
     <div class="col-xs-11 opening">Opening Setup</div>
   </div>

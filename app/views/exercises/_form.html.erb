@@ -2,7 +2,11 @@
   <div class="col-md-3">  
     <%- model_class = Exercise -%>
     <div class="page-header">
-      <h1><%= link_to @exercise.title, exercise_path %> - <%= page_type %></h1>
+      <% if @exercise.id.nil? %>
+        <h3><%= page_type %></h3>
+      <% else %>
+        <h3>Editing: <%= link_to @exercise.title, exercise_path %></h3>
+      <% end %>
     </div>
   </div>
 
@@ -10,41 +14,28 @@
   <%= f.error_notification %>
 
     <div class="col-md-3">
-      <div class="control-group">
-        <%= f.label :title, :class => 'control-label' %>
-        <div class="controls">
-          <%= f.text_field :title, :class => 'text_field' %>
-        </div>
+      <div class="form-group">
+        <%= f.label :title %>
+        <%= f.text_field :title, :class => 'form-control' %>
       </div>
-      <div class="control-group">
-        <%= f.label :lesson_id, :class => 'control-label' %>
-        <div class="controls">
-          <%= f.collection_select :lesson_id, Lesson.all, :id, :title, :include_blank => true %>
-        </div>
+      <div class="form-group">
+        <%= f.label :lesson_id %>
+        <%= f.collection_select :lesson_id, Lesson.all, :id, :title, {:include_blank => true}, :class => 'form-control'  %>
       </div>
     </div>
     <div class="col-md-3">
-      <div class="control-group">
-        <%= f.label :description, :class => 'control-label' %>
-        <div class="controls">
-          <%= f.text_area :description, :class => 'text_area col-md-3', :rows =>'3' %>
-        </div>
-      </div>
-      <div class="control-group">
-        <div class="controls">
-          <%= f.number_field :sort_for_lesson %>
-        </div>
+      <div class="form-group">
+        <%= f.label :description %>
+        <%= f.text_area :description, :class => 'form-control text_area col-md-3', :rows =>'3' %>
       </div>
     </div>
     <div class="col-md-3">
-      <div class="control-group">
-        <%= f.label :conclusion, :class => 'control-label' %>
-        <div class="controls">
-          <%= f.text_area :conclusion, :class => 'text_area col-md-3', :rows =>'3' %>
-        </div>
+      <div class="form-group">
+        <%= f.label :conclusion %>
+        <%= f.text_area :conclusion, :class => 'form-control text_area col-md-3', :rows =>'3' %>
       </div>
-        <%= f.submit nil, :class => 'btn btn-mini btn-primary' %>
-        <%= link_to 'Cancel', exercises_path, :class => 'btn btn-mini' %>
+            <%= f.submit nil, :class => 'btn btn-mini btn-primary' %>
+      <%= link_to 'Cancel', exercises_path, :class => 'btn btn-mini btn-default' %>
     </div>
   <% end %>
 </div>
