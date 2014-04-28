@@ -8,12 +8,12 @@ $('.exercises.show').ready(function() {
 	//event that is triggered when the accordion is shown for the specific level
 	$('.panel-collapse').on('show.bs.collapse', function(){
 
-			console.log("doing something")
-
-
 		if (!$(this).parent().hasClass("showingMove")){
 			//add "playToHere" to the accordion that is the final move to show
-			$(this).parent().addClass("playToHere");
+
+			parentPanel = $(this).parent()
+			
+			parentPanel.addClass("playToHere");
 			//run "playMove" goes one move at a time
 			playMove();
 			//disables the "next" button and accordion so the user cannot go to the next move until the first is completed
@@ -232,11 +232,17 @@ function playMove(){
 	var showingAccordion = $(".showingMove");  //this is the move that is currently shown on the board
 	var playToHereAccordion = $(".playToHere"); //this is the move that we need to get to
 
+	console.log(showingAccordion.data("movenumber"))
 	console.log(playToHereAccordion)
 
+	//This is used for first move of the exercise: no move has been shown, so there is no "showingMove" yet...therefore "showingMove's movenumber" is undefined
+	if (showingAccordion.data("movenumber") === undefined){
+		$(".move:last").addClass("showingMove");   ////////ORDER CHANGE HAPPENS HERE!
+		moveWhiteThenBlack($(".showingMove"));
+	}
 	//check if the showingAccodion is greater than the playToHereAccodion
 	//slightly counter intuitive: in this case "greater" actually refers to "earlier in the list" so we are moving up the list/screen visually
-	if (showingAccordion.data("movenumber") > playToHereAccordion.data("movenumber")) {
+	else if (showingAccordion.data("movenumber") > playToHereAccordion.data("movenumber")) {
 		console.log('going up!')
 
 		moveBlackThenWhite(showingAccordion);
@@ -246,28 +252,20 @@ function playMove(){
 		$(".showingMove").removeClass("showingMove").next().addClass("showingMove");  ////////ORDER CHANGE HAPPENS HERE!
 		
 	}
-	//this is the opposite code as above - here we are moving down visually the list of accordions
+	//this is the opposite code as above - here we are moving down visually the list of accordions <OR> it is the first move in the list
+	//so we find that there is no "showingMove" (it is "undefined")
 	else if (showingAccordion.data("movenumber") < playToHereAccordion.data("movenumber")){
 		console.log("going down!");
 		
-		//The major change between this and the above is here when the first move is made
-		//In the case of the first move, no accordion has "showingMove" so if it is null we tell it to put showing move on the same accordion as the
-		//playToHere accordion
-		if (showingAccordion.data("movenumber") === null){
-
-			$(".move:last").addClass("showingMove");   ////////ORDER CHANGE HAPPENS HERE!
-		}
-		else{
-			//otherwise, we remove showingMove from the showingMove accordion and add it to the next accordion using the DOM
-			$(".showingMove").removeClass("showingMove").prev().addClass("showingMove");   ////////ORDER CHANGE HAPPENS HERE!
-		}
+		//we remove showingMove from the showingMove accordion and add it to the next accordion using the DOM
+		$(".showingMove").removeClass("showingMove").prev().addClass("showingMove");   ////////ORDER CHANGE HAPPENS HERE!
 
 		moveWhiteThenBlack($(".showingMove"));
 
 	}
 	//Here the showingMove and playToHere are on the same accordion (so the moves are completed)
 	else{
-
+		console.log("we are there!")
 		//since we are done - re-enable the button and the accordion
 		$('#nextMove').prop('disabled', false);
 		$('.move:not(.notShownMove) .accordion-heading .accordion-toggle').prop('disabled', false);	
