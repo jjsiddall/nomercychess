@@ -7,10 +7,10 @@
     <div class="col-xs-1 piece_black"><%= move.piece_black %></div>
     <div class="col-xs-1 start_black"><%= move.starting_coordinate_black %></div>
     <div class="col-xs-1 end_black"><%= move.ending_coordinate_black %></div>
-    <div class="col-xs-1 explanation"><%= move.explanation %></div>
+    <div class="col-xs-4 explanation"><%= move.explanation %></div>
     <div class="col-xs-1 computer"><%= move.computer ? "White" : "Black" %></div>
     <div class="col-xs-1 exercise_title"><%= move.exercise.nil? ? "" : move.exercise.title %></div>     
-    <div class="col-xs-1 updated"><%= time_ago_in_words(l move.updated_at) %> ago</div>
+    <div class="col-xs-1 updated"><%= move.updated_at.strftime("%m/%d/%Y") %></div>
     <div class="col-xs-1 actions-button">
         <div class="btn-group">
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">

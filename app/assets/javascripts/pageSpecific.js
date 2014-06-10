@@ -165,6 +165,12 @@ $('.home.index').ready(function() {
   		interval: 2000
 	});
 });
+$('.moves.index, .exercises.index').ready(function() {
+	//make the "Explanation" textbox bigger on the Exercise Builder page
+	$('.explanation').removeClass('col-xs-4').addClass('col-xs-1')
+});
+	
+
 
 function makeDraggable(){
 	$('.piece').addClass('draggable');

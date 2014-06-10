@@ -8,7 +8,7 @@
   <div class="col-xs-1 new piece_black"><%= f.select :piece_black, [['...','...'],['♟','♟'],['♞','♞'],['♝','♝'],['♜','♜'],['♛','♛'],['♚','♚']],{}, {:class => 'form-control input-sm'}%></div>
   <div class="col-xs-1 new start_black"><%= f.text_field :starting_coordinate_black, :class => 'form-control input-sm', :placeholder => "strt"  %></div>
   <div class="col-xs-1 new end_black showRightBorder"><%= f.text_field :ending_coordinate_black, :class => 'form-control input-sm', :placeholder => "end"  %></div>
-  <div class="col-xs-1 new explanation  showRightBorder"><%= f.text_area :explanation, :class => 'form-control text_area', :rows =>'1' %></div>  
+  <div class="col-xs-4 new explanation  showRightBorder"><%= f.text_area :explanation, :class => 'form-control text_area', :rows =>'1' %></div>  
   <div class="col-xs-1 new computer  showRightBorder"><%= f.radio_button :computer, true %> White
   <%= f.radio_button :computer, false %> Black </div>
   

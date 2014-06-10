@@ -1,7 +1,4 @@
 $('.exercises.edit, .exercises.new').ready(function() {
-	
-	//make the "Explaination" textbox bigger on the Exercise Builder page
-	$('.explanation').removeClass('col-xs-1').addClass('col-xs-4')
 
 	//adds click to "Set" button that resets the board to all pieces in their opening position
 	$('#initialSetup').on('click', function() {

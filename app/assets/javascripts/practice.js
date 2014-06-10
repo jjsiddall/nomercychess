@@ -54,7 +54,7 @@ $('.exercises.practice, .exercises.quiz').ready(function() {
 			startSquare = "";
 		} 			
 	});
-	//...DRAG DROP
+	//...DROP
   	//used for making the board able to take items that are dropped on it
   	$('.square').droppable({
     	drop: function(event, ui) {
@@ -149,7 +149,6 @@ function verifyCorrectMove(pieceBeingMoved, droppedOnSquare){
 		//display an incorrect move on the side in red
 		showIncorrectMove(madeMove, correctMove);
 		return false;
-// TODO: something that pops up the wrong move and asks if you want a hint
 	}
 }
 
@@ -170,6 +169,17 @@ function showIncorrectMove(madeMove, correctMove){
 	//build the error and show it under the list as a alert-danger (and make it more readable ":" = "From" & "-" = "To")
 	madeMove = '<div class="alert alert-danger">' + "Incorrect: " + madeMove.replace(":", " from ").replace("-", " to ") + '<div class="pull-right hint">hint?</div></div>'
 	$(madeMove).insertBefore('.notShownMove:last');
+
+	if (correctMove === undefined){
+		if ($('.alert-info').length === 0){
+			madeMove = '<a href="#" data-toggle="modal" 	data-target="#conclusionModal"><div class="alert alert-info">' + "You are done! Click here to move on " + '<span class="glyphicon glyphicon-thumbs-up pull-right"></span></div></a>'
+			$(madeMove).insertBefore('.panel-success:first');
+		}
+		else{
+			$('.alert-info').effect( "shake" );
+		}
+		return
+	}
 
 	var correctMoveArray = correctMove.split(":")[1].split("-");
 	// console.log(correctMoveArray[2]);
