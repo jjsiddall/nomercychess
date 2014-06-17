@@ -43,8 +43,10 @@ $('.exercises.edit, .exercises.new').ready(function() {
 			//get what color is being moved
 			movedColor = (pieceBeingMoved.attr("class").indexOf("white") > 0) ? "white" : "black" ;
 
-			//remove any children on the spot being dropped on
-			$(this).children().remove();
+			if (!$(this).hasClass("unused")){
+				//remove any children on the spot being dropped on
+				$(this).children().remove();
+			}
 			//add the dragged piece to the board
 			$(this).append(pieceBeingMoved);
 			pieceBeingMoved.css("top", "");
@@ -58,6 +60,9 @@ $('.exercises.edit, .exercises.new').ready(function() {
 			}
  	    	//reset the extra piece set
 			resetExtraPiece($(ui.draggable));
+			if ($(this).hasClass("unused") || $(this).hasClass("deleteme")){
+				$(ui.draggable).empty();
+    		}
     	}
   	});
 

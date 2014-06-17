@@ -46,7 +46,7 @@
         <%= link_to "Back to the Demo", exercise_path(@exercise.id), :class => 'btn btn-default' %>
         <%= link_to "Practice Again", practice_exercise_path(@exercise.id), :class => 'btn btn-default' %>
         
-        <%= @exercise.lesson.nil? ? next_exercise = nil : next_exercise = @exercise.lesson.next_exercise(@exercise) %>
+        <% @exercise.lesson.nil? ? next_exercise = nil : next_exercise = @exercise.lesson.next_exercise(@exercise) %>
 
         <% if !next_exercise.nil? %>
           <%= link_to "Next Exercise", exercise_path(next_exercise), :class => 'btn btn-primary btn-lg' %> 
