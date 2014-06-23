@@ -73,9 +73,6 @@ function one_move(current_move, piece, color){
 		$("#"+current_move[0]).append('<div class="piece '+ color +'" style="">'+piece+'</div>');
 	}
 
-	//remove any popovers that are currently on the board
-	//clear_popovers();
-
 	var rank_change = find_change_in_rank(current_move);
 	var file_change = find_change_in_file(current_move);
 		
@@ -113,9 +110,7 @@ function one_move(current_move, piece, color){
 	highlightSquare(current_move[1], "yellow");
 
 	if ((piece === "♟") && ((current_move[1].charAt(1) === "8") || (current_move[1].charAt(1) ==="1" ))) {
-		console.log("promotion!")
-
-
+		// console.log("promotion!")
 		$("#"+current_move[0]).children().promise().done(function() {
 			$("#"+ current_move[1]).children().html("♛")
 			highlightSquare(current_move[1], "gold");	
