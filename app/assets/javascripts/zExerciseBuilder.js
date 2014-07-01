@@ -133,6 +133,9 @@ function updateMove(){
 
 	console.log(url_field);
 
+	var fixedExplanation = $(".background-yellow div.explanation").html().replace(/\"/g,'\\"');
+	console.log(fixedExplanation);
+
 	//create the json as a string for the field and data that will be passed in the ajax call
 	//we use all the columns of table as it is easier to do a blanket update
 	var dataObj = "{\"" + columnName + '[piece_white]' + "\":\"" + $(".background-yellow div.piece_white").html() +
@@ -141,7 +144,7 @@ function updateMove(){
 			   "\", \"" + columnName + '[piece_black]' + "\":\"" + $(".background-yellow div.piece_black").html() +
 			   "\", \"" + columnName + '[starting_coordinate_black]' + "\":\"" + $(".background-yellow div.start_black").html() +
 			   "\", \"" + columnName + '[ending_coordinate_black]' + "\":\"" + $(".background-yellow div.end_black").html() +
-			   "\", \"" + columnName + '[explanation]' + "\":\"" + $(".background-yellow div.explanation").html() +
+			   "\", \"" + columnName + '[explanation]' + "\":\"" + fixedExplanation +
 			   // "\", \"" + columnName + '[exercise_id]' + "\":\"" + $('#board').data('id') +
 			   // "\", \"" + columnName + '[computer]' + "\":\"" + $('input[name=optionsRadios]:checked').val() +
 			   "\"}" ;
