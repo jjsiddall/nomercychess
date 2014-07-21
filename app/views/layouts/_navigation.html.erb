@@ -1,5 +1,8 @@
 <ul class="nav navbar-nav navbar-right">
   <% if user_signed_in? %>
+  <li>
+    <%= link_to 'Build A Lesson', builder_lessons_path %>
+  </li>   
   <li id="fat-menu" class="dropdown">
     <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.name %> <b class="caret"></b></a>
     <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
@@ -21,17 +24,16 @@
   <% end %>
 </ul>
 <ul class='nav navbar-nav'>
-   <li>
+<!--    <li>
     <%= link_to 'Pricing', home_pricing_path %>
-  </li> 
-  <li>
+  </li>  -->
+<!--   <li>
     <%= link_to 'Exercises', exercises_path %>
-  </li> 
+  </li>  -->
   <li>
     <%= link_to 'Lessons', lessons_path %>
-  </li> 
+  </li>
   <li>
     <%= link_to 'Build A Lesson', builder_lessons_path %>
   </li>   
-
 </ul>

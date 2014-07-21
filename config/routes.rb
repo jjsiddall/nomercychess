@@ -56,6 +56,7 @@ NoMercyChess::Application.routes.draw do
   resources :users
 
   get "home/pricing" 
-  get "home/usedids" 
+  get "home/usedids"
+  get "home/philosophy" 
 
 end

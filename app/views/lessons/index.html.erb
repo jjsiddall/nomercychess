@@ -1,25 +1,28 @@
-<% number_of_rows = (@lessons.count.to_f/3).ceil %>
+<% number_of_rows = (@lessons.count.to_f/4).ceil %>
 <% start_lesson_for_row = 0 %>
-<% end_lesson_for_row = 2 %>
+<% end_lesson_for_row = 3 %>
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-4">
     <%- model_class = Lesson -%>
     <div class="page-header">
       <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
     </div>
+  </div>
+  <div class="col-md-8">
   </div>
 </div>
 
 <% number_of_rows.times do |lesson| %>
   <div class="row">
     <% @lessons[start_lesson_for_row..end_lesson_for_row].each do |lesson| %> 
-      <div class="col-md-4">
+      <div class="col-md-3">
         <div class="thumbnail">
-          <img alt="300x200" src="http://placehold.it/400x200">
+          <!-- <img alt="300x200" src="http://placehold.it/400x200"> -->
+          <p class="lesson-pic text-center">♟</p>
           <div class="caption">
-            <h3><%= lesson.title%></h3>
-            <p><%= lesson.description%></p>
+            <h3 class="text-center"><%= lesson.title%></h3>
+            <p class="text-justify"><%= lesson.description.first(80) %>...</p>
 
             <% if !current_user.nil? %>
               <div class="progress">

@@ -32,6 +32,7 @@ gem "launchy", ">= 2.1.2", :group => :test
 gem "capybara", ">= 2.0.2", :group => :test
 
 gem "bootstrap-sass", ">= 2.2.2.0"
+gem "font-awesome-sass"
 gem "devise", ">= 2.2.2"
 gem "cancan", ">= 1.6.8"
 gem "rolify", ">= 3.2.0"
@@ -40,7 +41,6 @@ gem "stripe", ">= 1.7.4"
 gem "stripe_event", ">= 0.4.0"
 
 gem "figaro", ">= 0.6.4"
-# gem "heroku"
 
 gem "quiet_assets", ">= 1.0.1", :group => :development
 gem "better_errors", ">= 0.3.2", :group => :development

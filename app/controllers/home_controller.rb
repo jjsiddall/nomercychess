@@ -21,5 +21,8 @@ class HomeController < ApplicationController
       format.html # index.html.erb
     end
   end
+  def philosophy
+
+  end
 
 end
